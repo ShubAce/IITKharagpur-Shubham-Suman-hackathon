@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>TREMOR Risk Engine</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M2 17h6l3-9 5 18 4-13 3 4h7' fill='none' stroke='%232a78d6' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="/static/app.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M2 17h6l3-9 5 18 4-13 3 4h7"/></svg>
+      <div>
+        <div class="brand-name">TREMOR</div>
+        <div class="brand-sub">Text-driven Risk Engine for Market Observation &amp; Response</div>
+      </div>
+    </div>
+    <div class="clock-block">
+      <div class="mode-badge" id="mode-badge">connecting...</div>
+      <div class="clock" id="clock">-</div>
+      <div class="progress" id="progress-wrap" hidden><div class="progress-bar" id="progress-bar"></div></div>
+    </div>
+    <div class="replay-controls" id="replay-controls" hidden>
+      <button class="btn" id="btn-play" title="Pause / resume the replay">Pause</button>
+      <label class="speed">Speed
+        <select id="speed">
+          <option value="300">5 min/s</option>
+          <option value="900">15 min/s</option>
+          <option value="1800" selected>30 min/s</option>
+          <option value="3600">1 h/s</option>
+          <option value="7200">2 h/s</option>
+        </select>
+      </label>
+      <button class="btn" id="btn-restart" title="Replay the crisis from the start">Restart</button>
+    </div>
+    <div class="counters" id="counters"></div>
+    <button class="btn icon" id="theme-toggle" title="Toggle light / dark">◐</button>
+  </header>
+
+  <nav class="tabs" role="tablist">
+    <button role="tab" data-tab="radar" class="tab active">Risk radar</button>
+    <button role="tab" data-tab="index" class="tab">Index rebalancer <span class="tag">Module A</span></button>
+    <button role="tab" data-tab="stress" class="tab">Stress lab <span class="tag">Module B</span></button>
+    <button role="tab" data-tab="analyze" class="tab">Analyze text</button>
+    <button role="tab" data-tab="results" class="tab">Model &amp; results</button>
+  </nav>
+
+  <main>
+    <!-- ======================================================= RADAR -->
+    <section class="view" id="view-radar">
+      <div class="tiles" id="radar-tiles"></div>
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-head">
+            <h2>Events by impact</h2>
+            <p class="hint">Related reports rolled up into events, scored 1-10. Stress tests fire at or above the threshold.</p>
+          </div>
+          <div id="event-list" class="event-list"></div>
+        </div>
+        <div class="card" id="event-detail-card">
+          <div class="card-head"><h2>Event detail</h2><p class="hint">Select an event to see why it scored what it did.</p></div>
+          <div id="event-detail" class="muted pad">No event selected yet.</div>
+        </div>
+      </div>
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-head">
+            <h2>Company sentiment now</h2>
+            <p class="hint">Filtered state per index constituent: decays to neutral without fresh evidence; whiskers show uncertainty.</p>
+          </div>
+          <div id="sentiment-chart" class="chart"></div>
+        </div>
+        <div class="card">
+          <div class="card-head"><h2>Live document feed</h2><p class="hint">Every analysed headline and post (duplicates and noise excluded).</p></div>
+          <div id="doc-feed" class="doc-feed"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================= INDEX -->
+    <section class="view" id="view-index" hidden>
+      <div class="tiles" id="index-tiles"></div>
+      <div class="card">
+        <div class="card-head">
+          <h2>Index level vs. benchmark</h2>
+          <p class="hint">TREMOR-20 (sentiment-tilted) against the same 20 stocks equally weighted. Both pay 5 bp per unit of turnover.</p>
+        </div>
+        <div id="index-line" class="chart"></div>
+      </div>
+      <div class="card">
+        <div class="card-head">
+          <h2>Weights over time (active weight vs. parent)</h2>
+          <p class="hint">Blue = overweight because sentiment is positive, red = underweight. Each column is one rebalance.</p>
+        </div>
+        <div id="weight-heatmap" class="chart"></div>
+      </div>
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-head"><h2>Current weights</h2><p class="hint">Weight vs. parent (5% each), with the sentiment that drives the tilt.</p></div>
+          <div id="weights-table"></div>
+        </div>
+        <div class="card">
+          <div class="card-head"><h2>Rebalance log</h2><p class="hint">Why each rebalance happened and what moved.</p></div>
+          <div id="rebalance-log" class="log"></div>
+        </div>
+      </div>
+      <div class="card" id="backtest-card" hidden>
+        <div class="card-head">
+          <h2>One-year backtest (Oct 2021 - Sep 2022)</h2>
+          <p class="hint" id="backtest-hint"></p>
+        </div>
+        <div class="tiles" id="backtest-tiles"></div>
+        <div id="backtest-line" class="chart"></div>
+      </div>
+    </section>
+
+    <!-- ======================================================= STRESS -->
+    <section class="view" id="view-stress" hidden>
+      <div class="card">
+        <div class="card-head">
+          <h2>Stress tests</h2>
+          <p class="hint">Triggered automatically by high-impact geopolitical, macro and credit events. Select one to inspect it.</p>
+        </div>
+        <div id="run-list" class="run-list"><div class="muted pad">No stress test yet: waiting for an event to cross the threshold.</div></div>
+      </div>
+      <div id="run-detail" hidden>
+        <div class="tiles" id="run-tiles"></div>
+        <div class="grid-2">
+          <div class="card">
+            <div class="card-head"><h2>Portfolio value: before → after</h2><p class="hint">Change by risk channel (USD millions).</p></div>
+            <div id="waterfall" class="chart"></div>
+          </div>
+          <div class="card">
+            <div class="card-head"><h2>Scenario</h2><p class="hint" id="scenario-hint"></p></div>
+            <div id="scenario-analogs"></div>
+            <div id="shock-chart" class="chart"></div>
+          </div>
+        </div>
+        <div class="grid-2">
+          <div class="card">
+            <div class="card-head"><h2>Largest losses</h2><p class="hint">Positions, with rating before → after.</p></div>
+            <div id="top-losses"></div>
+          </div>
+          <div class="card">
+            <div class="card-head"><h2>Impact by sector</h2><p class="hint">USD millions.</p></div>
+            <div id="sector-chart" class="chart"></div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-head">
+            <h2>What if? Edit the shocks and re-run</h2>
+            <p class="hint">Override any factor of this scenario. The book is revalued in milliseconds.</p>
+          </div>
+          <div id="shock-editor" class="shock-editor"></div>
+          <div class="row-actions"><button class="btn primary" id="btn-rerun">Re-run with these shocks</button><span id="rerun-status" class="muted"></span></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-head"><h2>The book</h2><p class="hint" id="book-hint"></p></div>
+        <div id="book-chart" class="chart"></div>
+      </div>
+    </section>
+
+    <!-- ======================================================= ANALYZE -->
+    <section class="view" id="view-analyze" hidden>
+      <div class="card">
+        <div class="card-head">
+          <h2>Analyze any headline or post</h2>
+          <p class="hint">Runs the same model as the live engine. Impact is scored as a single, uncorroborated report.</p>
+        </div>
+        <div class="analyze-box">
+          <textarea id="analyze-text" rows="3" placeholder="Paste a headline or post...">Moody's downgrades Boeing to junk as 737 MAX deliveries stall, while Airbus wins record orders</textarea>
+          <div class="row-actions">
+            <label class="kind"><input type="radio" name="kind" value="news" checked> News</label>
+            <label class="kind"><input type="radio" name="kind" value="social"> Social post</label>
+            <button class="btn primary" id="btn-analyze">Analyze</button>
+          </div>
+          <div class="examples" id="examples"></div>
+        </div>
+        <div id="analyze-result"></div>
+      </div>
+    </section>
+
+    <!-- ======================================================= RESULTS -->
+    <section class="view" id="view-results" hidden>
+      <div class="card">
+        <div class="card-head">
+          <h2>Accuracy on held-out data</h2>
+          <p class="hint">Same test sets, same inference path. None of these texts were used for training or model selection.</p>
+        </div>
+        <div id="eval-chart" class="chart"></div>
+        <div id="eval-table"></div>
+      </div>
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-head"><h2>Throughput on a laptop CPU</h2><p class="hint">Documents per second, batched.</p></div>
+          <div id="speed-chart" class="chart"></div>
+        </div>
+        <div class="card">
+          <div class="card-head"><h2>How the model was built</h2></div>
+          <div id="model-notes" class="notes"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="tooltip" class="tooltip" role="tooltip" hidden></div>
+  <div id="toast" class="toast" hidden></div>
+  <script type="module" src="/static/js/app.js"></script>
+</body>
+</html>

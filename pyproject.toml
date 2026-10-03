@@ -1,0 +1,18 @@
+[project]
+name = "tremor"
+version = "0.1.0"
+description = "Text-driven Risk Engine for Market Observation and Response"
+requires-python = ">=3.10"
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
+addopts = "-q"
+
+[tool.ruff]
+line-length = 130
+src = ["src", "scripts", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP"]
+ignore = ["E501", "B905"]  # zips pair equal-length arrays by construction

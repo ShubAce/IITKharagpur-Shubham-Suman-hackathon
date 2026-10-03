@@ -1,0 +1,193 @@
+# Entity master - who and what the engine can recognise in text.
+#
+# Matching rules (see src/tremor/nlp/entities.py):
+#   aliases    case-insensitive, whole-word. Safe, unambiguous names.
+#   exact      case-sensitive, whole-word. Short or capitalised forms ("AMD", "Intel").
+#   ambiguous  case-sensitive AND only accepted when the text also carries a finance cue
+#              (cashtag, "shares", "earnings", ...) or comes from a finance-specific feed.
+#              Stops "Ford" (Christine Blasey Ford) or "Amazon" (the rainforest) polluting signals.
+#   cashtags   $TICKER forms used on social media.
+
+index:
+  name: TREMOR-20
+  description: Mock index of 20 S&P 100 constituents across 8 GICS sectors
+  constituents: [AAPL, MSFT, NVDA, AMZN, GOOGL, META, TSLA, NFLX, DIS, INTC,
+                 AMD, PG, KO, COST, BA, LMT, VZ, JPM, XOM, JNJ]
+
+entities:
+  # ------------------------------------------------------------------ index constituents
+  - {id: AAPL, name: Apple Inc., type: company, sector: Information Technology, country: US,
+     aliases: [Apple Inc, iPhone, iPad, MacBook, Apple Watch, Tim Cook, App Store, Vision Pro],
+     ambiguous: [Apple], cashtags: [AAPL]}
+  - {id: MSFT, name: Microsoft Corp., type: company, sector: Information Technology, country: US,
+     aliases: [Microsoft, Satya Nadella, Xbox], exact: [Azure], cashtags: [MSFT]}
+  - {id: NVDA, name: Nvidia Corp., type: company, sector: Information Technology, country: US,
+     aliases: [Nvidia, Jensen Huang, GeForce], cashtags: [NVDA]}
+  - {id: AMZN, name: Amazon.com Inc., type: company, sector: Consumer Discretionary, country: US,
+     aliases: [Amazon.com, Amazon Web Services, Andy Jassy, Jeff Bezos, Amazon Prime],
+     exact: [AWS], ambiguous: [Amazon], cashtags: [AMZN]}
+  - {id: GOOGL, name: Alphabet Inc., type: company, sector: Communication Services, country: US,
+     aliases: [Google, YouTube, Sundar Pichai, Waymo], exact: [Alphabet], cashtags: [GOOGL, GOOG]}
+  - {id: META, name: Meta Platforms Inc., type: company, sector: Communication Services, country: US,
+     aliases: [Meta Platforms, Facebook, Instagram, WhatsApp, Zuckerberg],
+     ambiguous: [Meta], cashtags: [META, FB]}
+  - {id: TSLA, name: Tesla Inc., type: company, sector: Consumer Discretionary, country: US,
+     aliases: [Tesla, Elon Musk, Cybertruck, Gigafactory], exact: [Model 3, Model Y], cashtags: [TSLA]}
+  - {id: NFLX, name: Netflix Inc., type: company, sector: Communication Services, country: US,
+     aliases: [Netflix], cashtags: [NFLX]}
+  - {id: DIS, name: Walt Disney Co., type: company, sector: Communication Services, country: US,
+     aliases: [Walt Disney, Disney, Bob Iger, Bob Chapek], exact: [ESPN], cashtags: [DIS]}
+  - {id: INTC, name: Intel Corp., type: company, sector: Information Technology, country: US,
+     aliases: [Intel Corp, Pat Gelsinger], exact: [Intel], cashtags: [INTC]}
+  - {id: AMD, name: Advanced Micro Devices, type: company, sector: Information Technology, country: US,
+     aliases: [Advanced Micro Devices, Lisa Su, Ryzen], exact: [AMD, EPYC], cashtags: [AMD]}
+  - {id: PG, name: Procter & Gamble Co., type: company, sector: Consumer Staples, country: US,
+     aliases: [Procter & Gamble, Procter and Gamble, Procter &amp; Gamble], exact: [P&G], cashtags: [PG]}
+  - {id: KO, name: Coca-Cola Co., type: company, sector: Consumer Staples, country: US,
+     aliases: [Coca-Cola, Coca Cola], ambiguous: [Coke], cashtags: [KO]}
+  - {id: COST, name: Costco Wholesale Corp., type: company, sector: Consumer Staples, country: US,
+     aliases: [Costco], cashtags: [COST]}
+  - {id: BA, name: Boeing Co., type: company, sector: Industrials, country: US,
+     aliases: [Boeing, 737 MAX, Dreamliner], cashtags: [BA]}
+  - {id: LMT, name: Lockheed Martin Corp., type: company, sector: Industrials, country: US,
+     aliases: [Lockheed Martin, Lockheed], cashtags: [LMT]}
+  - {id: VZ, name: Verizon Communications, type: company, sector: Communication Services, country: US,
+     aliases: [Verizon], cashtags: [VZ]}
+  - {id: JPM, name: JPMorgan Chase & Co., type: company, sector: Financials, country: US,
+     aliases: [JPMorgan Chase, JPMorgan, JP Morgan, J.P. Morgan, Jamie Dimon], cashtags: [JPM]}
+  - {id: XOM, name: Exxon Mobil Corp., type: company, sector: Energy, country: US,
+     aliases: [Exxon Mobil, ExxonMobil, Exxon], cashtags: [XOM]}
+  - {id: JNJ, name: Johnson & Johnson, type: company, sector: Health Care, country: US,
+     aliases: [Johnson & Johnson, Johnson and Johnson, Johnson &amp; Johnson], exact: [J&J], cashtags: [JNJ]}
+
+  # ------------------------------------------------------------------ other tracked companies
+  # Not in the index, but they appear as obligors / issuers in the Module B portfolio.
+  - {id: GS, name: Goldman Sachs Group, type: company, sector: Financials, country: US,
+     aliases: [Goldman Sachs], exact: [Goldman], cashtags: [GS]}
+  - {id: BAC, name: Bank of America Corp., type: company, sector: Financials, country: US,
+     aliases: [Bank of America, BofA], cashtags: [BAC]}
+  - {id: C, name: Citigroup Inc., type: company, sector: Financials, country: US,
+     aliases: [Citigroup, Citibank], exact: [Citi], cashtags: [C]}
+  - {id: MS, name: Morgan Stanley, type: company, sector: Financials, country: US,
+     aliases: [Morgan Stanley], cashtags: [MS]}
+  - {id: WFC, name: Wells Fargo & Co., type: company, sector: Financials, country: US,
+     aliases: [Wells Fargo], cashtags: [WFC]}
+  - {id: DB, name: Deutsche Bank AG, type: company, sector: Financials, country: DE,
+     aliases: [Deutsche Bank], cashtags: [DB]}
+  - {id: CS, name: Credit Suisse Group, type: company, sector: Financials, country: CH,
+     aliases: [Credit Suisse], cashtags: [CS]}
+  - {id: HSBC, name: HSBC Holdings, type: company, sector: Financials, country: GB,
+     exact: [HSBC], cashtags: [HSBC]}
+  - {id: SIVB, name: SVB Financial Group, type: company, sector: Financials, country: US,
+     aliases: [Silicon Valley Bank, SVB Financial], exact: [SVB], cashtags: [SIVB]}
+  - {id: CVX, name: Chevron Corp., type: company, sector: Energy, country: US,
+     aliases: [Chevron], cashtags: [CVX]}
+  - {id: SHEL, name: Shell plc, type: company, sector: Energy, country: GB,
+     aliases: [Royal Dutch Shell, Shell plc], ambiguous: [Shell], cashtags: [SHEL]}
+  - {id: BP, name: BP plc, type: company, sector: Energy, country: GB,
+     aliases: [BP plc, British Petroleum], exact: [BP], cashtags: [BP]}
+  - {id: GAZP, name: Gazprom PJSC, type: company, sector: Energy, country: RU,
+     aliases: [Gazprom]}
+  - {id: SBER, name: Sberbank of Russia, type: company, sector: Financials, country: RU,
+     aliases: [Sberbank]}
+  - {id: PFE, name: Pfizer Inc., type: company, sector: Health Care, country: US,
+     aliases: [Pfizer], cashtags: [PFE]}
+  - {id: UNH, name: UnitedHealth Group, type: company, sector: Health Care, country: US,
+     aliases: [UnitedHealth, United Health Group], cashtags: [UNH]}
+  - {id: WMT, name: Walmart Inc., type: company, sector: Consumer Staples, country: US,
+     aliases: [Walmart, Wal-Mart], cashtags: [WMT]}
+  - {id: CAT, name: Caterpillar Inc., type: company, sector: Industrials, country: US,
+     aliases: [Caterpillar Inc], ambiguous: [Caterpillar], cashtags: [CAT]}
+  - {id: GE, name: General Electric Co., type: company, sector: Industrials, country: US,
+     aliases: [General Electric], cashtags: [GE]}
+  - {id: RTX, name: RTX Corp. (Raytheon), type: company, sector: Industrials, country: US,
+     aliases: [Raytheon], cashtags: [RTX]}
+  - {id: AIR, name: Airbus SE, type: company, sector: Industrials, country: FR,
+     aliases: [Airbus]}
+  - {id: F, name: Ford Motor Co., type: company, sector: Consumer Discretionary, country: US,
+     aliases: [Ford Motor, F-150], ambiguous: [Ford], cashtags: [F]}
+  - {id: GM, name: General Motors Co., type: company, sector: Consumer Discretionary, country: US,
+     aliases: [General Motors], cashtags: [GM]}
+  - {id: VOW, name: Volkswagen AG, type: company, sector: Consumer Discretionary, country: DE,
+     aliases: [Volkswagen]}
+  - {id: NKE, name: Nike Inc., type: company, sector: Consumer Discretionary, country: US,
+     aliases: [Nike Inc], ambiguous: [Nike], cashtags: [NKE]}
+  - {id: PYPL, name: PayPal Holdings, type: company, sector: Financials, country: US,
+     aliases: [PayPal], cashtags: [PYPL]}
+  - {id: CRM, name: Salesforce Inc., type: company, sector: Information Technology, country: US,
+     aliases: [Salesforce, Marc Benioff], cashtags: [CRM]}
+  - {id: TSM, name: Taiwan Semiconductor (TSMC), type: company, sector: Information Technology, country: TW,
+     aliases: [Taiwan Semiconductor], exact: [TSMC], cashtags: [TSM]}
+  - {id: BABA, name: Alibaba Group, type: company, sector: Consumer Discretionary, country: CN,
+     aliases: [Alibaba], cashtags: [BABA]}
+  - {id: EVERG, name: China Evergrande Group, type: company, sector: Real Estate, country: CN,
+     aliases: [Evergrande]}
+  - {id: RELIANCE, name: Reliance Industries, type: company, sector: Energy, country: IN,
+     aliases: [Reliance Industries, Mukesh Ambani]}
+  - {id: HDFCB, name: HDFC Bank, type: company, sector: Financials, country: IN,
+     aliases: [HDFC Bank]}
+  - {id: TATAMOT, name: Tata Motors, type: company, sector: Consumer Discretionary, country: IN,
+     aliases: [Tata Motors]}
+  - {id: ADANI, name: Adani Group, type: company, sector: Industrials, country: IN,
+     aliases: [Adani Group, Adani Enterprises, Gautam Adani]}
+
+  # ------------------------------------------------------------------ central banks & institutions
+  - {id: FED, name: US Federal Reserve, type: institution, country: US,
+     aliases: [Federal Reserve, FOMC, Jerome Powell], exact: [Fed, Powell]}
+  - {id: ECB, name: European Central Bank, type: institution, country: EU,
+     aliases: [European Central Bank, Christine Lagarde], exact: [ECB]}
+  - {id: BOE, name: Bank of England, type: institution, country: GB,
+     aliases: [Bank of England], exact: [BoE]}
+  - {id: BOJ, name: Bank of Japan, type: institution, country: JP,
+     aliases: [Bank of Japan], exact: [BoJ, BOJ]}
+  - {id: RBI, name: Reserve Bank of India, type: institution, country: IN,
+     aliases: [Reserve Bank of India], exact: [RBI]}
+  - {id: OPEC, name: OPEC+, type: institution, country: XX,
+     exact: [OPEC, OPEC+]}
+  - {id: NATO, name: NATO, type: institution, country: XX,
+     exact: [NATO]}
+
+  # ------------------------------------------------------------------ countries & regions
+  - {id: US, name: United States, type: country, country: US,
+     aliases: [United States, White House, Washington], exact: [U.S., US Treasury, Wall Street]}
+  - {id: CN, name: China, type: country, country: CN,
+     aliases: [China, Beijing, Chinese]}
+  - {id: RU, name: Russia, type: country, country: RU,
+     aliases: [Russia, Russian, Kremlin, Moscow, Putin]}
+  - {id: UA, name: Ukraine, type: country, country: UA,
+     aliases: [Ukraine, Ukrainian, Kyiv, Kiev]}
+  - {id: TW, name: Taiwan, type: country, country: TW,
+     aliases: [Taiwan, Taipei]}
+  - {id: IR, name: Iran, type: country, country: IR,
+     aliases: [Iran, Tehran, Iranian]}
+  - {id: IL, name: Israel, type: country, country: IL,
+     aliases: [Israel, Israeli, Gaza]}
+  - {id: SA, name: Saudi Arabia, type: country, country: SA,
+     aliases: [Saudi Arabia, Saudi, Riyadh]}
+  - {id: IN, name: India, type: country, country: IN,
+     aliases: [India, Indian, New Delhi]}
+  - {id: GB, name: United Kingdom, type: country, country: GB,
+     aliases: [United Kingdom, Britain, British], exact: [UK]}
+  - {id: EU, name: European Union, type: country, country: EU,
+     aliases: [European Union, Eurozone, Euro zone, Brussels], exact: [EU]}
+  - {id: JP, name: Japan, type: country, country: JP,
+     aliases: [Japan, Japanese, Tokyo]}
+  - {id: DE, name: Germany, type: country, country: DE,
+     aliases: [Germany, German, Berlin]}
+  - {id: TR, name: Turkey, type: country, country: TR,
+     aliases: [Turkish, Ankara, Erdogan], ambiguous: [Turkey]}
+  - {id: KP, name: North Korea, type: country, country: KP,
+     aliases: [North Korea, Pyongyang]}
+
+  # ------------------------------------------------------------------ commodities & benchmarks
+  - {id: OIL, name: Crude oil, type: commodity,
+     aliases: [crude oil, oil prices, oil price, Brent, crude futures, oil futures, oil market, oil supply, oil exports,
+               crude prices, per barrel, a barrel, oil surges, oil jumps, oil soars, oil spikes, oil rises, oil falls, oil tops,
+               oil hits, oil climbs, oil slides, oil breaches],
+     exact: [WTI, Oil]}
+  - {id: GAS, name: Natural gas, type: commodity,
+     aliases: [natural gas, gas prices, Nord Stream], exact: [LNG]}
+  - {id: GOLD, name: Gold, type: commodity,
+     aliases: [gold prices, gold price, bullion, gold futures, gold jumps, gold rises, gold hits, gold climbs, gold falls]}
+  - {id: SPX, name: S&P 500, type: index_benchmark,
+     aliases: [S&P 500, S&amp;P 500, Dow Jones, Nasdaq Composite, Wall Street stocks], cashtags: [SPY, SPX, QQQ]}

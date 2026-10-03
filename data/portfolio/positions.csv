@@ -1,0 +1,389 @@
+position_id,asset_class,bond_type,obligor_id,obligor_name,sector,country,region,currency,rating,lgd,notional,drawn,undrawn,ccf,maturity,fixed_float,coupon,duration,convexity,direction,source
+P0001,loan,,M27092,"Merchant 27092 (Money Transfer, CA)",Communication Services,US,US,USD,BB,0.4,105000000.0,105000000.0,0.0,0.0,3.0,float,0.0,0.0,0.0,1,transactions
+P0002,revolver,,M27092,"Merchant 27092 (Money Transfer, CA)",Communication Services,US,US,USD,BB,0.4,45000000.0,14925000.0,30075000.0,0.5,3.0,float,0.0,0.0,0.0,1,transactions
+P0003,loan,,M59935,"Merchant 59935 (Miscellaneous Food Stores, ND)",Consumer Staples,US,US,USD,BB,0.4,63363000.0,63363000.0,0.0,0.0,6.0,float,0.0,0.0,0.0,1,transactions
+P0004,revolver,,M59935,"Merchant 59935 (Miscellaneous Food Stores, ND)",Consumer Staples,US,US,USD,BB,0.4,27156000.0,12426000.0,14730000.0,0.5,3.0,float,0.0,0.0,0.0,1,transactions
+P0005,loan,,M61195,"Merchant 61195 (Service Stations, CA)",Energy,US,US,USD,BB,0.4,58445000.0,58445000.0,0.0,0.0,3.0,float,0.0,0.0,0.0,1,transactions
+P0006,revolver,,M61195,"Merchant 61195 (Service Stations, CA)",Energy,US,US,USD,BB,0.4,25048000.0,5717000.0,19331000.0,0.5,3.0,float,0.0,0.0,0.0,1,transactions
+P0007,loan,,M60569,"Merchant 60569 (Wholesale Clubs, NJ)",Consumer Staples,US,US,USD,BBB,0.4,53907000.0,53907000.0,0.0,0.0,5.0,float,0.0,0.0,0.0,1,transactions
+P0008,revolver,,M60569,"Merchant 60569 (Wholesale Clubs, NJ)",Consumer Staples,US,US,USD,BBB,0.4,23103000.0,11383000.0,11720000.0,0.5,3.0,float,0.0,0.0,0.0,1,transactions
+P0009,loan,,M39021,"Merchant 39021 (Tolls and Bridge Fees, online)",Industrials,US,US,USD,BB,0.4,49445000.0,49445000.0,0.0,0.0,5.0,float,0.0,0.0,0.0,1,transactions
+P0010,revolver,,M39021,"Merchant 39021 (Tolls and Bridge Fees, online)",Industrials,US,US,USD,BB,0.4,21191000.0,9235000.0,11956000.0,0.5,3.0,float,0.0,0.0,0.0,1,transactions
+P0011,loan,,M43293,"Merchant 43293 (Miscellaneous Food Stores, CO)",Consumer Staples,US,US,USD,BB,0.4,39259000.0,39259000.0,0.0,0.0,6.0,float,0.0,0.0,0.0,1,transactions
+P0012,revolver,,M43293,"Merchant 43293 (Miscellaneous Food Stores, CO)",Consumer Staples,US,US,USD,BB,0.4,16825000.0,4012000.0,12813000.0,0.5,3.0,float,0.0,0.0,0.0,1,transactions
+P0013,loan,,M73186,"Merchant 73186 (Telecommunication Services, online)",Communication Services,US,US,USD,BB,0.4,37091000.0,37091000.0,0.0,0.0,6.0,float,0.0,0.0,0.0,1,transactions
+P0014,revolver,,M73186,"Merchant 73186 (Telecommunication Services, online)",Communication Services,US,US,USD,BB,0.4,15896000.0,4948000.0,10948000.0,0.5,3.0,float,0.0,0.0,0.0,1,transactions
+P0015,loan,,M22204,"Merchant 22204 (Service Stations, MA)",Energy,US,US,USD,BB,0.4,37074000.0,37074000.0,0.0,0.0,4.0,float,0.0,0.0,0.0,1,transactions
+P0016,revolver,,M22204,"Merchant 22204 (Service Stations, MA)",Energy,US,US,USD,BB,0.4,15889000.0,7595000.0,8294000.0,0.5,3.0,float,0.0,0.0,0.0,1,transactions
+P0017,loan,,M20561,"Merchant 20561 (Drug Stores and Pharmacies, IL)",Consumer Discretionary,US,US,USD,BBB,0.4,26061000.0,26061000.0,0.0,0.0,6.0,float,0.0,0.0,0.0,1,transactions
+P0018,revolver,,M20561,"Merchant 20561 (Drug Stores and Pharmacies, IL)",Consumer Discretionary,US,US,USD,BBB,0.4,11169000.0,4991000.0,6178000.0,0.5,3.0,float,0.0,0.0,0.0,1,transactions
+P0019,loan,,M50783,"Merchant 50783 (Grocery Stores, Supermarkets, AL)",Consumer Staples,US,US,USD,BBB,0.4,22652000.0,22652000.0,0.0,0.0,5.0,float,0.0,0.0,0.0,1,transactions
+P0020,revolver,,M50783,"Merchant 50783 (Grocery Stores, Supermarkets, AL)",Consumer Staples,US,US,USD,BBB,0.4,9708000.0,3233000.0,6475000.0,0.5,3.0,float,0.0,0.0,0.0,1,transactions
+P0021,loan,,M75781,"Merchant 75781 (Grocery Stores, Supermarkets, NY)",Consumer Staples,US,US,USD,BBB,0.4,19353000.0,19353000.0,0.0,0.0,4.0,float,0.0,0.0,0.0,1,transactions
+P0022,revolver,,M75781,"Merchant 75781 (Grocery Stores, Supermarkets, NY)",Consumer Staples,US,US,USD,BBB,0.4,8294000.0,3039000.0,5255000.0,0.5,3.0,float,0.0,0.0,0.0,1,transactions
+P0023,loan,,M26810,"Merchant 26810 (Service Stations, NY)",Energy,US,US,USD,BB,0.4,18416000.0,18416000.0,0.0,0.0,3.0,float,0.0,0.0,0.0,1,transactions
+P0024,revolver,,M26810,"Merchant 26810 (Service Stations, NY)",Energy,US,US,USD,BB,0.4,7893000.0,1730000.0,6163000.0,0.5,3.0,float,0.0,0.0,0.0,1,transactions
+P0025,loan,,M32175,"Merchant 32175 (Automotive Service Shops, NJ)",Consumer Discretionary,US,US,USD,BBB,0.4,16288000.0,16288000.0,0.0,0.0,6.0,float,0.0,0.0,0.0,1,transactions
+P0026,revolver,,M32175,"Merchant 32175 (Automotive Service Shops, NJ)",Consumer Discretionary,US,US,USD,BBB,0.4,6981000.0,2719000.0,4262000.0,0.5,3.0,float,0.0,0.0,0.0,1,transactions
+P0027,loan,,M48919,"Merchant 48919 (Department Stores, CA)",Consumer Staples,US,US,USD,BB,0.4,14275000.0,14275000.0,0.0,0.0,6.0,float,0.0,0.0,0.0,1,transactions
+P0028,revolver,,M48919,"Merchant 48919 (Department Stores, CA)",Consumer Staples,US,US,USD,BB,0.4,6118000.0,2615000.0,3503000.0,0.5,3.0,float,0.0,0.0,0.0,1,transactions
+P0029,loan,,M54850,"Merchant 54850 (Telecommunication Services, CA)",Communication Services,US,US,USD,BB,0.4,13765000.0,13765000.0,0.0,0.0,5.0,float,0.0,0.0,0.0,1,transactions
+P0030,revolver,,M54850,"Merchant 54850 (Telecommunication Services, CA)",Communication Services,US,US,USD,BB,0.4,5899000.0,2898000.0,3001000.0,0.5,3.0,float,0.0,0.0,0.0,1,transactions
+P0031,loan,,M81833,"Merchant 81833 (Drug Stores and Pharmacies, TX)",Consumer Discretionary,US,US,USD,BBB,0.4,13210000.0,13210000.0,0.0,0.0,4.0,float,0.0,0.0,0.0,1,transactions
+P0032,revolver,,M81833,"Merchant 81833 (Drug Stores and Pharmacies, TX)",Consumer Discretionary,US,US,USD,BBB,0.4,5661000.0,2649000.0,3012000.0,0.5,3.0,float,0.0,0.0,0.0,1,transactions
+P0033,loan,,M20519,"Merchant 20519 (Book Stores, NY)",Consumer Discretionary,US,US,USD,BBB,0.4,13076000.0,13076000.0,0.0,0.0,5.0,float,0.0,0.0,0.0,1,transactions
+P0034,revolver,,M20519,"Merchant 20519 (Book Stores, NY)",Consumer Discretionary,US,US,USD,BBB,0.4,5604000.0,1448000.0,4156000.0,0.5,3.0,float,0.0,0.0,0.0,1,transactions
+P0035,loan,,M9932,"Merchant 9932 (Department Stores, online)",Consumer Staples,US,US,USD,BB,0.4,12297000.0,12297000.0,0.0,0.0,6.0,float,0.0,0.0,0.0,1,transactions
+P0036,revolver,,M9932,"Merchant 9932 (Department Stores, online)",Consumer Staples,US,US,USD,BB,0.4,5270000.0,1792000.0,3478000.0,0.5,3.0,float,0.0,0.0,0.0,1,transactions
+P0037,loan,,M30286,"Merchant 30286 (Telecommunication Services, VA)",Communication Services,US,US,USD,BBB,0.4,11484000.0,11484000.0,0.0,0.0,4.0,float,0.0,0.0,0.0,1,transactions
+P0038,revolver,,M30286,"Merchant 30286 (Telecommunication Services, VA)",Communication Services,US,US,USD,BBB,0.4,4922000.0,1212000.0,3710000.0,0.5,3.0,float,0.0,0.0,0.0,1,transactions
+P0039,loan,,M75936,"Merchant 75936 (Fast Food Restaurants, OH)",Consumer Discretionary,US,US,USD,BBB,0.4,10700000.0,10700000.0,0.0,0.0,3.0,float,0.0,0.0,0.0,1,transactions
+P0040,revolver,,M75936,"Merchant 75936 (Fast Food Restaurants, OH)",Consumer Discretionary,US,US,USD,BBB,0.4,4586000.0,1857000.0,2729000.0,0.5,3.0,float,0.0,0.0,0.0,1,transactions
+P0041,loan,,M16798,"Merchant 16798 (Taxicabs and Limousines, online)",Industrials,US,US,USD,BB,0.4,10645000.0,10645000.0,0.0,0.0,6.0,float,0.0,0.0,0.0,1,transactions
+P0042,revolver,,M16798,"Merchant 16798 (Taxicabs and Limousines, online)",Industrials,US,US,USD,BB,0.4,4562000.0,2237000.0,2325000.0,0.5,3.0,float,0.0,0.0,0.0,1,transactions
+P0043,loan,,M18563,"Merchant 18563 (Taxicabs and Limousines, online)",Industrials,US,US,USD,BB,0.4,10622000.0,10622000.0,0.0,0.0,5.0,float,0.0,0.0,0.0,1,transactions
+P0044,revolver,,M18563,"Merchant 18563 (Taxicabs and Limousines, online)",Industrials,US,US,USD,BB,0.4,4552000.0,1355000.0,3197000.0,0.5,3.0,float,0.0,0.0,0.0,1,transactions
+P0045,loan,,M50867,"Merchant 50867 (Service Stations, IA)",Energy,US,US,USD,BB,0.4,10593000.0,10593000.0,0.0,0.0,6.0,float,0.0,0.0,0.0,1,transactions
+P0046,revolver,,M50867,"Merchant 50867 (Service Stations, IA)",Energy,US,US,USD,BB,0.4,4540000.0,1548000.0,2992000.0,0.5,3.0,float,0.0,0.0,0.0,1,transactions
+P0047,loan,,M86616,"Merchant 86616 (Telecommunication Services, AL)",Communication Services,US,US,USD,BB,0.4,10352000.0,10352000.0,0.0,0.0,4.0,float,0.0,0.0,0.0,1,transactions
+P0048,revolver,,M86616,"Merchant 86616 (Telecommunication Services, AL)",Communication Services,US,US,USD,BB,0.4,4437000.0,1140000.0,3297000.0,0.5,3.0,float,0.0,0.0,0.0,1,transactions
+P0049,loan,,M15143,"Merchant 15143 (Tolls and Bridge Fees, online)",Industrials,US,US,USD,BB,0.4,10266000.0,10266000.0,0.0,0.0,4.0,float,0.0,0.0,0.0,1,transactions
+P0050,revolver,,M15143,"Merchant 15143 (Tolls and Bridge Fees, online)",Industrials,US,US,USD,BB,0.4,4400000.0,1508000.0,2892000.0,0.5,3.0,float,0.0,0.0,0.0,1,transactions
+P0051,loan,,M32858,"Merchant 32858 (Department Stores, IN)",Consumer Staples,US,US,USD,BBB,0.4,9931000.0,9931000.0,0.0,0.0,3.0,float,0.0,0.0,0.0,1,transactions
+P0052,revolver,,M32858,"Merchant 32858 (Department Stores, IN)",Consumer Staples,US,US,USD,BBB,0.4,4256000.0,1141000.0,3115000.0,0.5,3.0,float,0.0,0.0,0.0,1,transactions
+P0053,loan,,M25887,"Merchant 25887 (Fast Food Restaurants, TX)",Consumer Discretionary,US,US,USD,BBB,0.4,8776000.0,8776000.0,0.0,0.0,5.0,float,0.0,0.0,0.0,1,transactions
+P0054,revolver,,M25887,"Merchant 25887 (Fast Food Restaurants, TX)",Consumer Discretionary,US,US,USD,BBB,0.4,3761000.0,1246000.0,2515000.0,0.5,3.0,float,0.0,0.0,0.0,1,transactions
+P0055,loan,,M11468,"Merchant 11468 (Artist Supply Stores, Craft Shops, GA)",Consumer Discretionary,US,US,USD,BBB,0.4,8606000.0,8606000.0,0.0,0.0,5.0,float,0.0,0.0,0.0,1,transactions
+P0056,revolver,,M11468,"Merchant 11468 (Artist Supply Stores, Craft Shops, GA)",Consumer Discretionary,US,US,USD,BBB,0.4,3688000.0,1659000.0,2029000.0,0.5,3.0,float,0.0,0.0,0.0,1,transactions
+P0057,loan,,M49637,"Merchant 49637 (Industrial Equipment and Supplies, FL)",Industrials,US,US,USD,CCC,0.4,8139000.0,8139000.0,0.0,0.0,5.0,float,0.0,0.0,0.0,1,transactions
+P0058,revolver,,M49637,"Merchant 49637 (Industrial Equipment and Supplies, FL)",Industrials,US,US,USD,CCC,0.4,3488000.0,1025000.0,2463000.0,0.5,3.0,float,0.0,0.0,0.0,1,transactions
+P0059,loan,,M41122,"Merchant 41122 (Tolls and Bridge Fees, online)",Industrials,US,US,USD,B,0.4,8030000.0,8030000.0,0.0,0.0,5.0,float,0.0,0.0,0.0,1,transactions
+P0060,revolver,,M41122,"Merchant 41122 (Tolls and Bridge Fees, online)",Industrials,US,US,USD,B,0.4,3441000.0,1548000.0,1893000.0,0.5,3.0,float,0.0,0.0,0.0,1,transactions
+P0061,loan,,M88459,"Merchant 88459 (Department Stores, online)",Consumer Staples,US,US,USD,BB,0.4,8016000.0,8016000.0,0.0,0.0,4.0,float,0.0,0.0,0.0,1,transactions
+P0062,revolver,,M88459,"Merchant 88459 (Department Stores, online)",Consumer Staples,US,US,USD,BB,0.4,3435000.0,1086000.0,2349000.0,0.5,3.0,float,0.0,0.0,0.0,1,transactions
+P0063,loan,,M7777,"Merchant 7777 (Semiconductors and Related Devices, NC)",Industrials,US,US,USD,B,0.4,7988000.0,7988000.0,0.0,0.0,6.0,float,0.0,0.0,0.0,1,transactions
+P0064,revolver,,M7777,"Merchant 7777 (Semiconductors and Related Devices, NC)",Industrials,US,US,USD,B,0.4,3423000.0,981000.0,2442000.0,0.5,3.0,float,0.0,0.0,0.0,1,transactions
+P0065,loan,,M86410,"Merchant 86410 (Lumber and Building Materials, MI)",Consumer Discretionary,US,US,USD,BB,0.4,7901000.0,7901000.0,0.0,0.0,3.0,float,0.0,0.0,0.0,1,transactions
+P0066,revolver,,M86410,"Merchant 86410 (Lumber and Building Materials, MI)",Consumer Discretionary,US,US,USD,BB,0.4,3386000.0,819000.0,2567000.0,0.5,3.0,float,0.0,0.0,0.0,1,transactions
+P0067,loan,,M17976,"Merchant 17976 (Utilities - Electric, Gas, Water, , online)",Utilities,US,US,USD,BB,0.4,7577000.0,7577000.0,0.0,0.0,5.0,float,0.0,0.0,0.0,1,transactions
+P0068,revolver,,M17976,"Merchant 17976 (Utilities - Electric, Gas, Water, , online)",Utilities,US,US,USD,BB,0.4,3247000.0,844000.0,2403000.0,0.5,3.0,float,0.0,0.0,0.0,1,transactions
+P0069,loan,,M13646,"Merchant 13646 (Automotive Service Shops, FL)",Consumer Discretionary,US,US,USD,BBB,0.4,7544000.0,7544000.0,0.0,0.0,6.0,float,0.0,0.0,0.0,1,transactions
+P0070,revolver,,M13646,"Merchant 13646 (Automotive Service Shops, FL)",Consumer Discretionary,US,US,USD,BBB,0.4,3233000.0,1410000.0,1823000.0,0.5,3.0,float,0.0,0.0,0.0,1,transactions
+P0071,loan,,M59474,"Merchant 59474 (Passenger Railways, GA)",Industrials,US,US,USD,B,0.4,7512000.0,7512000.0,0.0,0.0,3.0,float,0.0,0.0,0.0,1,transactions
+P0072,revolver,,M59474,"Merchant 59474 (Passenger Railways, GA)",Industrials,US,US,USD,B,0.4,3219000.0,1286000.0,1933000.0,0.5,3.0,float,0.0,0.0,0.0,1,transactions
+P0073,loan,,M39991,"Merchant 39991 (Railroad Passenger Transport, MI)",Industrials,US,US,USD,BB,0.4,7461000.0,7461000.0,0.0,0.0,4.0,float,0.0,0.0,0.0,1,transactions
+P0074,revolver,,M39991,"Merchant 39991 (Railroad Passenger Transport, MI)",Industrials,US,US,USD,BB,0.4,3198000.0,1389000.0,1809000.0,0.5,3.0,float,0.0,0.0,0.0,1,transactions
+P0075,loan,,M44795,"Merchant 44795 (Computer Network Services, OH)",Industrials,US,US,USD,BB,0.4,7434000.0,7434000.0,0.0,0.0,5.0,float,0.0,0.0,0.0,1,transactions
+P0076,revolver,,M44795,"Merchant 44795 (Computer Network Services, OH)",Industrials,US,US,USD,BB,0.4,3186000.0,1076000.0,2110000.0,0.5,3.0,float,0.0,0.0,0.0,1,transactions
+P0077,loan,,M52923,"Merchant 52923 (Gardening Supplies, OK)",Industrials,US,US,USD,CCC,0.4,7380000.0,7380000.0,0.0,0.0,5.0,float,0.0,0.0,0.0,1,transactions
+P0078,revolver,,M52923,"Merchant 52923 (Gardening Supplies, OK)",Industrials,US,US,USD,CCC,0.4,3163000.0,765000.0,2398000.0,0.5,3.0,float,0.0,0.0,0.0,1,transactions
+P0079,loan,,M36934,"Merchant 36934 (Automotive Service Shops, TX)",Consumer Discretionary,US,US,USD,BB,0.4,7221000.0,7221000.0,0.0,0.0,5.0,float,0.0,0.0,0.0,1,transactions
+P0080,revolver,,M36934,"Merchant 36934 (Automotive Service Shops, TX)",Consumer Discretionary,US,US,USD,BB,0.4,3095000.0,725000.0,2370000.0,0.5,3.0,float,0.0,0.0,0.0,1,transactions
+P0081,loan,,M3558,"Merchant 3558 (Lighting, Fixtures, Electrical Sup, TX)",Industrials,US,US,USD,CCC,0.4,7063000.0,7063000.0,0.0,0.0,4.0,float,0.0,0.0,0.0,1,transactions
+P0082,revolver,,M3558,"Merchant 3558 (Lighting, Fixtures, Electrical Sup, TX)",Industrials,US,US,USD,CCC,0.4,3027000.0,1033000.0,1994000.0,0.5,3.0,float,0.0,0.0,0.0,1,transactions
+P0083,loan,,M34490,"Merchant 34490 (Miscellaneous Home Furnishing Stor, MA)",Consumer Discretionary,US,US,USD,BBB,0.4,7032000.0,7032000.0,0.0,0.0,5.0,float,0.0,0.0,0.0,1,transactions
+P0084,revolver,,M34490,"Merchant 34490 (Miscellaneous Home Furnishing Stor, MA)",Consumer Discretionary,US,US,USD,BBB,0.4,3014000.0,1114000.0,1900000.0,0.5,3.0,float,0.0,0.0,0.0,1,transactions
+P0085,loan,,M74934,"Merchant 74934 (Miscellaneous Machinery and Parts , CA)",Industrials,US,US,USD,B,0.4,6907000.0,6907000.0,0.0,0.0,3.0,float,0.0,0.0,0.0,1,transactions
+P0086,revolver,,M74934,"Merchant 74934 (Miscellaneous Machinery and Parts , CA)",Industrials,US,US,USD,B,0.4,2960000.0,1156000.0,1804000.0,0.5,3.0,float,0.0,0.0,0.0,1,transactions
+P0087,loan,,M78644,"Merchant 78644 (Railroad Freight, NV)",Industrials,US,US,USD,CCC,0.4,6779000.0,6779000.0,0.0,0.0,6.0,float,0.0,0.0,0.0,1,transactions
+P0088,revolver,,M78644,"Merchant 78644 (Railroad Freight, NV)",Industrials,US,US,USD,CCC,0.4,2905000.0,1064000.0,1841000.0,0.5,3.0,float,0.0,0.0,0.0,1,transactions
+P0089,loan,,M19964,"Merchant 19964 (Department Stores, TX)",Consumer Staples,US,US,USD,BB,0.4,6683000.0,6683000.0,0.0,0.0,3.0,float,0.0,0.0,0.0,1,transactions
+P0090,revolver,,M19964,"Merchant 19964 (Department Stores, TX)",Consumer Staples,US,US,USD,BB,0.4,2864000.0,834000.0,2030000.0,0.5,3.0,float,0.0,0.0,0.0,1,transactions
+P0091,loan,,M57133,"Merchant 57133 (Ship Chandlers, HI)",Industrials,US,US,USD,CCC,0.4,6526000.0,6526000.0,0.0,0.0,5.0,float,0.0,0.0,0.0,1,transactions
+P0092,revolver,,M57133,"Merchant 57133 (Ship Chandlers, HI)",Industrials,US,US,USD,CCC,0.4,2797000.0,585000.0,2212000.0,0.5,3.0,float,0.0,0.0,0.0,1,transactions
+P0093,loan,,M38489,"Merchant 38489 (Tools, Parts, Supplies Manufacturi, OH)",Industrials,US,US,USD,BB,0.4,6419000.0,6419000.0,0.0,0.0,4.0,float,0.0,0.0,0.0,1,transactions
+P0094,revolver,,M38489,"Merchant 38489 (Tools, Parts, Supplies Manufacturi, OH)",Industrials,US,US,USD,BB,0.4,2751000.0,727000.0,2024000.0,0.5,3.0,float,0.0,0.0,0.0,1,transactions
+P0095,loan,,M5594,"Merchant 5594 (Steel Products Manufacturing, CA)",Industrials,US,US,USD,B,0.4,6290000.0,6290000.0,0.0,0.0,4.0,float,0.0,0.0,0.0,1,transactions
+P0096,revolver,,M5594,"Merchant 5594 (Steel Products Manufacturing, CA)",Industrials,US,US,USD,B,0.4,2696000.0,870000.0,1826000.0,0.5,3.0,float,0.0,0.0,0.0,1,transactions
+P0097,loan,,M67570,"Merchant 67570 (Department Stores, IA)",Consumer Staples,US,US,USD,BB,0.4,6225000.0,6225000.0,0.0,0.0,6.0,float,0.0,0.0,0.0,1,transactions
+P0098,revolver,,M67570,"Merchant 67570 (Department Stores, IA)",Consumer Staples,US,US,USD,BB,0.4,2668000.0,721000.0,1947000.0,0.5,3.0,float,0.0,0.0,0.0,1,transactions
+P0099,loan,,M99370,"Merchant 99370 (Department Stores, TX)",Consumer Staples,US,US,USD,BB,0.4,6154000.0,6154000.0,0.0,0.0,6.0,float,0.0,0.0,0.0,1,transactions
+P0100,revolver,,M99370,"Merchant 99370 (Department Stores, TX)",Consumer Staples,US,US,USD,BB,0.4,2637000.0,574000.0,2063000.0,0.5,3.0,float,0.0,0.0,0.0,1,transactions
+P0101,loan,,M18215,"Merchant 18215 (Miscellaneous Home Furnishing Stor, VA)",Consumer Discretionary,US,US,USD,BB,0.4,6106000.0,6106000.0,0.0,0.0,6.0,float,0.0,0.0,0.0,1,transactions
+P0102,revolver,,M18215,"Merchant 18215 (Miscellaneous Home Furnishing Stor, VA)",Consumer Discretionary,US,US,USD,BB,0.4,2617000.0,754000.0,1863000.0,0.5,3.0,float,0.0,0.0,0.0,1,transactions
+P0103,loan,,M82981,"Merchant 82981 (Drug Stores and Pharmacies, GA)",Consumer Discretionary,US,US,USD,BBB,0.4,5919000.0,5919000.0,0.0,0.0,4.0,float,0.0,0.0,0.0,1,transactions
+P0104,revolver,,M82981,"Merchant 82981 (Drug Stores and Pharmacies, GA)",Consumer Discretionary,US,US,USD,BBB,0.4,2537000.0,1011000.0,1526000.0,0.5,3.0,float,0.0,0.0,0.0,1,transactions
+P0105,loan,,M35451,"Merchant 35451 (Eating Places and Restaurants, NY)",Consumer Discretionary,US,US,USD,BBB,0.4,5905000.0,5905000.0,0.0,0.0,3.0,float,0.0,0.0,0.0,1,transactions
+P0106,revolver,,M35451,"Merchant 35451 (Eating Places and Restaurants, NY)",Consumer Discretionary,US,US,USD,BBB,0.4,2531000.0,1101000.0,1430000.0,0.5,3.0,float,0.0,0.0,0.0,1,transactions
+P0107,loan,,M6063,"Merchant 6063 (Airlines, online)",Industrials,US,US,USD,CCC,0.4,5663000.0,5663000.0,0.0,0.0,5.0,float,0.0,0.0,0.0,1,transactions
+P0108,revolver,,M6063,"Merchant 6063 (Airlines, online)",Industrials,US,US,USD,CCC,0.4,2427000.0,969000.0,1458000.0,0.5,3.0,float,0.0,0.0,0.0,1,transactions
+P0109,loan,,M79927,"Merchant 79927 (Drug Stores and Pharmacies, IL)",Consumer Discretionary,US,US,USD,BB,0.4,5609000.0,5609000.0,0.0,0.0,4.0,float,0.0,0.0,0.0,1,transactions
+P0110,revolver,,M79927,"Merchant 79927 (Drug Stores and Pharmacies, IL)",Consumer Discretionary,US,US,USD,BB,0.4,2404000.0,1068000.0,1336000.0,0.5,3.0,float,0.0,0.0,0.0,1,transactions
+P0111,loan,,M57386,"Merchant 57386 (Leather Goods, KY)",Industrials,US,US,USD,B,0.4,5586000.0,5586000.0,0.0,0.0,4.0,float,0.0,0.0,0.0,1,transactions
+P0112,revolver,,M57386,"Merchant 57386 (Leather Goods, KY)",Industrials,US,US,USD,B,0.4,2394000.0,599000.0,1795000.0,0.5,3.0,float,0.0,0.0,0.0,1,transactions
+P0113,loan,,M60152,"Merchant 60152 (Steelworks, CA)",Industrials,US,US,USD,CCC,0.4,5568000.0,5568000.0,0.0,0.0,4.0,float,0.0,0.0,0.0,1,transactions
+P0114,revolver,,M60152,"Merchant 60152 (Steelworks, CA)",Industrials,US,US,USD,CCC,0.4,2386000.0,542000.0,1844000.0,0.5,3.0,float,0.0,0.0,0.0,1,transactions
+P0115,loan,,M29742,"Merchant 29742 (Brick, Stone, and Related Material, PA)",Industrials,US,US,USD,B,0.4,5383000.0,5383000.0,0.0,0.0,3.0,float,0.0,0.0,0.0,1,transactions
+P0116,revolver,,M29742,"Merchant 29742 (Brick, Stone, and Related Material, PA)",Industrials,US,US,USD,B,0.4,2307000.0,961000.0,1346000.0,0.5,3.0,float,0.0,0.0,0.0,1,transactions
+P0117,loan,,M70268,"Merchant 70268 (Travel Agencies, online)",Industrials,US,US,USD,CCC,0.4,5362000.0,5362000.0,0.0,0.0,5.0,float,0.0,0.0,0.0,1,transactions
+P0118,revolver,,M70268,"Merchant 70268 (Travel Agencies, online)",Industrials,US,US,USD,CCC,0.4,2298000.0,571000.0,1727000.0,0.5,3.0,float,0.0,0.0,0.0,1,transactions
+P0119,loan,,M69972,"Merchant 69972 (Fast Food Restaurants, CA)",Consumer Discretionary,US,US,USD,BBB,0.4,5358000.0,5358000.0,0.0,0.0,4.0,float,0.0,0.0,0.0,1,transactions
+P0120,revolver,,M69972,"Merchant 69972 (Fast Food Restaurants, CA)",Consumer Discretionary,US,US,USD,BBB,0.4,2296000.0,804000.0,1492000.0,0.5,3.0,float,0.0,0.0,0.0,1,transactions
+P0121,loan,,M13348,"Merchant 13348 (Travel Agencies, online)",Industrials,US,US,USD,CCC,0.4,5297000.0,5297000.0,0.0,0.0,6.0,float,0.0,0.0,0.0,1,transactions
+P0122,revolver,,M13348,"Merchant 13348 (Travel Agencies, online)",Industrials,US,US,USD,CCC,0.4,2270000.0,928000.0,1342000.0,0.5,3.0,float,0.0,0.0,0.0,1,transactions
+P0123,loan,,M52073,"Merchant 52073 (Travel Agencies, online)",Industrials,US,US,USD,CCC,0.4,5282000.0,5282000.0,0.0,0.0,3.0,float,0.0,0.0,0.0,1,transactions
+P0124,revolver,,M52073,"Merchant 52073 (Travel Agencies, online)",Industrials,US,US,USD,CCC,0.4,2264000.0,756000.0,1508000.0,0.5,3.0,float,0.0,0.0,0.0,1,transactions
+P0125,loan,,M68977,"Merchant 68977 (Upholstery and Drapery Stores, CA)",Industrials,US,US,USD,B,0.4,5240000.0,5240000.0,0.0,0.0,3.0,float,0.0,0.0,0.0,1,transactions
+P0126,revolver,,M68977,"Merchant 68977 (Upholstery and Drapery Stores, CA)",Industrials,US,US,USD,B,0.4,2246000.0,652000.0,1594000.0,0.5,3.0,float,0.0,0.0,0.0,1,transactions
+P0127,loan,,M7257,"Merchant 7257 (Pottery and Ceramics, PA)",Industrials,US,US,USD,B,0.4,5151000.0,5151000.0,0.0,0.0,4.0,float,0.0,0.0,0.0,1,transactions
+P0128,revolver,,M7257,"Merchant 7257 (Pottery and Ceramics, PA)",Industrials,US,US,USD,B,0.4,2208000.0,859000.0,1349000.0,0.5,3.0,float,0.0,0.0,0.0,1,transactions
+P0129,loan,,M51300,"Merchant 51300 (Non-Ferrous Metal Foundries, MA)",Industrials,US,US,USD,CCC,0.4,5046000.0,5046000.0,0.0,0.0,5.0,float,0.0,0.0,0.0,1,transactions
+P0130,revolver,,M51300,"Merchant 51300 (Non-Ferrous Metal Foundries, MA)",Industrials,US,US,USD,CCC,0.4,2163000.0,489000.0,1674000.0,0.5,3.0,float,0.0,0.0,0.0,1,transactions
+P0131,loan,,M16790,"Merchant 16790 (Non-Precious Metal Services, NY)",Industrials,US,US,USD,CCC,0.4,4994000.0,4994000.0,0.0,0.0,4.0,float,0.0,0.0,0.0,1,transactions
+P0132,revolver,,M16790,"Merchant 16790 (Non-Precious Metal Services, NY)",Industrials,US,US,USD,CCC,0.4,2140000.0,504000.0,1636000.0,0.5,3.0,float,0.0,0.0,0.0,1,transactions
+P0133,loan,,M90999,"Merchant 90999 (Travel Agencies, online)",Industrials,US,US,USD,CCC,0.4,4943000.0,4943000.0,0.0,0.0,4.0,float,0.0,0.0,0.0,1,transactions
+P0134,revolver,,M90999,"Merchant 90999 (Travel Agencies, online)",Industrials,US,US,USD,CCC,0.4,2118000.0,1001000.0,1117000.0,0.5,3.0,float,0.0,0.0,0.0,1,transactions
+P0135,loan,,M85600,"Merchant 85600 (Miscellaneous Metals, OH)",Industrials,US,US,USD,CCC,0.4,4923000.0,4923000.0,0.0,0.0,6.0,float,0.0,0.0,0.0,1,transactions
+P0136,revolver,,M85600,"Merchant 85600 (Miscellaneous Metals, OH)",Industrials,US,US,USD,CCC,0.4,2110000.0,865000.0,1245000.0,0.5,3.0,float,0.0,0.0,0.0,1,transactions
+P0137,loan,,M46284,"Merchant 46284 (Grocery Stores, Supermarkets, CA)",Consumer Staples,US,US,USD,BBB,0.4,4851000.0,4851000.0,0.0,0.0,4.0,float,0.0,0.0,0.0,1,transactions
+P0138,revolver,,M46284,"Merchant 46284 (Grocery Stores, Supermarkets, CA)",Consumer Staples,US,US,USD,BBB,0.4,2079000.0,1020000.0,1059000.0,0.5,3.0,float,0.0,0.0,0.0,1,transactions
+P0139,loan,,M24823,"Merchant 24823 (Automotive Service Shops, NY)",Consumer Discretionary,US,US,USD,BBB,0.4,4736000.0,4736000.0,0.0,0.0,4.0,float,0.0,0.0,0.0,1,transactions
+P0140,revolver,,M24823,"Merchant 24823 (Automotive Service Shops, NY)",Consumer Discretionary,US,US,USD,BBB,0.4,2030000.0,880000.0,1150000.0,0.5,3.0,float,0.0,0.0,0.0,1,transactions
+P0141,loan,,M98374,"Merchant 98374 (Grocery Stores, Supermarkets, PA)",Consumer Staples,US,US,USD,BB,0.4,4642000.0,4642000.0,0.0,0.0,4.0,float,0.0,0.0,0.0,1,transactions
+P0142,revolver,,M98374,"Merchant 98374 (Grocery Stores, Supermarkets, PA)",Consumer Staples,US,US,USD,BB,0.4,1990000.0,666000.0,1324000.0,0.5,3.0,float,0.0,0.0,0.0,1,transactions
+P0143,loan,,M44578,"Merchant 44578 (Eating Places and Restaurants, GA)",Consumer Discretionary,US,US,USD,BBB,0.4,4373000.0,4373000.0,0.0,0.0,5.0,float,0.0,0.0,0.0,1,transactions
+P0144,revolver,,M44578,"Merchant 44578 (Eating Places and Restaurants, GA)",Consumer Discretionary,US,US,USD,BBB,0.4,1874000.0,528000.0,1346000.0,0.5,3.0,float,0.0,0.0,0.0,1,transactions
+P0145,loan,,M78454,"Merchant 78454 (Eating Places and Restaurants, MO)",Consumer Discretionary,US,US,USD,BB,0.4,4270000.0,4270000.0,0.0,0.0,3.0,float,0.0,0.0,0.0,1,transactions
+P0146,revolver,,M78454,"Merchant 78454 (Eating Places and Restaurants, MO)",Consumer Discretionary,US,US,USD,BB,0.4,1830000.0,862000.0,968000.0,0.5,3.0,float,0.0,0.0,0.0,1,transactions
+P0147,loan,,M83480,"Merchant 83480 (Postal Services - Government Only, PA)",Consumer Discretionary,US,US,USD,BBB,0.4,4263000.0,4263000.0,0.0,0.0,3.0,float,0.0,0.0,0.0,1,transactions
+P0148,revolver,,M83480,"Merchant 83480 (Postal Services - Government Only, PA)",Consumer Discretionary,US,US,USD,BBB,0.4,1827000.0,615000.0,1212000.0,0.5,3.0,float,0.0,0.0,0.0,1,transactions
+P0149,loan,,M726,"Merchant 726 (Utilities - Electric, Gas, Water, , online)",Utilities,US,US,USD,CCC,0.4,4221000.0,4221000.0,0.0,0.0,5.0,float,0.0,0.0,0.0,1,transactions
+P0150,revolver,,M726,"Merchant 726 (Utilities - Electric, Gas, Water, , online)",Utilities,US,US,USD,CCC,0.4,1809000.0,528000.0,1281000.0,0.5,3.0,float,0.0,0.0,0.0,1,transactions
+P0151,loan,,M71883,"Merchant 71883 (Ironwork, TX)",Industrials,US,US,USD,BB,0.4,4212000.0,4212000.0,0.0,0.0,3.0,float,0.0,0.0,0.0,1,transactions
+P0152,revolver,,M71883,"Merchant 71883 (Ironwork, TX)",Industrials,US,US,USD,BB,0.4,1805000.0,675000.0,1130000.0,0.5,3.0,float,0.0,0.0,0.0,1,transactions
+P0153,loan,,M69956,"Merchant 69956 (Discount Stores, CA)",Consumer Staples,US,US,USD,BB,0.4,4098000.0,4098000.0,0.0,0.0,5.0,float,0.0,0.0,0.0,1,transactions
+P0154,revolver,,M69956,"Merchant 69956 (Discount Stores, CA)",Consumer Staples,US,US,USD,BB,0.4,1756000.0,803000.0,953000.0,0.5,3.0,float,0.0,0.0,0.0,1,transactions
+P0155,loan,,M13523,"Merchant 13523 (Discount Stores, MI)",Consumer Staples,US,US,USD,BBB,0.4,4056000.0,4056000.0,0.0,0.0,3.0,float,0.0,0.0,0.0,1,transactions
+P0156,revolver,,M13523,"Merchant 13523 (Discount Stores, MI)",Consumer Staples,US,US,USD,BBB,0.4,1738000.0,743000.0,995000.0,0.5,3.0,float,0.0,0.0,0.0,1,transactions
+P0157,loan,,M86369,"Merchant 86369 (Cable, Satellite, and Other Pay Te, online)",Communication Services,US,US,USD,BB,0.4,4012000.0,4012000.0,0.0,0.0,4.0,float,0.0,0.0,0.0,1,transactions
+P0158,revolver,,M86369,"Merchant 86369 (Cable, Satellite, and Other Pay Te, online)",Communication Services,US,US,USD,BB,0.4,1719000.0,567000.0,1152000.0,0.5,3.0,float,0.0,0.0,0.0,1,transactions
+P0159,loan,,M22792,"Merchant 22792 (Hospitals, NY)",Health Care,US,US,USD,B,0.4,3947000.0,3947000.0,0.0,0.0,5.0,float,0.0,0.0,0.0,1,transactions
+P0160,revolver,,M22792,"Merchant 22792 (Hospitals, NY)",Health Care,US,US,USD,B,0.4,1692000.0,657000.0,1035000.0,0.5,3.0,float,0.0,0.0,0.0,1,transactions
+P0161,loan,,M56276,"Merchant 56276 (Cable, Satellite, and Other Pay Te, online)",Communication Services,US,US,USD,B,0.4,3937000.0,3937000.0,0.0,0.0,3.0,float,0.0,0.0,0.0,1,transactions
+P0162,revolver,,M56276,"Merchant 56276 (Cable, Satellite, and Other Pay Te, online)",Communication Services,US,US,USD,B,0.4,1687000.0,666000.0,1021000.0,0.5,3.0,float,0.0,0.0,0.0,1,transactions
+P0163,loan,,M49789,"Merchant 49789 (Service Stations, CA)",Energy,US,US,USD,CCC,0.4,3888000.0,3888000.0,0.0,0.0,5.0,float,0.0,0.0,0.0,1,transactions
+P0164,revolver,,M49789,"Merchant 49789 (Service Stations, CA)",Energy,US,US,USD,CCC,0.4,1666000.0,375000.0,1291000.0,0.5,3.0,float,0.0,0.0,0.0,1,transactions
+P0165,loan,,M15426,"Merchant 15426 (Miscellaneous Metalwork, FL)",Industrials,US,US,USD,B,0.4,3818000.0,3818000.0,0.0,0.0,6.0,float,0.0,0.0,0.0,1,transactions
+P0166,revolver,,M15426,"Merchant 15426 (Miscellaneous Metalwork, FL)",Industrials,US,US,USD,B,0.4,1636000.0,348000.0,1288000.0,0.5,3.0,float,0.0,0.0,0.0,1,transactions
+P0167,loan,,M31893,"Merchant 31893 (Department Stores, SC)",Consumer Staples,US,US,USD,BB,0.4,3814000.0,3814000.0,0.0,0.0,4.0,float,0.0,0.0,0.0,1,transactions
+P0168,revolver,,M31893,"Merchant 31893 (Department Stores, SC)",Consumer Staples,US,US,USD,BB,0.4,1635000.0,569000.0,1066000.0,0.5,3.0,float,0.0,0.0,0.0,1,transactions
+P0169,loan,,M31883,"Merchant 31883 (Betting (including Lottery Tickets, NJ)",Consumer Discretionary,US,US,USD,CCC,0.4,3805000.0,3805000.0,0.0,0.0,3.0,float,0.0,0.0,0.0,1,transactions
+P0170,revolver,,M31883,"Merchant 31883 (Betting (including Lottery Tickets, NJ)",Consumer Discretionary,US,US,USD,CCC,0.4,1631000.0,397000.0,1234000.0,0.5,3.0,float,0.0,0.0,0.0,1,transactions
+P0171,loan,,M71667,"Merchant 71667 (Automotive Service Shops, AL)",Consumer Discretionary,US,US,USD,BB,0.4,3769000.0,3769000.0,0.0,0.0,4.0,float,0.0,0.0,0.0,1,transactions
+P0172,revolver,,M71667,"Merchant 71667 (Automotive Service Shops, AL)",Consumer Discretionary,US,US,USD,BB,0.4,1615000.0,373000.0,1242000.0,0.5,3.0,float,0.0,0.0,0.0,1,transactions
+P0173,loan,,M28395,"Merchant 28395 (Service Stations, NJ)",Energy,US,US,USD,B,0.4,3748000.0,3748000.0,0.0,0.0,3.0,float,0.0,0.0,0.0,1,transactions
+P0174,revolver,,M28395,"Merchant 28395 (Service Stations, NJ)",Energy,US,US,USD,B,0.4,1606000.0,403000.0,1203000.0,0.5,3.0,float,0.0,0.0,0.0,1,transactions
+P0175,loan,,M72351,"Merchant 72351 (Service Stations, MO)",Energy,US,US,USD,B,0.4,3747000.0,3747000.0,0.0,0.0,5.0,float,0.0,0.0,0.0,1,transactions
+P0176,revolver,,M72351,"Merchant 72351 (Service Stations, MO)",Energy,US,US,USD,B,0.4,1606000.0,767000.0,839000.0,0.5,3.0,float,0.0,0.0,0.0,1,transactions
+P0177,loan,,M41523,"Merchant 41523 (Electroplating, Plating, Polishing, AL)",Industrials,US,US,USD,B,0.4,3660000.0,3660000.0,0.0,0.0,6.0,float,0.0,0.0,0.0,1,transactions
+P0178,revolver,,M41523,"Merchant 41523 (Electroplating, Plating, Polishing, AL)",Industrials,US,US,USD,B,0.4,1569000.0,477000.0,1092000.0,0.5,3.0,float,0.0,0.0,0.0,1,transactions
+P0179,loan,,M68671,"Merchant 68671 (Service Stations, AR)",Energy,US,US,USD,BB,0.4,3526000.0,3526000.0,0.0,0.0,5.0,float,0.0,0.0,0.0,1,transactions
+P0180,revolver,,M68671,"Merchant 68671 (Service Stations, AR)",Energy,US,US,USD,BB,0.4,1511000.0,570000.0,941000.0,0.5,3.0,float,0.0,0.0,0.0,1,transactions
+P0181,loan,,M38602,"Merchant 38602 (Department Stores, TX)",Consumer Staples,US,US,USD,BB,0.4,3500000.0,3500000.0,0.0,0.0,4.0,float,0.0,0.0,0.0,1,transactions
+P0182,revolver,,M38602,"Merchant 38602 (Department Stores, TX)",Consumer Staples,US,US,USD,BB,0.4,1500000.0,731000.0,769000.0,0.5,3.0,float,0.0,0.0,0.0,1,transactions
+P0183,loan,,M88646,"Merchant 88646 (Eating Places and Restaurants, CA)",Consumer Discretionary,US,US,USD,BB,0.4,3500000.0,3500000.0,0.0,0.0,3.0,float,0.0,0.0,0.0,1,transactions
+P0184,revolver,,M88646,"Merchant 88646 (Eating Places and Restaurants, CA)",Consumer Discretionary,US,US,USD,BB,0.4,1500000.0,517000.0,983000.0,0.5,3.0,float,0.0,0.0,0.0,1,transactions
+P0185,loan,,M15574,"Merchant 15574 (Heat Treating Metal Services, MA)",Industrials,US,US,USD,CCC,0.4,3500000.0,3500000.0,0.0,0.0,4.0,float,0.0,0.0,0.0,1,transactions
+P0186,revolver,,M15574,"Merchant 15574 (Heat Treating Metal Services, MA)",Industrials,US,US,USD,CCC,0.4,1500000.0,337000.0,1163000.0,0.5,3.0,float,0.0,0.0,0.0,1,transactions
+P0187,loan,,M18131,"Merchant 18131 (Local and Suburban Commuter Transp, TX)",Industrials,US,US,USD,CCC,0.4,3500000.0,3500000.0,0.0,0.0,6.0,float,0.0,0.0,0.0,1,transactions
+P0188,revolver,,M18131,"Merchant 18131 (Local and Suburban Commuter Transp, TX)",Industrials,US,US,USD,CCC,0.4,1500000.0,519000.0,981000.0,0.5,3.0,float,0.0,0.0,0.0,1,transactions
+P0189,loan,,M92822,"Merchant 92822 (Welding Repair, NY)",Industrials,US,US,USD,CCC,0.4,3500000.0,3500000.0,0.0,0.0,5.0,float,0.0,0.0,0.0,1,transactions
+P0190,revolver,,M92822,"Merchant 92822 (Welding Repair, NY)",Industrials,US,US,USD,CCC,0.4,1500000.0,722000.0,778000.0,0.5,3.0,float,0.0,0.0,0.0,1,transactions
+P0191,loan,,M26909,"Merchant 26909 (Lumber and Building Materials, TX)",Consumer Discretionary,US,US,USD,BB,0.4,3500000.0,3500000.0,0.0,0.0,4.0,float,0.0,0.0,0.0,1,transactions
+P0192,revolver,,M26909,"Merchant 26909 (Lumber and Building Materials, TX)",Consumer Discretionary,US,US,USD,BB,0.4,1500000.0,557000.0,943000.0,0.5,3.0,float,0.0,0.0,0.0,1,transactions
+P0193,loan,,M98648,"Merchant 98648 (Fast Food Restaurants, NY)",Consumer Discretionary,US,US,USD,BB,0.4,3500000.0,3500000.0,0.0,0.0,5.0,float,0.0,0.0,0.0,1,transactions
+P0194,revolver,,M98648,"Merchant 98648 (Fast Food Restaurants, NY)",Consumer Discretionary,US,US,USD,BB,0.4,1500000.0,420000.0,1080000.0,0.5,3.0,float,0.0,0.0,0.0,1,transactions
+P0195,loan,,M50404,"Merchant 50404 (Tolls and Bridge Fees, online)",Industrials,US,US,USD,B,0.4,3500000.0,3500000.0,0.0,0.0,4.0,float,0.0,0.0,0.0,1,transactions
+P0196,revolver,,M50404,"Merchant 50404 (Tolls and Bridge Fees, online)",Industrials,US,US,USD,B,0.4,1500000.0,449000.0,1051000.0,0.5,3.0,float,0.0,0.0,0.0,1,transactions
+P0197,loan,,M59350,"Merchant 59350 (Theatrical Producers, online)",Consumer Discretionary,US,US,USD,B,0.4,3500000.0,3500000.0,0.0,0.0,5.0,float,0.0,0.0,0.0,1,transactions
+P0198,revolver,,M59350,"Merchant 59350 (Theatrical Producers, online)",Consumer Discretionary,US,US,USD,B,0.4,1500000.0,498000.0,1002000.0,0.5,3.0,float,0.0,0.0,0.0,1,transactions
+P0199,loan,,M56431,"Merchant 56431 (Service Stations, WI)",Energy,US,US,USD,B,0.4,3500000.0,3500000.0,0.0,0.0,5.0,float,0.0,0.0,0.0,1,transactions
+P0200,revolver,,M56431,"Merchant 56431 (Service Stations, WI)",Energy,US,US,USD,B,0.4,1500000.0,310000.0,1190000.0,0.5,3.0,float,0.0,0.0,0.0,1,transactions
+P0201,loan,,M87530,"Merchant 87530 (Utilities - Electric, Gas, Water, , online)",Utilities,US,US,USD,B,0.4,3500000.0,3500000.0,0.0,0.0,4.0,float,0.0,0.0,0.0,1,transactions
+P0202,revolver,,M87530,"Merchant 87530 (Utilities - Electric, Gas, Water, , online)",Utilities,US,US,USD,B,0.4,1500000.0,703000.0,797000.0,0.5,3.0,float,0.0,0.0,0.0,1,transactions
+P0203,loan,,M96246,"Merchant 96246 (Tolls and Bridge Fees, online)",Industrials,US,US,USD,B,0.4,3500000.0,3500000.0,0.0,0.0,6.0,float,0.0,0.0,0.0,1,transactions
+P0204,revolver,,M96246,"Merchant 96246 (Tolls and Bridge Fees, online)",Industrials,US,US,USD,B,0.4,1500000.0,363000.0,1137000.0,0.5,3.0,float,0.0,0.0,0.0,1,transactions
+P0205,loan,,M86959,"Merchant 86959 (Department Stores, NY)",Consumer Staples,US,US,USD,B,0.4,3500000.0,3500000.0,0.0,0.0,4.0,float,0.0,0.0,0.0,1,transactions
+P0206,revolver,,M86959,"Merchant 86959 (Department Stores, NY)",Consumer Staples,US,US,USD,B,0.4,1500000.0,349000.0,1151000.0,0.5,3.0,float,0.0,0.0,0.0,1,transactions
+P0207,loan,,M4802,"Merchant 4802 (Cable, Satellite, and Other Pay Te, online)",Communication Services,US,US,USD,BB,0.4,3500000.0,3500000.0,0.0,0.0,5.0,float,0.0,0.0,0.0,1,transactions
+P0208,revolver,,M4802,"Merchant 4802 (Cable, Satellite, and Other Pay Te, online)",Communication Services,US,US,USD,BB,0.4,1500000.0,603000.0,897000.0,0.5,3.0,float,0.0,0.0,0.0,1,transactions
+P0209,loan,,M27601,"Merchant 27601 (Automotive Service Shops, TX)",Consumer Discretionary,US,US,USD,BB,0.4,3500000.0,3500000.0,0.0,0.0,3.0,float,0.0,0.0,0.0,1,transactions
+P0210,revolver,,M27601,"Merchant 27601 (Automotive Service Shops, TX)",Consumer Discretionary,US,US,USD,BB,0.4,1500000.0,597000.0,903000.0,0.5,3.0,float,0.0,0.0,0.0,1,transactions
+P0211,loan,,M96529,"Merchant 96529 (Cable, Satellite, and Other Pay Te, online)",Communication Services,US,US,USD,B,0.4,3500000.0,3500000.0,0.0,0.0,4.0,float,0.0,0.0,0.0,1,transactions
+P0212,revolver,,M96529,"Merchant 96529 (Cable, Satellite, and Other Pay Te, online)",Communication Services,US,US,USD,B,0.4,1500000.0,627000.0,873000.0,0.5,3.0,float,0.0,0.0,0.0,1,transactions
+P0213,loan,,M80770,"Merchant 80770 (Theatrical Producers, online)",Consumer Discretionary,US,US,USD,BB,0.4,3500000.0,3500000.0,0.0,0.0,6.0,float,0.0,0.0,0.0,1,transactions
+P0214,revolver,,M80770,"Merchant 80770 (Theatrical Producers, online)",Consumer Discretionary,US,US,USD,BB,0.4,1500000.0,348000.0,1152000.0,0.5,3.0,float,0.0,0.0,0.0,1,transactions
+P0215,loan,,M37387,"Merchant 37387 (Cable, Satellite, and Other Pay Te, online)",Communication Services,US,US,USD,B,0.4,3500000.0,3500000.0,0.0,0.0,6.0,float,0.0,0.0,0.0,1,transactions
+P0216,revolver,,M37387,"Merchant 37387 (Cable, Satellite, and Other Pay Te, online)",Communication Services,US,US,USD,B,0.4,1500000.0,712000.0,788000.0,0.5,3.0,float,0.0,0.0,0.0,1,transactions
+P0217,loan,,M2177,"Merchant 2177 (Grocery Stores, Supermarkets, KS)",Consumer Staples,US,US,USD,BB,0.4,3500000.0,3500000.0,0.0,0.0,6.0,float,0.0,0.0,0.0,1,transactions
+P0218,revolver,,M2177,"Merchant 2177 (Grocery Stores, Supermarkets, KS)",Consumer Staples,US,US,USD,BB,0.4,1500000.0,317000.0,1183000.0,0.5,3.0,float,0.0,0.0,0.0,1,transactions
+P0219,loan,,M89069,"Merchant 89069 (Hardware Stores, WA)",Consumer Discretionary,US,US,USD,BB,0.4,3500000.0,3500000.0,0.0,0.0,3.0,float,0.0,0.0,0.0,1,transactions
+P0220,revolver,,M89069,"Merchant 89069 (Hardware Stores, WA)",Consumer Discretionary,US,US,USD,BB,0.4,1500000.0,550000.0,950000.0,0.5,3.0,float,0.0,0.0,0.0,1,transactions
+P0221,loan,,M87625,"Merchant 87625 (Eating Places and Restaurants, CA)",Consumer Discretionary,US,US,USD,BBB,0.4,3500000.0,3500000.0,0.0,0.0,5.0,float,0.0,0.0,0.0,1,transactions
+P0222,revolver,,M87625,"Merchant 87625 (Eating Places and Restaurants, CA)",Consumer Discretionary,US,US,USD,BBB,0.4,1500000.0,673000.0,827000.0,0.5,3.0,float,0.0,0.0,0.0,1,transactions
+P0223,loan,,M45926,"Merchant 45926 (Fast Food Restaurants, WA)",Consumer Discretionary,US,US,USD,BBB,0.4,3500000.0,3500000.0,0.0,0.0,4.0,float,0.0,0.0,0.0,1,transactions
+P0224,revolver,,M45926,"Merchant 45926 (Fast Food Restaurants, WA)",Consumer Discretionary,US,US,USD,BBB,0.4,1500000.0,664000.0,836000.0,0.5,3.0,float,0.0,0.0,0.0,1,transactions
+P0225,loan,,M59397,"Merchant 59397 (Eating Places and Restaurants, MA)",Consumer Discretionary,US,US,USD,BB,0.4,3500000.0,3500000.0,0.0,0.0,6.0,float,0.0,0.0,0.0,1,transactions
+P0226,revolver,,M59397,"Merchant 59397 (Eating Places and Restaurants, MA)",Consumer Discretionary,US,US,USD,BB,0.4,1500000.0,729000.0,771000.0,0.5,3.0,float,0.0,0.0,0.0,1,transactions
+P0227,loan,,M65108,"Merchant 65108 (Cable, Satellite, and Other Pay Te, online)",Communication Services,US,US,USD,CCC,0.4,3500000.0,3500000.0,0.0,0.0,4.0,float,0.0,0.0,0.0,1,transactions
+P0228,revolver,,M65108,"Merchant 65108 (Cable, Satellite, and Other Pay Te, online)",Communication Services,US,US,USD,CCC,0.4,1500000.0,431000.0,1069000.0,0.5,3.0,float,0.0,0.0,0.0,1,transactions
+P0229,loan,,M17493,"Merchant 17493 (Eating Places and Restaurants, CT)",Consumer Discretionary,US,US,USD,BB,0.4,3500000.0,3500000.0,0.0,0.0,5.0,float,0.0,0.0,0.0,1,transactions
+P0230,revolver,,M17493,"Merchant 17493 (Eating Places and Restaurants, CT)",Consumer Discretionary,US,US,USD,BB,0.4,1500000.0,415000.0,1085000.0,0.5,3.0,float,0.0,0.0,0.0,1,transactions
+P0231,loan,,M32480,"Merchant 32480 (Cable, Satellite, and Other Pay Te, online)",Communication Services,US,US,USD,B,0.4,3500000.0,3500000.0,0.0,0.0,5.0,float,0.0,0.0,0.0,1,transactions
+P0232,revolver,,M32480,"Merchant 32480 (Cable, Satellite, and Other Pay Te, online)",Communication Services,US,US,USD,B,0.4,1500000.0,721000.0,779000.0,0.5,3.0,float,0.0,0.0,0.0,1,transactions
+P0233,loan,,M64057,"Merchant 64057 (Local and Suburban Commuter Transp, IL)",Industrials,US,US,USD,CCC,0.4,3500000.0,3500000.0,0.0,0.0,3.0,float,0.0,0.0,0.0,1,transactions
+P0234,revolver,,M64057,"Merchant 64057 (Local and Suburban Commuter Transp, IL)",Industrials,US,US,USD,CCC,0.4,1500000.0,320000.0,1180000.0,0.5,3.0,float,0.0,0.0,0.0,1,transactions
+P0235,loan,,M40096,"Merchant 40096 (Local and Suburban Commuter Transp, IN)",Industrials,US,US,USD,CCC,0.4,3500000.0,3500000.0,0.0,0.0,3.0,float,0.0,0.0,0.0,1,transactions
+P0236,revolver,,M40096,"Merchant 40096 (Local and Suburban Commuter Transp, IN)",Industrials,US,US,USD,CCC,0.4,1500000.0,496000.0,1004000.0,0.5,3.0,float,0.0,0.0,0.0,1,transactions
+P0237,loan,,M44919,"Merchant 44919 (Fast Food Restaurants, IL)",Consumer Discretionary,US,US,USD,BB,0.4,3500000.0,3500000.0,0.0,0.0,6.0,float,0.0,0.0,0.0,1,transactions
+P0238,revolver,,M44919,"Merchant 44919 (Fast Food Restaurants, IL)",Consumer Discretionary,US,US,USD,BB,0.4,1500000.0,701000.0,799000.0,0.5,3.0,float,0.0,0.0,0.0,1,transactions
+P0239,loan,,M41260,"Merchant 41260 (Service Stations, SC)",Energy,US,US,USD,CCC,0.4,3500000.0,3500000.0,0.0,0.0,6.0,float,0.0,0.0,0.0,1,transactions
+P0240,revolver,,M41260,"Merchant 41260 (Service Stations, SC)",Energy,US,US,USD,CCC,0.4,1500000.0,637000.0,863000.0,0.5,3.0,float,0.0,0.0,0.0,1,transactions
+P0241,loan,,AAPL,Apple Inc.,Information Technology,US,US,USD,AA,0.45,229700000.0,229700000.0,0.0,0.0,4.0,float,0.0,0.0,0.0,1,large_corporate
+P0242,revolver,,AAPL,Apple Inc.,Information Technology,US,US,USD,AA,0.45,229700000.0,26000000.0,203700000.0,0.4,5.0,float,0.0,0.0,0.0,1,large_corporate
+P0243,loan,,MSFT,Microsoft Corp.,Information Technology,US,US,USD,AAA,0.45,152200000.0,152200000.0,0.0,0.0,7.0,float,0.0,0.0,0.0,1,large_corporate
+P0244,revolver,,MSFT,Microsoft Corp.,Information Technology,US,US,USD,AAA,0.45,152200000.0,19000000.0,133200000.0,0.4,5.0,float,0.0,0.0,0.0,1,large_corporate
+P0245,loan,,NVDA,Nvidia Corp.,Information Technology,US,US,USD,A,0.45,152000000.0,152000000.0,0.0,0.0,6.0,float,0.0,0.0,0.0,1,large_corporate
+P0246,revolver,,NVDA,Nvidia Corp.,Information Technology,US,US,USD,A,0.45,152000000.0,36100000.0,115900000.0,0.4,5.0,float,0.0,0.0,0.0,1,large_corporate
+P0247,loan,,AMZN,Amazon.com Inc.,Consumer Discretionary,US,US,USD,AA,0.45,138700000.0,138700000.0,0.0,0.0,6.0,float,0.0,0.0,0.0,1,large_corporate
+P0248,revolver,,AMZN,Amazon.com Inc.,Consumer Discretionary,US,US,USD,AA,0.45,138700000.0,30000000.0,108700000.0,0.4,5.0,float,0.0,0.0,0.0,1,large_corporate
+P0249,loan,,GOOGL,Alphabet Inc.,Communication Services,US,US,USD,AA,0.45,126500000.0,126500000.0,0.0,0.0,6.0,float,0.0,0.0,0.0,1,large_corporate
+P0250,revolver,,GOOGL,Alphabet Inc.,Communication Services,US,US,USD,AA,0.45,126500000.0,28400000.0,98000000.0,0.4,5.0,float,0.0,0.0,0.0,1,large_corporate
+P0251,loan,,META,Meta Platforms Inc.,Communication Services,US,US,USD,A,0.45,170400000.0,170400000.0,0.0,0.0,3.0,float,0.0,0.0,0.0,1,large_corporate
+P0252,revolver,,META,Meta Platforms Inc.,Communication Services,US,US,USD,A,0.45,170400000.0,35000000.0,135400000.0,0.4,5.0,float,0.0,0.0,0.0,1,large_corporate
+P0253,loan,,TSLA,Tesla Inc.,Consumer Discretionary,US,US,USD,BBB,0.45,275500000.0,275500000.0,0.0,0.0,5.0,float,0.0,0.0,0.0,1,large_corporate
+P0254,revolver,,TSLA,Tesla Inc.,Consumer Discretionary,US,US,USD,BBB,0.45,275500000.0,14500000.0,260900000.0,0.4,5.0,float,0.0,0.0,0.0,1,large_corporate
+P0255,loan,,NFLX,Netflix Inc.,Communication Services,US,US,USD,BBB,0.45,156700000.0,156700000.0,0.0,0.0,5.0,float,0.0,0.0,0.0,1,large_corporate
+P0256,revolver,,NFLX,Netflix Inc.,Communication Services,US,US,USD,BBB,0.45,156700000.0,29100000.0,127700000.0,0.4,5.0,float,0.0,0.0,0.0,1,large_corporate
+P0257,loan,,DIS,Walt Disney Co.,Communication Services,US,US,USD,A,0.45,156900000.0,156900000.0,0.0,0.0,4.0,float,0.0,0.0,0.0,1,large_corporate
+P0258,revolver,,DIS,Walt Disney Co.,Communication Services,US,US,USD,A,0.45,156900000.0,26100000.0,130800000.0,0.4,5.0,float,0.0,0.0,0.0,1,large_corporate
+P0259,loan,,INTC,Intel Corp.,Information Technology,US,US,USD,BBB,0.45,152000000.0,152000000.0,0.0,0.0,5.0,fixed,0.0,0.0,0.0,1,large_corporate
+P0260,revolver,,INTC,Intel Corp.,Information Technology,US,US,USD,BBB,0.45,152000000.0,29300000.0,122600000.0,0.4,5.0,float,0.0,0.0,0.0,1,large_corporate
+P0261,loan,,AMD,Advanced Micro Devices,Information Technology,US,US,USD,A,0.45,268000000.0,268000000.0,0.0,0.0,7.0,float,0.0,0.0,0.0,1,large_corporate
+P0262,revolver,,AMD,Advanced Micro Devices,Information Technology,US,US,USD,A,0.45,268000000.0,63100000.0,204900000.0,0.4,5.0,float,0.0,0.0,0.0,1,large_corporate
+P0263,loan,,PG,Procter & Gamble Co.,Consumer Staples,US,US,USD,AA,0.45,160700000.0,160700000.0,0.0,0.0,3.0,float,0.0,0.0,0.0,1,large_corporate
+P0264,revolver,,PG,Procter & Gamble Co.,Consumer Staples,US,US,USD,AA,0.45,160700000.0,23700000.0,136900000.0,0.4,5.0,float,0.0,0.0,0.0,1,large_corporate
+P0265,loan,,KO,Coca-Cola Co.,Consumer Staples,US,US,USD,A,0.45,254300000.0,254300000.0,0.0,0.0,4.0,float,0.0,0.0,0.0,1,large_corporate
+P0266,revolver,,KO,Coca-Cola Co.,Consumer Staples,US,US,USD,A,0.45,254300000.0,59800000.0,194600000.0,0.4,5.0,float,0.0,0.0,0.0,1,large_corporate
+P0267,loan,,COST,Costco Wholesale Corp.,Consumer Staples,US,US,USD,A,0.45,139500000.0,139500000.0,0.0,0.0,7.0,float,0.0,0.0,0.0,1,large_corporate
+P0268,revolver,,COST,Costco Wholesale Corp.,Consumer Staples,US,US,USD,A,0.45,139500000.0,24700000.0,114800000.0,0.4,5.0,float,0.0,0.0,0.0,1,large_corporate
+P0269,loan,,BA,Boeing Co.,Industrials,US,US,USD,BBB,0.45,136900000.0,136900000.0,0.0,0.0,6.0,float,0.0,0.0,0.0,1,large_corporate
+P0270,revolver,,BA,Boeing Co.,Industrials,US,US,USD,BBB,0.45,136900000.0,33300000.0,103600000.0,0.4,5.0,float,0.0,0.0,0.0,1,large_corporate
+P0271,loan,,LMT,Lockheed Martin Corp.,Industrials,US,US,USD,A,0.45,242300000.0,242300000.0,0.0,0.0,3.0,fixed,0.0,0.0,0.0,1,large_corporate
+P0272,revolver,,LMT,Lockheed Martin Corp.,Industrials,US,US,USD,A,0.45,242300000.0,51100000.0,191200000.0,0.4,5.0,float,0.0,0.0,0.0,1,large_corporate
+P0273,loan,,VZ,Verizon Communications,Communication Services,US,US,USD,BBB,0.45,194800000.0,194800000.0,0.0,0.0,6.0,float,0.0,0.0,0.0,1,large_corporate
+P0274,revolver,,VZ,Verizon Communications,Communication Services,US,US,USD,BBB,0.45,194800000.0,14000000.0,180800000.0,0.4,5.0,float,0.0,0.0,0.0,1,large_corporate
+P0275,loan,,JPM,JPMorgan Chase & Co.,Financials,US,US,USD,A,0.45,284300000.0,284300000.0,0.0,0.0,6.0,fixed,0.0,0.0,0.0,1,large_corporate
+P0276,revolver,,JPM,JPMorgan Chase & Co.,Financials,US,US,USD,A,0.45,284300000.0,27400000.0,256900000.0,0.4,5.0,float,0.0,0.0,0.0,1,large_corporate
+P0277,loan,,XOM,Exxon Mobil Corp.,Energy,US,US,USD,AA,0.45,179300000.0,179300000.0,0.0,0.0,6.0,fixed,0.0,0.0,0.0,1,large_corporate
+P0278,revolver,,XOM,Exxon Mobil Corp.,Energy,US,US,USD,AA,0.45,179300000.0,30600000.0,148700000.0,0.4,5.0,float,0.0,0.0,0.0,1,large_corporate
+P0279,loan,,JNJ,Johnson & Johnson,Health Care,US,US,USD,AAA,0.45,116300000.0,116300000.0,0.0,0.0,6.0,float,0.0,0.0,0.0,1,large_corporate
+P0280,revolver,,JNJ,Johnson & Johnson,Health Care,US,US,USD,AAA,0.45,116300000.0,15700000.0,100500000.0,0.4,5.0,float,0.0,0.0,0.0,1,large_corporate
+P0281,loan,,GS,Goldman Sachs Group,Financials,US,US,USD,A,0.45,252300000.0,252300000.0,0.0,0.0,7.0,float,0.0,0.0,0.0,1,large_corporate
+P0282,revolver,,GS,Goldman Sachs Group,Financials,US,US,USD,A,0.45,252300000.0,25100000.0,227200000.0,0.4,5.0,float,0.0,0.0,0.0,1,large_corporate
+P0283,loan,,BAC,Bank of America Corp.,Financials,US,US,USD,A,0.45,177600000.0,177600000.0,0.0,0.0,7.0,fixed,0.0,0.0,0.0,1,large_corporate
+P0284,revolver,,BAC,Bank of America Corp.,Financials,US,US,USD,A,0.45,177600000.0,37900000.0,139700000.0,0.4,5.0,float,0.0,0.0,0.0,1,large_corporate
+P0285,loan,,C,Citigroup Inc.,Financials,US,US,USD,BBB,0.45,136800000.0,136800000.0,0.0,0.0,7.0,float,0.0,0.0,0.0,1,large_corporate
+P0286,revolver,,C,Citigroup Inc.,Financials,US,US,USD,BBB,0.45,136800000.0,10800000.0,126000000.0,0.4,5.0,float,0.0,0.0,0.0,1,large_corporate
+P0287,loan,,MS,Morgan Stanley,Financials,US,US,USD,A,0.45,283400000.0,283400000.0,0.0,0.0,3.0,float,0.0,0.0,0.0,1,large_corporate
+P0288,revolver,,MS,Morgan Stanley,Financials,US,US,USD,A,0.45,283400000.0,22300000.0,261100000.0,0.4,5.0,float,0.0,0.0,0.0,1,large_corporate
+P0289,loan,,WFC,Wells Fargo & Co.,Financials,US,US,USD,A,0.45,300800000.0,300800000.0,0.0,0.0,5.0,float,0.0,0.0,0.0,1,large_corporate
+P0290,revolver,,WFC,Wells Fargo & Co.,Financials,US,US,USD,A,0.45,300800000.0,24300000.0,276500000.0,0.4,5.0,float,0.0,0.0,0.0,1,large_corporate
+P0291,loan,,DB,Deutsche Bank AG,Financials,DE,EU,EUR,BBB,0.45,138500000.0,138500000.0,0.0,0.0,3.0,float,0.0,0.0,0.0,1,large_corporate
+P0292,revolver,,DB,Deutsche Bank AG,Financials,DE,EU,EUR,BBB,0.45,138500000.0,8500000.0,130000000.0,0.4,5.0,float,0.0,0.0,0.0,1,large_corporate
+P0293,loan,,CS,Credit Suisse Group,Financials,CH,EU,EUR,BBB,0.45,147900000.0,147900000.0,0.0,0.0,7.0,float,0.0,0.0,0.0,1,large_corporate
+P0294,revolver,,CS,Credit Suisse Group,Financials,CH,EU,EUR,BBB,0.45,147900000.0,27500000.0,120400000.0,0.4,5.0,float,0.0,0.0,0.0,1,large_corporate
+P0295,loan,,HSBC,HSBC Holdings,Financials,GB,UK,GBP,A,0.45,205900000.0,205900000.0,0.0,0.0,3.0,float,0.0,0.0,0.0,1,large_corporate
+P0296,revolver,,HSBC,HSBC Holdings,Financials,GB,UK,GBP,A,0.45,205900000.0,31100000.0,174800000.0,0.4,5.0,float,0.0,0.0,0.0,1,large_corporate
+P0297,loan,,CVX,Chevron Corp.,Energy,US,US,USD,AA,0.45,227500000.0,227500000.0,0.0,0.0,6.0,float,0.0,0.0,0.0,1,large_corporate
+P0298,revolver,,CVX,Chevron Corp.,Energy,US,US,USD,AA,0.45,227500000.0,19600000.0,207900000.0,0.4,5.0,float,0.0,0.0,0.0,1,large_corporate
+P0299,loan,,SHEL,Shell plc,Energy,GB,UK,GBP,A,0.45,177600000.0,177600000.0,0.0,0.0,7.0,float,0.0,0.0,0.0,1,large_corporate
+P0300,revolver,,SHEL,Shell plc,Energy,GB,UK,GBP,A,0.45,177600000.0,29200000.0,148400000.0,0.4,5.0,float,0.0,0.0,0.0,1,large_corporate
+P0301,loan,,BP,BP plc,Energy,GB,UK,GBP,A,0.45,209900000.0,209900000.0,0.0,0.0,4.0,float,0.0,0.0,0.0,1,large_corporate
+P0302,revolver,,BP,BP plc,Energy,GB,UK,GBP,A,0.45,209900000.0,32500000.0,177400000.0,0.4,5.0,float,0.0,0.0,0.0,1,large_corporate
+P0303,loan,,GAZP,Gazprom PJSC,Energy,RU,EM,USD,BB,0.45,85200000.0,85200000.0,0.0,0.0,3.0,fixed,0.0,0.0,0.0,1,large_corporate
+P0304,revolver,,GAZP,Gazprom PJSC,Energy,RU,EM,USD,BB,0.45,85200000.0,5100000.0,80000000.0,0.4,5.0,float,0.0,0.0,0.0,1,large_corporate
+P0305,loan,,SBER,Sberbank of Russia,Financials,RU,EM,USD,BB,0.45,167500000.0,167500000.0,0.0,0.0,6.0,fixed,0.0,0.0,0.0,1,large_corporate
+P0306,revolver,,SBER,Sberbank of Russia,Financials,RU,EM,USD,BB,0.45,167500000.0,38600000.0,128900000.0,0.4,5.0,float,0.0,0.0,0.0,1,large_corporate
+P0307,loan,,PFE,Pfizer Inc.,Health Care,US,US,USD,A,0.45,311300000.0,311300000.0,0.0,0.0,3.0,fixed,0.0,0.0,0.0,1,large_corporate
+P0308,revolver,,PFE,Pfizer Inc.,Health Care,US,US,USD,A,0.45,311300000.0,64100000.0,247200000.0,0.4,5.0,float,0.0,0.0,0.0,1,large_corporate
+P0309,loan,,UNH,UnitedHealth Group,Health Care,US,US,USD,A,0.45,250600000.0,250600000.0,0.0,0.0,6.0,float,0.0,0.0,0.0,1,large_corporate
+P0310,revolver,,UNH,UnitedHealth Group,Health Care,US,US,USD,A,0.45,250600000.0,39400000.0,211200000.0,0.4,5.0,float,0.0,0.0,0.0,1,large_corporate
+P0311,loan,,WMT,Walmart Inc.,Consumer Staples,US,US,USD,AA,0.45,177000000.0,177000000.0,0.0,0.0,6.0,fixed,0.0,0.0,0.0,1,large_corporate
+P0312,revolver,,WMT,Walmart Inc.,Consumer Staples,US,US,USD,AA,0.45,177000000.0,25200000.0,151800000.0,0.4,5.0,float,0.0,0.0,0.0,1,large_corporate
+P0313,loan,,CAT,Caterpillar Inc.,Industrials,US,US,USD,A,0.45,204300000.0,204300000.0,0.0,0.0,6.0,float,0.0,0.0,0.0,1,large_corporate
+P0314,revolver,,CAT,Caterpillar Inc.,Industrials,US,US,USD,A,0.45,204300000.0,15900000.0,188400000.0,0.4,5.0,float,0.0,0.0,0.0,1,large_corporate
+P0315,loan,,GE,General Electric Co.,Industrials,US,US,USD,BBB,0.45,196500000.0,196500000.0,0.0,0.0,6.0,float,0.0,0.0,0.0,1,large_corporate
+P0316,revolver,,GE,General Electric Co.,Industrials,US,US,USD,BBB,0.45,196500000.0,19000000.0,177500000.0,0.4,5.0,float,0.0,0.0,0.0,1,large_corporate
+P0317,loan,,RTX,RTX Corp. (Raytheon),Industrials,US,US,USD,BBB,0.45,178800000.0,178800000.0,0.0,0.0,5.0,float,0.0,0.0,0.0,1,large_corporate
+P0318,revolver,,RTX,RTX Corp. (Raytheon),Industrials,US,US,USD,BBB,0.45,178800000.0,22500000.0,156300000.0,0.4,5.0,float,0.0,0.0,0.0,1,large_corporate
+P0319,loan,,AIR,Airbus SE,Industrials,FR,EU,EUR,A,0.45,258400000.0,258400000.0,0.0,0.0,4.0,float,0.0,0.0,0.0,1,large_corporate
+P0320,revolver,,AIR,Airbus SE,Industrials,FR,EU,EUR,A,0.45,258400000.0,62000000.0,196500000.0,0.4,5.0,float,0.0,0.0,0.0,1,large_corporate
+P0321,loan,,F,Ford Motor Co.,Consumer Discretionary,US,US,USD,BB,0.45,166600000.0,166600000.0,0.0,0.0,7.0,float,0.0,0.0,0.0,1,large_corporate
+P0322,revolver,,F,Ford Motor Co.,Consumer Discretionary,US,US,USD,BB,0.45,166600000.0,26200000.0,140500000.0,0.4,5.0,float,0.0,0.0,0.0,1,large_corporate
+P0323,loan,,GM,General Motors Co.,Consumer Discretionary,US,US,USD,BBB,0.45,255800000.0,255800000.0,0.0,0.0,5.0,float,0.0,0.0,0.0,1,large_corporate
+P0324,revolver,,GM,General Motors Co.,Consumer Discretionary,US,US,USD,BBB,0.45,255800000.0,53900000.0,201800000.0,0.4,5.0,float,0.0,0.0,0.0,1,large_corporate
+P0325,loan,,VOW,Volkswagen AG,Consumer Discretionary,DE,EU,EUR,BBB,0.45,205200000.0,205200000.0,0.0,0.0,6.0,float,0.0,0.0,0.0,1,large_corporate
+P0326,revolver,,VOW,Volkswagen AG,Consumer Discretionary,DE,EU,EUR,BBB,0.45,205200000.0,40400000.0,164800000.0,0.4,5.0,float,0.0,0.0,0.0,1,large_corporate
+P0327,loan,,NKE,Nike Inc.,Consumer Discretionary,US,US,USD,AA,0.45,133300000.0,133300000.0,0.0,0.0,6.0,float,0.0,0.0,0.0,1,large_corporate
+P0328,revolver,,NKE,Nike Inc.,Consumer Discretionary,US,US,USD,AA,0.45,133300000.0,29600000.0,103700000.0,0.4,5.0,float,0.0,0.0,0.0,1,large_corporate
+P0329,loan,,PYPL,PayPal Holdings,Financials,US,US,USD,A,0.45,158800000.0,158800000.0,0.0,0.0,7.0,float,0.0,0.0,0.0,1,large_corporate
+P0330,revolver,,PYPL,PayPal Holdings,Financials,US,US,USD,A,0.45,158800000.0,31000000.0,127800000.0,0.4,5.0,float,0.0,0.0,0.0,1,large_corporate
+P0331,loan,,CRM,Salesforce Inc.,Information Technology,US,US,USD,A,0.45,150200000.0,150200000.0,0.0,0.0,6.0,fixed,0.0,0.0,0.0,1,large_corporate
+P0332,revolver,,CRM,Salesforce Inc.,Information Technology,US,US,USD,A,0.45,150200000.0,11600000.0,138600000.0,0.4,5.0,float,0.0,0.0,0.0,1,large_corporate
+P0333,loan,,TSM,Taiwan Semiconductor (TSMC),Information Technology,TW,EM,USD,AA,0.45,239200000.0,239200000.0,0.0,0.0,3.0,float,0.0,0.0,0.0,1,large_corporate
+P0334,revolver,,TSM,Taiwan Semiconductor (TSMC),Information Technology,TW,EM,USD,AA,0.45,239200000.0,49400000.0,189800000.0,0.4,5.0,float,0.0,0.0,0.0,1,large_corporate
+P0335,loan,,BABA,Alibaba Group,Consumer Discretionary,CN,EM,USD,A,0.45,278100000.0,278100000.0,0.0,0.0,7.0,fixed,0.0,0.0,0.0,1,large_corporate
+P0336,revolver,,BABA,Alibaba Group,Consumer Discretionary,CN,EM,USD,A,0.45,278100000.0,28000000.0,250100000.0,0.4,5.0,float,0.0,0.0,0.0,1,large_corporate
+P0337,loan,,EVERG,China Evergrande Group,Real Estate,CN,EM,USD,CCC,0.45,42900000.0,42900000.0,0.0,0.0,3.0,float,0.0,0.0,0.0,1,large_corporate
+P0338,revolver,,EVERG,China Evergrande Group,Real Estate,CN,EM,USD,CCC,0.45,42900000.0,3600000.0,39300000.0,0.4,5.0,float,0.0,0.0,0.0,1,large_corporate
+P0339,loan,,RELIANCE,Reliance Industries,Energy,IN,IN,INR,BBB,0.45,210400000.0,210400000.0,0.0,0.0,3.0,float,0.0,0.0,0.0,1,large_corporate
+P0340,revolver,,RELIANCE,Reliance Industries,Energy,IN,IN,INR,BBB,0.45,210400000.0,30100000.0,180300000.0,0.4,5.0,float,0.0,0.0,0.0,1,large_corporate
+P0341,loan,,HDFCB,HDFC Bank,Financials,IN,IN,INR,BBB,0.45,203600000.0,203600000.0,0.0,0.0,6.0,fixed,0.0,0.0,0.0,1,large_corporate
+P0342,revolver,,HDFCB,HDFC Bank,Financials,IN,IN,INR,BBB,0.45,203600000.0,30200000.0,173400000.0,0.4,5.0,float,0.0,0.0,0.0,1,large_corporate
+P0343,loan,,TATAMOT,Tata Motors,Consumer Discretionary,IN,IN,INR,BB,0.45,135000000.0,135000000.0,0.0,0.0,6.0,fixed,0.0,0.0,0.0,1,large_corporate
+P0344,revolver,,TATAMOT,Tata Motors,Consumer Discretionary,IN,IN,INR,BB,0.45,135000000.0,10000000.0,125000000.0,0.4,5.0,float,0.0,0.0,0.0,1,large_corporate
+P0345,loan,,ADANI,Adani Group,Industrials,IN,IN,INR,BB,0.45,86700000.0,86700000.0,0.0,0.0,6.0,float,0.0,0.0,0.0,1,large_corporate
+P0346,revolver,,ADANI,Adani Group,Industrials,IN,IN,INR,BB,0.45,86700000.0,11600000.0,75100000.0,0.4,5.0,float,0.0,0.0,0.0,1,large_corporate
+P0347,bond,sovereign,SOV_US,UST 2Y,Sovereign,US,US,USD,AA,0.6,1500000000.0,1500000000.0,0.0,0.0,2.0,,0.04,1.886,5.405,1,securities
+P0348,bond,sovereign,SOV_US,UST 5Y,Sovereign,US,US,USD,AA,0.6,1500000000.0,1500000000.0,0.0,0.0,5.0,,0.04,4.452,25.012,1,securities
+P0349,bond,sovereign,SOV_US,UST 10Y,Sovereign,US,US,USD,AA,0.6,1200000000.0,1200000000.0,0.0,0.0,10.0,,0.04,8.111,80.754,1,securities
+P0350,bond,sovereign,SOV_DE,Bund 10Y,Sovereign,DE,EU,EUR,AAA,0.6,800000000.0,800000000.0,0.0,0.0,10.0,,0.025,8.752,90.449,1,securities
+P0351,bond,sovereign,SOV_GB,Gilt 10Y,Sovereign,GB,UK,GBP,AA,0.6,600000000.0,600000000.0,0.0,0.0,10.0,,0.04,8.111,80.754,1,securities
+P0352,bond,sovereign,SOV_IN,India G-sec 10Y,Sovereign,IN,IN,INR,BBB,0.6,500000000.0,500000000.0,0.0,0.0,10.0,,0.07,7.024,64.933,1,securities
+P0353,bond,sovereign,SOV_EM,EM sovereign basket,Sovereign,EM,EM,USD,BB,0.6,500000000.0,500000000.0,0.0,0.0,8.0,,0.065,6.089,47.69,1,securities
+P0354,bond,corporate,JPM,JPMorgan Chase & Co. 3Y senior,Financials,US,US,USD,A,0.6,243900000.0,243900000.0,0.0,0.0,3.0,,0.045,2.749,10.368,1,securities
+P0355,bond,corporate,BAC,Bank of America Corp. 3Y senior,Financials,US,US,USD,A,0.6,173400000.0,173400000.0,0.0,0.0,3.0,,0.045,2.749,10.368,1,securities
+P0356,bond,corporate,GS,Goldman Sachs Group 7Y senior,Financials,US,US,USD,A,0.6,263700000.0,263700000.0,0.0,0.0,7.0,,0.045,5.893,43.129,1,securities
+P0357,bond,corporate,C,Citigroup Inc. 10Y senior,Financials,US,US,USD,BBB,0.6,163300000.0,163300000.0,0.0,0.0,10.0,,0.05,7.722,74.998,1,securities
+P0358,bond,corporate,DB,Deutsche Bank AG 10Y senior,Financials,DE,EU,USD,BBB,0.6,178300000.0,178300000.0,0.0,0.0,10.0,,0.05,7.722,74.998,1,securities
+P0359,bond,corporate,CS,Credit Suisse Group 7Y senior,Financials,CH,EU,USD,BBB,0.6,145200000.0,145200000.0,0.0,0.0,7.0,,0.05,5.786,41.94,1,securities
+P0360,bond,corporate,XOM,Exxon Mobil Corp. 5Y senior,Energy,US,US,USD,AA,0.6,143600000.0,143600000.0,0.0,0.0,5.0,,0.042,4.427,24.792,1,securities
+P0361,bond,corporate,SHEL,Shell plc 3Y senior,Energy,GB,UK,USD,A,0.6,190100000.0,190100000.0,0.0,0.0,3.0,,0.045,2.749,10.368,1,securities
+P0362,bond,corporate,AAPL,Apple Inc. 10Y senior,Information Technology,US,US,USD,AA,0.6,181300000.0,181300000.0,0.0,0.0,10.0,,0.042,8.031,79.56,1,securities
+P0363,bond,corporate,VZ,Verizon Communications 3Y senior,Communication Services,US,US,USD,BBB,0.6,208500000.0,208500000.0,0.0,0.0,3.0,,0.05,2.723,10.206,1,securities
+P0364,bond,corporate,BA,Boeing Co. 7Y senior,Industrials,US,US,USD,BBB,0.6,269800000.0,269800000.0,0.0,0.0,7.0,,0.05,5.786,41.94,1,securities
+P0365,bond,corporate,INTC,Intel Corp. 5Y senior,Information Technology,US,US,USD,BBB,0.6,196700000.0,196700000.0,0.0,0.0,5.0,,0.05,4.329,23.936,1,securities
+P0366,bond,corporate,F,Ford Motor Co. 10Y senior,Consumer Discretionary,US,US,USD,BB,0.6,72100000.0,72100000.0,0.0,0.0,10.0,,0.065,7.189,67.283,1,securities
+P0367,bond,corporate,TSLA,Tesla Inc. 7Y senior,Consumer Discretionary,US,US,USD,BBB,0.6,234800000.0,234800000.0,0.0,0.0,7.0,,0.05,5.786,41.94,1,securities
+P0368,bond,corporate,GAZP,Gazprom PJSC 10Y senior,Energy,RU,EM,USD,BB,0.6,108900000.0,108900000.0,0.0,0.0,10.0,,0.065,7.189,67.283,1,securities
+P0369,bond,corporate,EVERG,China Evergrande Group 5Y senior,Real Estate,CN,EM,USD,CCC,0.6,102400000.0,102400000.0,0.0,0.0,5.0,,0.11,3.696,18.594,1,securities
+P0370,irs,,CCP,Pay-fixed IRS USD 7Y,Derivatives,XX,US,USD,AA,0.45,2500000000.0,0.0,0.0,0.0,7.0,,0.0,6.115,0.0,-1,derivatives
+P0371,irs,,CCP,Receive-fixed IRS USD 5Y,Derivatives,XX,US,USD,AA,0.45,800000000.0,0.0,0.0,0.0,5.0,,0.0,4.515,0.0,1,derivatives
+P0372,irs,,CCP,Pay-fixed IRS EUR 10Y,Derivatives,XX,US,EUR,AA,0.45,600000000.0,0.0,0.0,0.0,10.0,,0.0,8.317,0.0,-1,derivatives
+P0373,irs,,CCP,Pay-fixed IRS GBP 10Y,Derivatives,XX,US,GBP,AA,0.45,400000000.0,0.0,0.0,0.0,10.0,,0.0,8.317,0.0,-1,derivatives
+P0374,fx_forward,,CCP,FX forward: sell EUR / buy USD,Derivatives,XX,US,EUR,AA,0.45,1200000000.0,0.0,0.0,0.0,0.5,,0.0,0.0,0.0,-1,derivatives
+P0375,fx_forward,,CCP,FX forward: sell GBP / buy USD,Derivatives,XX,US,GBP,AA,0.45,800000000.0,0.0,0.0,0.0,0.5,,0.0,0.0,0.0,-1,derivatives
+P0376,fx_forward,,CCP,FX forward: sell INR / buy USD,Derivatives,XX,US,INR,AA,0.45,600000000.0,0.0,0.0,0.0,0.5,,0.0,0.0,0.0,-1,derivatives
+P0377,cds,,BA,CDS 5Y protection bought: Boeing Co.,Industrials,US,US,USD,BBB,0.45,150000000.0,0.0,0.0,0.0,5.0,,0.0,4.5,0.0,1,derivatives
+P0378,cds,,F,CDS 5Y protection bought: Ford Motor Co.,Consumer Discretionary,US,US,USD,BB,0.45,100000000.0,0.0,0.0,0.0,5.0,,0.0,4.5,0.0,1,derivatives
+P0379,cds,,GAZP,CDS 5Y protection bought: Gazprom PJSC,Energy,RU,EM,USD,BB,0.45,120000000.0,0.0,0.0,0.0,5.0,,0.0,4.5,0.0,1,derivatives
+P0380,cds,,EVERG,CDS 5Y protection bought: China Evergrande Group,Real Estate,CN,EM,USD,CCC,0.45,40000000.0,0.0,0.0,0.0,5.0,,0.0,4.5,0.0,1,derivatives
+P0381,cds,,DB,CDS 5Y protection sold: Deutsche Bank AG,Financials,DE,EU,USD,BBB,0.45,100000000.0,0.0,0.0,0.0,5.0,,0.0,4.5,0.0,-1,derivatives
+P0382,cds,,INTC,CDS 5Y protection sold: Intel Corp.,Information Technology,US,US,USD,BBB,0.45,100000000.0,0.0,0.0,0.0,5.0,,0.0,4.5,0.0,-1,derivatives
+P0383,cds,,JPM,CDS 5Y protection sold: JPMorgan Chase & Co.,Financials,US,US,USD,A,0.45,150000000.0,0.0,0.0,0.0,5.0,,0.0,4.5,0.0,-1,derivatives
+P0384,equity_trs,,AAPL,Equity TRS (long) Apple Inc.,Information Technology,US,US,USD,AA,0.45,120000000.0,0.0,0.0,0.0,1.0,,0.0,0.0,0.0,1,derivatives
+P0385,equity_trs,,JPM,Equity TRS (long) JPMorgan Chase & Co.,Financials,US,US,USD,A,0.45,100000000.0,0.0,0.0,0.0,1.0,,0.0,0.0,0.0,1,derivatives
+P0386,equity_trs,,XOM,Equity TRS (long) Exxon Mobil Corp.,Energy,US,US,USD,AA,0.45,80000000.0,0.0,0.0,0.0,1.0,,0.0,0.0,0.0,1,derivatives
+P0387,equity_trs,,LMT,Equity TRS (long) Lockheed Martin Corp.,Industrials,US,US,USD,A,0.45,60000000.0,0.0,0.0,0.0,1.0,,0.0,0.0,0.0,1,derivatives
+P0388,commodity_swap,,CCP,Oil swap: client airline hedge (bank short oil),Derivatives,XX,US,USD,A,0.45,200000000.0,0.0,0.0,0.0,1.0,,0.0,0.0,0.0,-1,derivatives

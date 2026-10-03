@@ -1,0 +1,146 @@
+{
+  "MiniLM-L6 (int8, 23 MB)": {
+    "repo": "sentence-transformers/all-MiniLM-L6-v2",
+    "file": "onnx/model_quint8_avx2.onnx",
+    "dim": 384,
+    "news_sentiment (PhraseBank)": {
+      "accuracy": 0.7696,
+      "macro_f1": 0.7245
+    },
+    "tweet_sentiment (TFNS)": {
+      "accuracy": 0.7873,
+      "macro_f1": 0.7031
+    },
+    "topic (20 classes)": {
+      "accuracy": 0.7901,
+      "macro_f1": 0.7845
+    },
+    "docs_per_second": 578.5
+  },
+  "MiniLM-L6 (fp32, 90 MB)": {
+    "repo": "sentence-transformers/all-MiniLM-L6-v2",
+    "file": "onnx/model.onnx",
+    "dim": 384,
+    "news_sentiment (PhraseBank)": {
+      "accuracy": 0.7801,
+      "macro_f1": 0.7366
+    },
+    "tweet_sentiment (TFNS)": {
+      "accuracy": 0.7869,
+      "macro_f1": 0.7001
+    },
+    "topic (20 classes)": {
+      "accuracy": 0.8011,
+      "macro_f1": 0.8009
+    },
+    "docs_per_second": 454.7
+  },
+  "MiniLM-L12 (int8, 34 MB)": {
+    "repo": "sentence-transformers/all-MiniLM-L12-v2",
+    "file": "onnx/model_quint8_avx2.onnx",
+    "dim": 384,
+    "news_sentiment (PhraseBank)": {
+      "accuracy": 0.7833,
+      "macro_f1": 0.7465
+    },
+    "tweet_sentiment (TFNS)": {
+      "accuracy": 0.807,
+      "macro_f1": 0.7337
+    },
+    "topic (20 classes)": {
+      "accuracy": 0.805,
+      "macro_f1": 0.7967
+    },
+    "docs_per_second": 261.1
+  },
+  "bge-small (int8, 34 MB)": {
+    "repo": "Xenova/bge-small-en-v1.5",
+    "file": "onnx/model_quantized.onnx",
+    "dim": 384,
+    "news_sentiment (PhraseBank)": {
+      "accuracy": 0.7875,
+      "macro_f1": 0.7572
+    },
+    "tweet_sentiment (TFNS)": {
+      "accuracy": 0.8233,
+      "macro_f1": 0.7601
+    },
+    "topic (20 classes)": {
+      "accuracy": 0.8137,
+      "macro_f1": 0.796
+    },
+    "docs_per_second": 444.3
+  },
+  "bge-small (fp32, 133 MB)": {
+    "repo": "BAAI/bge-small-en-v1.5",
+    "file": "onnx/model.onnx",
+    "dim": 384,
+    "news_sentiment (PhraseBank)": {
+      "accuracy": 0.7896,
+      "macro_f1": 0.7636
+    },
+    "tweet_sentiment (TFNS)": {
+      "accuracy": 0.825,
+      "macro_f1": 0.7636
+    },
+    "topic (20 classes)": {
+      "accuracy": 0.82,
+      "macro_f1": 0.7978
+    },
+    "docs_per_second": 216.4
+  },
+  "gte-small (int8, 34 MB)": {
+    "repo": "Xenova/gte-small",
+    "file": "onnx/model_quantized.onnx",
+    "dim": 384,
+    "news_sentiment (PhraseBank)": {
+      "accuracy": 0.7886,
+      "macro_f1": 0.7525
+    },
+    "tweet_sentiment (TFNS)": {
+      "accuracy": 0.8166,
+      "macro_f1": 0.7554
+    },
+    "topic (20 classes)": {
+      "accuracy": 0.813,
+      "macro_f1": 0.7913
+    },
+    "docs_per_second": 435.8
+  },
+  "mpnet-base (int8, 110 MB)": {
+    "repo": "sentence-transformers/all-mpnet-base-v2",
+    "file": "onnx/model_quint8_avx2.onnx",
+    "dim": 768,
+    "news_sentiment (PhraseBank)": {
+      "accuracy": 0.8002,
+      "macro_f1": 0.7736
+    },
+    "tweet_sentiment (TFNS)": {
+      "accuracy": 0.8543,
+      "macro_f1": 0.8056
+    },
+    "topic (20 classes)": {
+      "accuracy": 0.8431,
+      "macro_f1": 0.8302
+    },
+    "docs_per_second": 80.5
+  },
+  "bge-base (int8, 110 MB)": {
+    "repo": "Xenova/bge-base-en-v1.5",
+    "file": "onnx/model_quantized.onnx",
+    "dim": 768,
+    "news_sentiment (PhraseBank)": {
+      "accuracy": 0.8055,
+      "macro_f1": 0.7739
+    },
+    "tweet_sentiment (TFNS)": {
+      "accuracy": 0.8287,
+      "macro_f1": 0.7725
+    },
+    "topic (20 classes)": {
+      "accuracy": 0.8365,
+      "macro_f1": 0.8198
+    },
+    "docs_per_second": 125.6
+  }
+}

@@ -1,0 +1,163 @@
+# Module B scenario configuration.
+#
+# A stress scenario is a vector of shocks to the risk factors below. Scenarios come from two
+# families, and the stress engine can blend them:
+#
+#   analogs    real historical episodes. Their factor moves are *measured* from market data by
+#              scripts/build_analog_library.py (-> data/scenarios/analog_shocks.csv). For a new
+#              event, the closest past episodes (same event type, similar description) are blended
+#              and scaled by the event's impact score. Point-in-time: an episode is only eligible if
+#              it ended before the event being stressed, so a replay never "knows the future".
+#   templates  expert-defined severe-but-plausible shocks per event type (regulatory-style), used
+#              when no analog is eligible and as a transparent cross-check.
+
+risk_factors:
+  # id:          [label, unit, market proxy used to measure analogs]
+  EQ_US:         {label: US equities,             unit: pct, proxy: "^GSPC"}
+  EQ_EU:         {label: European equities,       unit: pct, proxy: "^STOXX50E"}
+  EQ_EM:         {label: Emerging-market equities, unit: pct, proxy: "EEM"}
+  EQ_IN:         {label: Indian equities,         unit: pct, proxy: "^NSEI"}
+  IR_USD_5Y:     {label: USD 5Y rate,             unit: bp,  proxy: "^FVX"}
+  IR_USD_10Y:    {label: USD 10Y rate,            unit: bp,  proxy: "^TNX"}
+  CS_IG:         {label: IG credit spread,        unit: bp,  proxy: "LQD", treasury: "IEF", duration: 8.5}
+  CS_HY:         {label: HY credit spread,        unit: bp,  proxy: "HYG", treasury: "IEI", duration: 3.8}
+  CS_EM:         {label: EM sovereign spread,     unit: bp,  proxy: "EMB", treasury: "IEF", duration: 7.0}
+  FX_EUR:        {label: EUR vs USD,              unit: pct, proxy: "EURUSD=X"}
+  FX_GBP:        {label: GBP vs USD,              unit: pct, proxy: "GBPUSD=X"}
+  FX_INR:        {label: INR vs USD,              unit: pct, proxy: "INR=X", invert: true}
+  FX_JPY:        {label: JPY vs USD,              unit: pct, proxy: "JPY=X", invert: true}
+  CMD_OIL:       {label: Crude oil,               unit: pct, proxy: "CL=F"}
+  CMD_GOLD:      {label: Gold,                    unit: pct, proxy: "GC=F"}
+  VOL_VIX:       {label: Equity volatility (VIX), unit: pts, proxy: "^VIX"}
+  # Sector equity moves, relative to the US market (they drive sector-specific credit stress).
+  SEC_FINANCIALS:   {label: Financials vs market,   unit: pct, proxy: "XLF", relative_to: "^GSPC"}
+  SEC_ENERGY:       {label: Energy vs market,       unit: pct, proxy: "XLE", relative_to: "^GSPC"}
+  SEC_TECH:         {label: Technology vs market,   unit: pct, proxy: "XLK", relative_to: "^GSPC"}
+  SEC_HEALTH:       {label: Health care vs market,  unit: pct, proxy: "XLV", relative_to: "^GSPC"}
+  SEC_INDUSTRIALS:  {label: Industrials vs market,  unit: pct, proxy: "XLI", relative_to: "^GSPC"}
+  SEC_DISCRETIONARY: {label: Consumer disc. vs market, unit: pct, proxy: "XLY", relative_to: "^GSPC"}
+  SEC_STAPLES:      {label: Consumer staples vs market, unit: pct, proxy: "XLP", relative_to: "^GSPC"}
+  SEC_MATERIALS:    {label: Materials vs market,    unit: pct, proxy: "XLB", relative_to: "^GSPC"}
+  SEC_UTILITIES:    {label: Utilities vs market,    unit: pct, proxy: "XLU", relative_to: "^GSPC"}
+  SEC_REAL_ESTATE:  {label: Real estate vs market,  unit: pct, proxy: "IYR", relative_to: "^GSPC"}
+
+# Which sector factor applies to each GICS sector (Communication Services uses tech as proxy).
+sector_factor:
+  Financials: SEC_FINANCIALS
+  Energy: SEC_ENERGY
+  Information Technology: SEC_TECH
+  Communication Services: SEC_TECH
+  Health Care: SEC_HEALTH
+  Industrials: SEC_INDUSTRIALS
+  Consumer Discretionary: SEC_DISCRETIONARY
+  Consumer Staples: SEC_STAPLES
+  Materials: SEC_MATERIALS
+  Utilities: SEC_UTILITIES
+  Real Estate: SEC_REAL_ESTATE
+
+# Historical episodes. Dates bracket the main market reaction (last close before -> end of the move).
+# extreme: true marks once-in-a-generation crises; they are only used as analogs for events whose
+# impact is at least 9.5, so an ordinary shock is never stressed as if it were 2008 or March 2020.
+episodes:
+  - {id: sep11_2001, event_type: GEOPOLITICAL, start: 2001-09-10, end: 2001-09-21,
+     title: "September 11 attacks",
+     description: "Terrorist attacks on the United States; markets closed for four days; flight to safety, airline and insurance losses, Fed emergency rate cut."}
+  - {id: oil_spike_2008, event_type: MACROECONOMIC, start: 2008-05-01, end: 2008-07-11,
+     title: "Oil price spike to $147",
+     description: "Oil prices surge to a record 147 dollars a barrel on supply fears; energy and food inflation; consumer, airline and bank stocks fall; central banks weigh rate hikes."}
+  - {id: lehman_2008, event_type: CREDIT_EVENT, start: 2008-09-12, end: 2008-10-10, extreme: true,
+     title: "Lehman Brothers bankruptcy",
+     description: "Investment bank Lehman Brothers files for Chapter 11 bankruptcy; AIG bailout; money-market fund breaks the buck; global banking and credit crisis, interbank funding freezes."}
+  - {id: euro_sovereign_2010, event_type: CREDIT_EVENT, start: 2010-04-23, end: 2010-05-25,
+     title: "Greek debt crisis and euro-area contagion",
+     description: "Greece requests a bailout, its sovereign rating is cut to junk; contagion fears for Portugal, Spain and European banks; euro falls, sovereign spreads surge."}
+  - {id: us_downgrade_2011, event_type: CREDIT_EVENT, start: 2011-07-22, end: 2011-08-10,
+     title: "US sovereign downgrade and euro crisis",
+     description: "S&P downgrades the United States credit rating from AAA amid debt-ceiling standoff; euro-area sovereign debt crisis spreads to Italy and Spain; bank stocks plunge."}
+  - {id: libya_2011, event_type: GEOPOLITICAL, start: 2011-02-15, end: 2011-02-24,
+     title: "Libyan civil war and Arab Spring oil shock",
+     description: "Civil war in Libya halts oil exports amid Arab Spring uprisings across the Middle East; Brent crude jumps above 110 dollars; supply disruption fears."}
+  - {id: taper_tantrum_2013, event_type: MACROECONOMIC, start: 2013-05-21, end: 2013-06-24,
+     title: "Taper tantrum",
+     description: "Federal Reserve signals it will taper bond purchases; Treasury yields jump, emerging-market currencies and bonds sell off."}
+  - {id: crimea_2014, event_type: GEOPOLITICAL, start: 2014-02-28, end: 2014-03-14,
+     title: "Russia annexes Crimea",
+     description: "Russian troops seize Crimea from Ukraine and Russia annexes the peninsula; Western sanctions on Russia; rouble and Russian assets fall; energy supply fears in Europe."}
+  - {id: china_deval_2015, event_type: MACROECONOMIC, start: 2015-08-10, end: 2015-08-25,
+     title: "Yuan devaluation and China slowdown",
+     description: "China devalues the yuan; fears of a Chinese economic slowdown trigger a global equity selloff and commodity rout."}
+  - {id: energy_credit_2015, event_type: CREDIT_EVENT, start: 2015-11-30, end: 2016-02-11,
+     title: "Oil crash and high-yield energy defaults",
+     description: "Oil price collapse drives defaults among high-yield energy issuers; junk bond funds freeze redemptions; credit spreads widen sharply."}
+  - {id: brexit_2016, event_type: GEOPOLITICAL, start: 2016-06-23, end: 2016-06-27,
+     title: "Brexit referendum",
+     description: "United Kingdom votes to leave the European Union; sterling collapses, UK and European bank shares plunge, flight to safety into gold and government bonds."}
+  - {id: volmageddon_2018, event_type: MACROECONOMIC, start: 2018-01-26, end: 2018-02-08,
+     title: "Volatility spike (Volmageddon)",
+     description: "Rising wage inflation and bond yields trigger a sudden volatility spike; short-volatility products collapse; equities correct ten percent."}
+  - {id: trade_war_2018, event_type: GEOPOLITICAL, start: 2018-10-03, end: 2018-12-24,
+     title: "US-China trade war escalation",
+     description: "United States and China escalate tariffs in a trade war; technology export restrictions; global growth fears and a fourth-quarter equity bear market."}
+  - {id: tariff_hike_2019, event_type: GEOPOLITICAL, start: 2019-05-03, end: 2019-06-03,
+     title: "US raises tariffs on Chinese goods",
+     description: "United States raises tariffs on Chinese imports and blacklists Huawei; China retaliates; semiconductor and industrial stocks fall."}
+  - {id: abqaiq_2019, event_type: GEOPOLITICAL, start: 2019-09-13, end: 2019-09-17,
+     title: "Attack on Saudi Aramco's Abqaiq facility",
+     description: "Drone and missile attack on Saudi Arabia's Abqaiq oil processing plant knocks out five percent of global oil supply; oil prices spike on Middle East conflict and supply fears."}
+  - {id: soleimani_2020, event_type: GEOPOLITICAL, start: 2020-01-02, end: 2020-01-08,
+     title: "US strike kills Iranian general",
+     description: "US drone strike kills Iranian commander Qassem Soleimani; Iran fires missiles at US bases in Iraq; oil and gold jump on Middle East war fears."}
+  - {id: covid_2020, event_type: MACROECONOMIC, start: 2020-02-19, end: 2020-03-23, extreme: true,
+     title: "COVID-19 market crash",
+     description: "Coronavirus pandemic: lockdowns shut down the global economy, a dash for cash and frozen credit markets until central banks intervene."}
+  - {id: inflation_scare_2021, event_type: MACROECONOMIC, start: 2021-05-07, end: 2021-05-12,
+     title: "US inflation scare",
+     description: "US consumer prices jump the most since 2008 on supply-chain shortages and energy prices; inflation fears push bond yields up and hit technology stocks."}
+  - {id: evergrande_2021, event_type: CREDIT_EVENT, start: 2021-09-13, end: 2021-09-20,
+     title: "Evergrande debt crisis",
+     description: "Chinese property developer Evergrande misses bond payments and edges toward default; contagion fears in China's property and credit markets."}
+  - {id: ukraine_2022, event_type: GEOPOLITICAL, start: 2022-02-16, end: 2022-03-08,
+     title: "Russia invades Ukraine",
+     description: "Russia launches a full-scale invasion of Ukraine; sweeping sanctions on Russian banks and the central bank; oil and gas prices surge; European equities fall."}
+  - {id: inflation_shock_2022, event_type: MACROECONOMIC, start: 2022-06-08, end: 2022-06-16,
+     title: "Inflation surprise and 75bp Fed hike",
+     description: "US consumer price inflation hits a 40-year high; the Federal Reserve raises rates by 75 basis points; bond yields surge and equities enter a bear market."}
+  - {id: uk_gilt_2022, event_type: MACROECONOMIC, start: 2022-09-22, end: 2022-09-28,
+     title: "UK mini-budget and gilt crisis",
+     description: "Unfunded UK tax cuts crash sterling and gilts; pension funds face margin calls on liability-driven investments; Bank of England intervenes."}
+  - {id: svb_2023, event_type: CREDIT_EVENT, start: 2023-03-08, end: 2023-03-15,
+     title: "Silicon Valley Bank collapse",
+     description: "Silicon Valley Bank fails after a bank run on uninsured deposits; Signature Bank closes; regional bank stocks plunge; Credit Suisse is rescued by UBS."}
+  - {id: israel_gaza_2023, event_type: GEOPOLITICAL, start: 2023-10-06, end: 2023-10-27,
+     title: "Hamas attack on Israel and Gaza war",
+     description: "Hamas attacks Israel and war breaks out in Gaza; fears of a wider Middle East conflict involving Iran; oil and gold rise."}
+  - {id: yen_carry_2024, event_type: MACROECONOMIC, start: 2024-07-31, end: 2024-08-05,
+     title: "Yen carry-trade unwind",
+     description: "Bank of Japan hikes rates and weak US jobs data trigger a rapid unwind of yen carry trades; Japanese stocks crash, volatility spikes."}
+  - {id: liberation_day_2025, event_type: GEOPOLITICAL, start: 2025-04-02, end: 2025-04-08,
+     title: "US reciprocal tariffs (Liberation Day)",
+     description: "United States announces sweeping reciprocal tariffs on trading partners; China retaliates; global equities crash and recession fears rise."}
+
+# Event types that are related enough to borrow each other's analogs (at a discount).
+related_types:
+  GEOPOLITICAL: [MACROECONOMIC]
+  MACROECONOMIC: [GEOPOLITICAL, CREDIT_EVENT]
+  CREDIT_EVENT: [MACROECONOMIC]
+
+# Expert templates: shock per unit of severity, i.e. the shock at impact 8.5 (multiplier 1.0).
+templates:
+  GEOPOLITICAL:
+    title: Severe geopolitical shock (template)
+    shocks: {EQ_US: -8, EQ_EU: -12, EQ_EM: -12, EQ_IN: -8, IR_USD_5Y: -25, IR_USD_10Y: -20, CS_IG: 40, CS_HY: 150,
+             CS_EM: 120, FX_EUR: -4, FX_GBP: -3, FX_INR: -3, FX_JPY: 3, CMD_OIL: 30, CMD_GOLD: 8, VOL_VIX: 12,
+             SEC_ENERGY: 8, SEC_INDUSTRIALS: -1, SEC_FINANCIALS: -3}
+  MACROECONOMIC:
+    title: Inflation and rates shock (template)
+    shocks: {EQ_US: -10, EQ_EU: -10, EQ_EM: -12, EQ_IN: -8, IR_USD_5Y: 100, IR_USD_10Y: 75, CS_IG: 50, CS_HY: 200,
+             CS_EM: 150, FX_EUR: -3, FX_GBP: -4, FX_INR: -4, FX_JPY: -5, CMD_OIL: -10, CMD_GOLD: -3, VOL_VIX: 10,
+             SEC_TECH: -6, SEC_REAL_ESTATE: -6, SEC_UTILITIES: -3}
+  CREDIT_EVENT:
+    title: Systemic credit event (template)
+    shocks: {EQ_US: -15, EQ_EU: -18, EQ_EM: -18, EQ_IN: -12, IR_USD_5Y: -60, IR_USD_10Y: -40, CS_IG: 120, CS_HY: 400,
+             CS_EM: 300, FX_EUR: -5, FX_GBP: -6, FX_INR: -5, FX_JPY: 5, CMD_OIL: -20, CMD_GOLD: 5, VOL_VIX: 25,
+             SEC_FINANCIALS: -12, SEC_REAL_ESTATE: -8}

@@ -1,0 +1,37 @@
+# Engine settings. Every value has a default in src/tremor/config.py; this file overrides them.
+
+encoder:
+  # Shared sentence encoder (ONNX, CPU). Chosen by scripts/select_encoder.py -
+  # see docs/results/encoder_selection.json for the accuracy / speed comparison.
+  repo: sentence-transformers/all-MiniLM-L6-v2
+  onnx_file: onnx/model_quint8_avx2.onnx
+  pooling: mean
+  max_length: 96
+  batch_size: 64
+
+clustering:
+  # Thresholds are for the fine-tuned encoder's embedding space: on the Feb-2022 replay, pairs above
+  # ~0.86 are re-wordings of one report, 0.76-0.86 are different reports of the same situation.
+  similarity_threshold: 0.86     # cosine similarity at which two texts are the same story
+  disjoint_entity_penalty: 0.10  # ...minus this when they name different companies
+  event_threshold: 0.76          # a new story joins an event (same type) at this similarity
+  shared_entity_bonus: 0.06      # ...lowered by this when they share a named entity
+  window_hours: 48
+
+state:
+  news_half_life_hours: 36       # how fast a company's sentiment decays back to neutral
+  social_half_life_hours: 12
+  prior_strength: 2.0
+  news_credibility: 1.0
+  social_credibility: 0.35       # one news article outweighs roughly three social posts
+
+impact:
+  trigger_threshold: 7.0         # Module B runs a stress test when impact is above this (the brief: "> 7")
+  retrigger_delta: 0.75          # ...and re-runs a situation whose impact rises by this much (or whose coverage nearly doubles)
+
+engine:
+  relevance_threshold: 0.5
+
+api:
+  host: 127.0.0.1
+  port: 8000

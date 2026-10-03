@@ -1,0 +1,31 @@
+{
+  "model": "ProsusAI/finbert",
+  "parameters_millions": 109.5,
+  "sentiment": {
+    "fiqa": {
+      "n": 227,
+      "accuracy": 0.533,
+      "macro_f1": 0.5197
+    },
+    "fpb": {
+      "n": 946,
+      "accuracy": 0.8795,
+      "macro_f1": 0.8698
+    },
+    "sentfin": {
+      "n": 1534,
+      "accuracy": 0.7256,
+      "macro_f1": 0.7283
+    },
+    "stocktwits": {
+      "n": 792,
+      "directional_accuracy": 0.6465
+    },
+    "tfns": {
+      "n": 2372,
+      "accuracy": 0.7137,
+      "macro_f1": 0.6586
+    }
+  },
+  "docs_per_second_batched_cpu": 61.1
+}

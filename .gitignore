@@ -1,0 +1,37 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+.venv-train/
+venv/
+.pytest_cache/
+.ruff_cache/
+*.egg-info/
+
+# Secrets / local config
+.env
+
+# Organiser-provided brief and guidelines: not redistributed in a public repository
+files/
+
+# Bulk downloads and caches: reproducible via scripts/fetch_data.py
+data/raw/
+models/cache/
+# Full-precision export (133 MB); the committed int8 model.onnx is what the engine runs
+models/**/*.fp32.onnx
+
+# Runtime output
+data/output/
+*.sqlite
+*.sqlite-wal
+*.sqlite-shm
+*.log
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Private presenter notes (not part of the submission)
+PRESENTER_NOTES.md

@@ -1,0 +1,42 @@
+{
+  "heads": {
+    "sentiment": {
+      "labels": [
+        "negative",
+        "neutral",
+        "positive"
+      ],
+      "layers": 2,
+      "temperature": 2.3
+    },
+    "event": {
+      "labels": [
+        "GEOPOLITICAL",
+        "MACROECONOMIC",
+        "CREDIT_EVENT",
+        "MERGER_ACQUISITION",
+        "PRODUCT_LAUNCH",
+        "EARNINGS_GUIDANCE",
+        "REGULATORY_LEGAL",
+        "MANAGEMENT_GOVERNANCE",
+        "OPERATIONAL_INCIDENT",
+        "MARKET_COMMENTARY",
+        "OTHER"
+      ],
+      "layers": 2,
+      "temperature": 1.9000000000000001
+    }
+  },
+  "meta": {
+    "trained_at": "2026-10-03T04:55:33+00:00",
+    "encoder": {
+      "repo": "sentence-transformers/all-MiniLM-L6-v2",
+      "onnx_file": "onnx/model_quint8_avx2.onnx",
+      "pooling": "mean",
+      "max_length": 96,
+      "batch_size": 64,
+      "threads": null
+    },
+    "head": "mlp-256"
+  }
+}

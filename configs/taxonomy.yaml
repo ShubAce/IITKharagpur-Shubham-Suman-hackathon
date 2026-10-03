@@ -1,0 +1,162 @@
+# Event taxonomy - the categorical "Event Classification" the engine emits.
+#
+# The first five classes are the ones named in the brief. The rest exist so that everyday
+# corporate news is not forced into one of those five (which would create false stress triggers).
+#
+#   base_severity    prior impact (1-10) of a single uncorroborated report of this type.
+#                    Evidence (corroboration, velocity, severe language, breadth) adds up to ~5 points,
+#                    so only a widely reported, fast-moving, severe event reaches the top of the scale.
+#   half_life_hours  how long the event keeps influencing entity sentiment
+#   market_wide      true = systemic by default (affects the whole book, not one name)
+#   cues             case-insensitive regexes. Used for (1) weak training labels,
+#                    (2) the rule-based fallback classifier, (3) explanations.
+
+event_types:
+  GEOPOLITICAL:
+    label: Geopolitical
+    description: War, armed conflict, sanctions, tariffs and trade wars, coups, terrorism, diplomatic crises.
+    base_severity: 5.0
+    half_life_hours: 72
+    market_wide: true
+    cues:
+      - '\b(invasion|invades?|invaded|invading)\b'
+      # 'war' but not a price war, bidding war, streaming war, culture war ...
+      - '\b(?<!price )(?<!bidding )(?<!talent )(?<!streaming )(?<!console )(?<!culture )(?<!fare )(?<!format )(?<!flame )(war|warfare)\b|\b(armed conflict|military (strike|operation|action|offensive))\b'
+      - '\b(air ?strikes?|missiles?|shelling|troops|bombing|drone strike)\b'
+      - '\b(attacks?|attacked|assault|offensive|strikes?) (on|against)\b'
+      - '\b(conflict|hostilities|escalat\w+|standoff|incursion)\b'
+      - '\b(sanctions?|sanctioned|embargo|export (controls?|ban)|blockade)\b'
+      - '\b(tariffs?|trade war|trade (dispute|tensions)|retaliat\w+ dut(y|ies))\b'
+      - '\b(coup|martial law|state of emergency|ceasefire|annex\w*|geopolitical)\b'
+      - '\b(terror(ist)? attack|nuclear (threat|test|weapons?))\b'
+
+  MACROECONOMIC:
+    label: Macroeconomic
+    description: Inflation, growth, jobs, central-bank policy and interest rates, currencies, commodities.
+    base_severity: 4.5
+    half_life_hours: 48
+    market_wide: true
+    cues:
+      - '\b(inflation|deflation|stagflation|CPI|PPI|consumer prices)\b'
+      - '\b(GDP|recession|economic (growth|slowdown|contraction)|soft landing)\b'
+      - '\b(unemployment|jobless claims|payrolls|jobs report|labor market)\b'
+      - '\b(rate (hike|cut|rise|increase|decision)s?|interest rates?|basis points|bps)\b'
+      - '\b(central bank|monetary policy|quantitative (easing|tightening)|hawkish|dovish)\b'
+      - '\b((treasury|bond|gilt) yields?|yield curve|dollar index|currency (crisis|devaluation))\b'
+      - '\b(oil prices?|crude (oil|futures)|brent|commodit(y|ies) prices?)\b'
+      - '\b(PMI|retail sales|consumer confidence|housing starts|trade deficit)\b'
+
+  CREDIT_EVENT:
+    label: Credit Event
+    description: Default, bankruptcy, missed payment, restructuring, credit-rating action, liquidity or funding stress, bank run.
+    base_severity: 5.5
+    half_life_hours: 96
+    market_wide: false
+    cues:
+      - '\b(defaults?|defaulted|defaulting) (on|risk)\b|\b(sovereign|debt|bond|loan) default\b'
+      - '\b(bankruptcy|bankrupt|chapter 11|chapter 7|insolven\w+|liquidation|receivership|administration proceedings)\b'
+      - '\b(missed|misses|skip\w*) (an? )?(interest|coupon|bond|debt) payments?\b'
+      - '\b(debt (restructuring|moratorium|standstill)|distressed (debt|exchange)|creditor (protection|talks))\b'
+      - '\b(credit rating|debt rating|rating outlook|junk (status|territory)|investment[- ]grade|fallen angel)\b'
+      - "\\b(moody'?s|s&p global ratings|fitch|crisil|icra)\\b.{0,40}\\b(downgrad\\w+|cuts?|lowers?|upgrad\\w+|raises?|affirms?|outlook)\\b"
+      - "\\b(downgrad\\w+|cuts?|lowers?)\\b.{0,40}\\b(by|from) (moody'?s|s&p|fitch)\\b"
+      - '\b(bank run|deposit (outflows?|flight)|liquidity (crisis|crunch|squeeze)|margin calls?|funding stress)\b'
+      - '\b(bailout|rescue (package|deal)|emergency (loan|funding|liquidity)|going concern|covenant (breach|waiver))\b'
+      - '\b(CDS|credit default swaps?|credit spreads?) (spreads? )?(widen\w*|surge\w*|spike\w*|jump\w*)\b'
+
+  MERGER_ACQUISITION:
+    label: Merger / Acquisition
+    description: Mergers, takeovers, buyouts, stake sales, spin-offs, IPOs.
+    base_severity: 4.0
+    half_life_hours: 48
+    market_wide: false
+    cues:
+      - '\b(acquires?|acquired|acquiring|acquisition|merger|merges?|merging|takeover|buyout)\b'
+      - '\b(to buy|agrees to buy|deal to buy|bid for|tender offer|deal valued|all-cash deal)\b'
+      - '\b(stake in|spin[- ]?off|divest\w*|carve[- ]out|IPO|initial public offering|goes public|SPAC)\b'
+
+  PRODUCT_LAUNCH:
+    label: Product Launch
+    description: New products and services, major business initiatives, partnerships and contract wins.
+    base_severity: 2.5
+    half_life_hours: 24
+    market_wide: false
+    cues:
+      - '\b(launch(es|ed|ing)?|unveil(s|ed|ing)?|introduc(es|ed|ing)|debuts?|rolls? out|rollout)\b'
+      - '\b(new (product|model|service|feature|chip|drug|device|platform)|next[- ]generation)\b'
+      - '\b(FDA approv\w+|wins? (contract|order)|awarded (a )?contract|partnership with|partners with)\b'
+
+  EARNINGS_GUIDANCE:
+    label: Earnings / Guidance
+    description: Results, guidance and capital return (dividends, buybacks).
+    base_severity: 3.5
+    half_life_hours: 36
+    market_wide: false
+    cues:
+      - '\b(earnings|EPS|quarterly (results|profit|revenue)|net (income|profit|loss)|revenue)\b'
+      - '\b(beats?|tops?|miss(es|ed)?) (wall street |analyst )?(estimates|expectations|forecasts)\b'
+      - '\b(guidance|outlook|forecast) (raised|cut|lowered|hiked|slashed)\b|\b(raises?|cuts?|lowers?|slashes?) (its )?(guidance|outlook|forecast)\b'
+      - '\b(dividend|share buyback|stock repurchase|Q[1-4] (results|earnings))\b'
+
+  REGULATORY_LEGAL:
+    label: Regulatory / Legal
+    description: Lawsuits, fines, antitrust action, investigations, new regulation.
+    base_severity: 3.5
+    half_life_hours: 48
+    market_wide: false
+    cues:
+      - '\b(lawsuit|sues?|sued|suing|class action|settlement|settles?|court ruling|verdict|indict\w+)\b'
+      - '\b(antitrust|probe|investigation|subpoena|fined?|penalt(y|ies)|regulators?|regulatory)\b'
+      - '\b(SEC (charges|probe|investigation)|FTC|DOJ|justice department|EU commission|ban(s|ned)?)\b'
+
+  MANAGEMENT_GOVERNANCE:
+    label: Management / Governance
+    description: Executive changes, board matters, accounting or governance failures.
+    base_severity: 3.0
+    half_life_hours: 36
+    market_wide: false
+    cues:
+      - '\b(CEO|CFO|chief executive|chairman|board of directors)\b.{0,40}\b(steps? down|resigns?|resigned|ousted|fired|retires?|appointed|named|successor)\b'
+      - '\b(steps? down|resigns?|ousted|names? new|appoints?)\b.{0,40}\b(CEO|CFO|chief executive|chairman)\b'
+      - '\b(accounting (scandal|irregularit\w+|fraud)|whistleblower|activist investor|proxy fight)\b'
+
+  OPERATIONAL_INCIDENT:
+    label: Operational Incident
+    description: Cyber attacks, outages, recalls, accidents, strikes, natural disasters, supply-chain disruption.
+    base_severity: 3.5
+    half_life_hours: 36
+    market_wide: false
+    cues:
+      - '\b(cyber ?attack|hack(ed|ers?)?|data breach|ransomware|outage)\b'
+      - '\b(recalls?|recalled|grounded|grounding|explosion|plant (fire|shutdown)|plane crash)\b'
+      - '\b(workers? strike|walkout|labor dispute|supply[- ]chain (disruption|crisis)|shortage)\b'
+      - '\b(earthquake|hurricane|typhoon|flood(s|ing)?|wildfires?)\b'
+
+  MARKET_COMMENTARY:
+    label: Analyst / Market Commentary
+    description: Broker rating and price-target changes, price-move commentary, technical chatter.
+    base_severity: 1.5
+    half_life_hours: 12
+    market_wide: false
+    cues:
+      - '\b(price target|PT (raised|cut|to)|overweight|underweight|outperform|underperform)\b'
+      - '\b(upgrad\w+|downgrad\w+) (to|from) (buy|sell|hold|neutral|overweight|underweight|outperform|underperform)\b'
+      - '\b(shares?|stock) (rise|rises|rose|fall|falls|fell|jump\w*|slump\w*|surge\w*|drop\w*|gain\w*|slide\w*|tumble\w*)\b'
+      - '\b(52-week (high|low)|all-time high|short squeeze|bullish|bearish|breakout|support level|resistance)\b'
+
+  OTHER:
+    label: Other / Noise
+    description: Not financially material - promotions, lifestyle, sport, generic chatter.
+    base_severity: 1.0
+    half_life_hours: 6
+    market_wide: false
+    cues:
+      - '\b(giveaway|win a|chance to win|follow (us|me)|retweet to|voucher|coupon code|discount code|free shipping)\b'
+      - '\b(recipe|horoscope|celebrity|box office|trailer|playlist)\b'
+
+# Words that signal magnitude, whatever the event type. Each hit adds to the scorecard's
+# "intensity" factor; they never change the event class.
+severity_cues:
+  extreme:   '\b(?<!price )(?<!bidding )(?<!talent )(?<!streaming )(?<!console )(?<!culture )(?<!fare )(?<!format )(?<!flame )war\b|\b(invasion|collapse[sd]?|default(s|ed)?|bankruptcy|bank run|crisis|meltdown|contagion|systemic|nuclear|catastroph\w+)\b'
+  high:      '\b(plunge[sd]?|plummet\w*|crash(es|ed)?|soar\w*|surge[sd]?|record (high|low|loss)|emergency|halt(s|ed)?|slash(es|ed)?|sanctions?|tumble[sd]?|rout)\b'
+  scale:     '\$\s?\d+(\.\d+)?\s?(billion|bn|trillion|tn)\b|\b\d+(\.\d+)?\s?(billion|trillion)\b'

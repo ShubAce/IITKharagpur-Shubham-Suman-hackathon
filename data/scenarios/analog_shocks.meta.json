@@ -1,0 +1,156 @@
+{
+  "built_at": "2026-10-02T23:15:56+00:00",
+  "source": "Yahoo Finance daily closes via yfinance",
+  "proxies": {
+    "EQ_US": {
+      "unit": "pct",
+      "proxy": "^GSPC"
+    },
+    "EQ_EU": {
+      "unit": "pct",
+      "proxy": "^STOXX50E"
+    },
+    "EQ_EM": {
+      "unit": "pct",
+      "proxy": "EEM"
+    },
+    "EQ_IN": {
+      "unit": "pct",
+      "proxy": "^NSEI"
+    },
+    "IR_USD_5Y": {
+      "unit": "bp",
+      "proxy": "^FVX"
+    },
+    "IR_USD_10Y": {
+      "unit": "bp",
+      "proxy": "^TNX"
+    },
+    "CS_IG": {
+      "unit": "bp",
+      "proxy": "LQD",
+      "treasury": "IEF",
+      "duration": 8.5
+    },
+    "CS_HY": {
+      "unit": "bp",
+      "proxy": "HYG",
+      "treasury": "IEI",
+      "duration": 3.8
+    },
+    "CS_EM": {
+      "unit": "bp",
+      "proxy": "EMB",
+      "treasury": "IEF",
+      "duration": 7.0
+    },
+    "FX_EUR": {
+      "unit": "pct",
+      "proxy": "EURUSD=X"
+    },
+    "FX_GBP": {
+      "unit": "pct",
+      "proxy": "GBPUSD=X"
+    },
+    "FX_INR": {
+      "unit": "pct",
+      "proxy": "INR=X",
+      "invert": true
+    },
+    "FX_JPY": {
+      "unit": "pct",
+      "proxy": "JPY=X",
+      "invert": true
+    },
+    "CMD_OIL": {
+      "unit": "pct",
+      "proxy": "CL=F"
+    },
+    "CMD_GOLD": {
+      "unit": "pct",
+      "proxy": "GC=F"
+    },
+    "VOL_VIX": {
+      "unit": "pts",
+      "proxy": "^VIX"
+    },
+    "SEC_FINANCIALS": {
+      "unit": "pct",
+      "proxy": "XLF",
+      "relative_to": "^GSPC"
+    },
+    "SEC_ENERGY": {
+      "unit": "pct",
+      "proxy": "XLE",
+      "relative_to": "^GSPC"
+    },
+    "SEC_TECH": {
+      "unit": "pct",
+      "proxy": "XLK",
+      "relative_to": "^GSPC"
+    },
+    "SEC_HEALTH": {
+      "unit": "pct",
+      "proxy": "XLV",
+      "relative_to": "^GSPC"
+    },
+    "SEC_INDUSTRIALS": {
+      "unit": "pct",
+      "proxy": "XLI",
+      "relative_to": "^GSPC"
+    },
+    "SEC_DISCRETIONARY": {
+      "unit": "pct",
+      "proxy": "XLY",
+      "relative_to": "^GSPC"
+    },
+    "SEC_STAPLES": {
+      "unit": "pct",
+      "proxy": "XLP",
+      "relative_to": "^GSPC"
+    },
+    "SEC_MATERIALS": {
+      "unit": "pct",
+      "proxy": "XLB",
+      "relative_to": "^GSPC"
+    },
+    "SEC_UTILITIES": {
+      "unit": "pct",
+      "proxy": "XLU",
+      "relative_to": "^GSPC"
+    },
+    "SEC_REAL_ESTATE": {
+      "unit": "pct",
+      "proxy": "IYR",
+      "relative_to": "^GSPC"
+    }
+  },
+  "coverage": {
+    "EQ_US": 26,
+    "EQ_EU": 25,
+    "EQ_EM": 25,
+    "EQ_IN": 25,
+    "IR_USD_5Y": 26,
+    "IR_USD_10Y": 26,
+    "CS_IG": 25,
+    "CS_HY": 25,
+    "CS_EM": 25,
+    "FX_EUR": 25,
+    "FX_GBP": 25,
+    "FX_INR": 25,
+    "FX_JPY": 26,
+    "CMD_OIL": 26,
+    "CMD_GOLD": 26,
+    "VOL_VIX": 26,
+    "SEC_FINANCIALS": 26,
+    "SEC_ENERGY": 26,
+    "SEC_TECH": 26,
+    "SEC_HEALTH": 26,
+    "SEC_INDUSTRIALS": 26,
+    "SEC_DISCRETIONARY": 26,
+    "SEC_STAPLES": 26,
+    "SEC_MATERIALS": 26,
+    "SEC_UTILITIES": 26,
+    "SEC_REAL_ESTATE": 26
+  }
+}

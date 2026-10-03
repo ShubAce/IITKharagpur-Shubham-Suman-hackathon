@@ -1,0 +1,207 @@
+{
+  "trained_at": "2026-10-03T04:55:33+00:00",
+  "encoder": {
+    "repo": "sentence-transformers/all-MiniLM-L6-v2",
+    "onnx_file": "onnx/model_quint8_avx2.onnx",
+    "pooling": "mean",
+    "max_length": 96,
+    "batch_size": 64,
+    "threads": null
+  },
+  "head": "mlp-256",
+  "sentiment": {
+    "train_rows": {
+      "fiqa": 878,
+      "fpb": 3889,
+      "sentfin": 6316,
+      "stocktwits": 2941,
+      "tfns": 9338
+    },
+    "test": {
+      "fiqa": {
+        "n": 227,
+        "accuracy": 0.6476,
+        "macro_f1": 0.5538,
+        "per_class": {
+          "negative": {
+            "precision": 0.771,
+            "recall": 0.701,
+            "f1": 0.735,
+            "n": 77
+          },
+          "neutral": {
+            "precision": 0.135,
+            "recall": 0.333,
+            "f1": 0.192,
+            "n": 21
+          },
+          "positive": {
+            "precision": 0.819,
+            "recall": 0.667,
+            "f1": 0.735,
+            "n": 129
+          }
+        }
+      },
+      "fpb": {
+        "n": 946,
+        "accuracy": 0.777,
+        "macro_f1": 0.7337,
+        "per_class": {
+          "negative": {
+            "precision": 0.692,
+            "recall": 0.655,
+            "f1": 0.673,
+            "n": 110
+          },
+          "neutral": {
+            "precision": 0.823,
+            "recall": 0.84,
+            "f1": 0.832,
+            "n": 576
+          },
+          "positive": {
+            "precision": 0.705,
+            "recall": 0.688,
+            "f1": 0.696,
+            "n": 260
+          }
+        }
+      },
+      "sentfin": {
+        "n": 1534,
+        "accuracy": 0.7555,
+        "macro_f1": 0.7557,
+        "per_class": {
+          "negative": {
+            "precision": 0.742,
+            "recall": 0.78,
+            "f1": 0.76,
+            "n": 472
+          },
+          "neutral": {
+            "precision": 0.741,
+            "recall": 0.741,
+            "f1": 0.741,
+            "n": 526
+          },
+          "positive": {
+            "precision": 0.783,
+            "recall": 0.748,
+            "f1": 0.765,
+            "n": 536
+          }
+        }
+      },
+      "stocktwits": {
+        "n": 792,
+        "directional_accuracy": 0.7753
+      },
+      "tfns": {
+        "n": 2372,
+        "accuracy": 0.7723,
+        "macro_f1": 0.7119,
+        "per_class": {
+          "negative": {
+            "precision": 0.566,
+            "recall": 0.672,
+            "f1": 0.615,
+            "n": 345
+          },
+          "neutral": {
+            "precision": 0.88,
+            "recall": 0.812,
+            "f1": 0.845,
+            "n": 1552
+          },
+          "positive": {
+            "precision": 0.642,
+            "recall": 0.716,
+            "f1": 0.677,
+            "n": 475
+          }
+        }
+      }
+    },
+    "temperature": 2.3
+  },
+  "event": {
+    "train_rows": {
+      "human": 10690,
+      "human+cue": 3753,
+      "weak:benzinga": 14944,
+      "weak:gdelt": 3384,
+      "weak:gdelt-noise": 5976,
+      "weak:search": 12061
+    },
+    "train_by_class": {
+      "CREDIT_EVENT": 1838,
+      "EARNINGS_GUIDANCE": 5172,
+      "GEOPOLITICAL": 4236,
+      "MACROECONOMIC": 6514,
+      "MANAGEMENT_GOVERNANCE": 1600,
+      "MARKET_COMMENTARY": 6726,
+      "MERGER_ACQUISITION": 4438,
+      "OPERATIONAL_INCIDENT": 2568,
+      "OTHER": 7349,
+      "PRODUCT_LAUNCH": 6723,
+      "REGULATORY_LEGAL": 3644
+    },
+    "temperature": 1.9000000000000001,
+    "test_human_labels": {
+      "n": 2903,
+      "accuracy": 0.7947,
+      "macro_f1": 0.7877,
+      "per_class": {
+        "GEOPOLITICAL": {
+          "precision": 0.816,
+          "recall": 0.826,
+          "f1": 0.821,
+          "n": 236
+        },
+        "MACROECONOMIC": {
+          "precision": 0.862,
+          "recall": 0.815,
+          "f1": 0.838,
+          "n": 774
+        },
+        "MERGER_ACQUISITION": {
+          "precision": 0.732,
+          "recall": 0.692,
+          "f1": 0.711,
+          "n": 130
+        },
+        "EARNINGS_GUIDANCE": {
+          "precision": 0.875,
+          "recall": 0.971,
+          "f1": 0.92,
+          "n": 339
+        },
+        "REGULATORY_LEGAL": {
+          "precision": 0.778,
+          "recall": 0.791,
+          "f1": 0.784,
+          "n": 115
+        },
+        "MANAGEMENT_GOVERNANCE": {
+          "precision": 0.844,
+          "recall": 0.829,
+          "f1": 0.836,
+          "n": 111
+        },
+        "MARKET_COMMENTARY": {
+          "precision": 0.93,
+          "recall": 0.834,
+          "f1": 0.879,
+          "n": 886
+        },
+        "OTHER": {
+          "precision": 0.593,
+          "recall": 0.449,
+          "f1": 0.511,
+          "n": 312
+        }
+      }
+    }
+  }
+}
