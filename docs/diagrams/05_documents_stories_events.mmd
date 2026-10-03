@@ -1,0 +1,35 @@
+flowchart LR
+  classDef src fill:#f1f3f5,stroke:#868e96,color:#1f2328
+  classDef story fill:#e7f0fd,stroke:#2a6fdb,color:#1f2328
+  classDef event fill:#fdeee8,stroke:#e0603a,color:#1f2328
+
+  subgraph DOCS["Documents - what arrives"]
+    direction TB
+    d1["Site A: <i>Russia invades Ukraine</i>"]:::src
+    d2["Site B: <i>Russia invades Ukraine</i><br/>same text, reprinted"]:::src
+    d3["Site C: <i>Russia invades Ukraine</i><br/>same text, reprinted"]:::src
+    d4["Site D: <i>Russian troops cross into<br/>Ukraine from three sides</i>"]:::src
+    d5["Site E: <i>Oil jumps above $100<br/>as Russia attacks</i>"]:::src
+    d6["Tweet: <i>markets dumping<br/>on the war news</i>"]:::src
+  end
+
+  subgraph STORIES["Stories - one report and its copies"]
+    direction TB
+    s1["Story 1<br/>1 report, 3 copies"]:::story
+    s2["Story 2"]:::story
+    s3["Story 3"]:::story
+    s4["Story 4<br/>social media"]:::story
+  end
+
+  E["<b>EVENT</b><br/>Russia-Ukraine war<br/><br/>4 independent stories<br/>= stronger evidence<br/>than 6 articles"]:::event
+
+  d1 --> s1
+  d2 --> s1
+  d3 --> s1
+  d4 --> s2
+  d5 --> s3
+  d6 --> s4
+  s1 --> E
+  s2 --> E
+  s3 --> E
+  s4 --> E

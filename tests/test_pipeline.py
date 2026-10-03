@@ -97,6 +97,28 @@ def test_event_classification(headline, expected):
     assert engine().analyse_text(headline)["event_type"] == expected
 
 
+@pytest.mark.parametrize("headline", [
+    "Amazon and Walmart are locked in a price war over delivery fees",
+    "Two of Ecommerce's Biggest Names Just Launched a Silent War",
+    "First Look! God of War Ragnarök Funko POPs! Going live at the links below",
+    "Microsoft builds a $100 billion war chest for acquisitions",
+])
+def test_war_as_a_figure_of_speech_is_not_geopolitical(headline):
+    result = engine().analyse_text(headline)
+    assert result["event_type"] != "GEOPOLITICAL"
+    assert not any("extreme" in f["detail"] for f in result["impact_factors"])  # an idiom is not severe language
+
+
+@pytest.mark.parametrize("headline", [
+    "Russia launches full-scale war on Ukraine",
+    "War fears send stocks lower as troops mass on the border",
+    "Russia's silent war on Ukraine's power grid escalates",
+    "Price war erupts in Russian oil as sanctions bite",
+])
+def test_literal_war_stays_geopolitical(headline):
+    assert engine().analyse_text(headline)["event_type"] == "GEOPOLITICAL"
+
+
 REPRODUCIBILITY_PROBE = """
 import json
 from tremor.config import load_settings, load_taxonomy, load_universe

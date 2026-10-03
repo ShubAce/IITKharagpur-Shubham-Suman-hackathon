@@ -1,0 +1,29 @@
+flowchart TB
+  classDef src fill:#f1f3f5,stroke:#868e96,color:#1f2328
+  classDef eng fill:#e7f0fd,stroke:#2a6fdb,color:#1f2328
+  classDef modA fill:#e6f6ef,stroke:#1f9d6b,color:#1f2328
+  classDef modB fill:#fdeee8,stroke:#e0603a,color:#1f2328
+  classDef out fill:#f3eefc,stroke:#7b5cd6,color:#1f2328
+
+  N["<b>News</b><br/>GDELT, Yahoo Finance,<br/>Google News, US Fed"]:::src
+  SO["<b>Social media</b><br/>StockTwits, Bluesky"]:::src
+  R["<b>Replay of real history</b><br/>21-24 Feb 2022, 39k documents"]:::src
+  P["<b>Market prices</b><br/>Yahoo Finance"]:::src
+
+  ENG["<b>AI/NLP Risk Engine</b><br/>1 · gate: keep text about tracked names or risk<br/>2 · one small AI model: sentiment, event type, tone per company<br/>3 · group copies into stories, stories into events<br/>4 · impact score 1-10 with its reasons<br/>5 · a fading memory of sentiment per company and country"]:::eng
+
+  SIG["<b>Signals</b><br/>REST API · live stream · signals.jsonl file"]:::out
+
+  A["<b>Module A</b><br/>index rebalancer"]:::modA
+  B["<b>Module B</b><br/>stress test"]:::modB
+  D["<b>Dashboard</b> in the browser"]:::out
+
+  N --> ENG
+  SO --> ENG
+  R --> ENG
+  ENG --> SIG
+  SIG -- "sentiment" --> A
+  SIG -- "event type + impact" --> B
+  P --> A
+  A --> D
+  B --> D

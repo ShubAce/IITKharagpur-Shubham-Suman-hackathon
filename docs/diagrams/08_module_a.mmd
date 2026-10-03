@@ -1,0 +1,17 @@
+flowchart TB
+  classDef eng fill:#e7f0fd,stroke:#2a6fdb,color:#1f2328
+  classDef modA fill:#e6f6ef,stroke:#1f9d6b,color:#1f2328
+  classDef warn fill:#fff8e1,stroke:#c99a06,color:#1f2328
+  classDef out fill:#f3eefc,stroke:#7b5cd6,color:#1f2328
+
+  S["<b>Sentiment per stock</b><br/>from the engine's memory<br/>fades if there is no fresh news"]:::eng
+  WHEN{{"<b>When?</b><br/>every hour, or straight away if a stock's<br/>sentiment jumps or a big event hits it"}}:::warn
+  T["<b>1 · Tilt</b> - start from equal weights<br/>positive sentiment: more weight · negative: less"]:::modA
+  R["<b>2 · Safety limits</b><br/>each stock between 0.4x and 2x its normal weight<br/>no stock above 12% · each sector within 8 points of normal"]:::modA
+  TR["<b>3 · Trade only if it is worth it</b><br/>skip changes under 0.25% · trade at most 10% of the index at once<br/>pay a 5 bp trading cost"]:::modA
+  W["<b>New weights</b><br/>TREMOR-20 index value vs the equal-weight benchmark"]:::out
+  D["<b>Dashboard</b><br/>weights over time, and the headline behind each trade"]:::out
+
+  S --> T
+  WHEN -.-> T
+  T --> R --> TR --> W --> D

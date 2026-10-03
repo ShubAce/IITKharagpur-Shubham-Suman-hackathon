@@ -69,12 +69,12 @@ Daily open-to-open rebalancing on the engine's filtered sentiment, 5 bp per unit
 | Strategy | Annual return | Volatility | Max drawdown | Excess vs EW | Info. ratio | Avg daily turnover | Mean daily IC |
 |---|---:|---:|---:|---:|---:|---:|---:|
 | TREMOR-20 (fine-tuned engine) | -19.60% | 25.6% | -30.3% | +0.32% | +0.33 | 4.44% | +0.0055 (t = +0.30) |
-| Naive keyword sentiment | -20.15% | 24.9% | -29.6% | -0.23% | -0.33 | 2.23% | +0.0117 (t = +0.74) |
+| Naive keyword sentiment | -20.13% | 24.9% | -29.5% | -0.22% | -0.30 | 2.23% | +0.0084 (t = +0.54) |
 | Equal-weight benchmark | -19.91% | 24.8% | -29.3% | +0.00% | +0.00 | 0.28% | - |
 
 ## 6. Crisis replay - Russia invades Ukraine (21-24 Feb 2022)
 
-39,242 documents processed in 98.1 s; 6,692 syndicated copies folded into corroboration; 7,834 judged noise.
+39,242 documents processed in 191.4 s; 6,692 syndicated copies folded into corroboration; 7,834 judged noise.
 
 ### Stress tests triggered (Module B)
 

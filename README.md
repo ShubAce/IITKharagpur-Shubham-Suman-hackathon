@@ -10,6 +10,8 @@
 
 ## 1. Project Overview / Problem Statement & Approach
 
+*New to the project? [`docs/PROJECT_GUIDE.md`](docs/PROJECT_GUIDE.md) explains it in plain language, with diagrams.*
+
 **The problem.** Markets move on news before they move on numbers, but news arrives as an unstructured,
 massively duplicated stream: the same wire story is reprinted by hundreds of outlets, most of the
 global news flow is irrelevant to any portfolio, and social media is fast but noisy. A risk team needs
@@ -69,7 +71,7 @@ runs on live feeds.
  "n_docs": 11344, "n_stories": 2522, "n_publishers": 1937,
  "impact_factors": [
    {"name": "Event type",     "points": 5.0,  "detail": "Geopolitical: base severity"},
-   {"name": "Intensity",      "points": 1.15, "detail": "extreme-severity language in 3917/9825 reports; amounts in the billions"},
+   {"name": "Intensity",      "points": 1.15, "detail": "extreme-severity language in 3916/9825 reports; amounts in the billions"},
    {"name": "Corroboration",  "points": 2.0,  "detail": "2522 independent reports across 1937 publishers"},
    {"name": "Velocity",       "points": 1.0,  "detail": "46 new reports in the last hour"},
    {"name": "Breadth",        "points": 0.25, "detail": "9 countries/regions named"},
@@ -86,7 +88,7 @@ runs on live feeds.
 | Numerics   | NumPy, pandas, SciPy                                                                                      | vectorised revaluation of the whole book in milliseconds                                                                                                        |
 | Data       | GDELT, feedparser + requests, yfinance, Kaggle / Hugging Face datasets                                    | free, keyless where possible, reproducible scripts                                                                                                              |
 | Dashboard  | plain HTML + ES modules + hand-built SVG charts                                                           | no build step, no CDN: works offline during a live pitch                                                                                                        |
-| Quality    | pytest (76 tests incl. the full replay through the API and a reproducibility check), ruff, GitHub Actions |                                                                                                                                                                 |
+| Quality    | pytest (84 tests incl. the full replay through the API and a reproducibility check), ruff, GitHub Actions |                                                                                                                                                                 |
 
 **API** (interactive docs at `http://127.0.0.1:8000/docs`): `GET /api/events`, `/api/events/{id}`,
 `/api/entities`, `/api/entities/{id}`, `/api/documents`, `/api/stream` (SSE), `POST /api/analyze`,
@@ -130,15 +132,21 @@ python main.py                    # dashboard on the Feb-2022 crisis replay -> h
 | `python main.py serve --mode live`                     | the same on live feeds (GDELT, RSS, StockTwits, Bluesky, live prices)                                 |
 | `python main.py replay`                                | run the whole replay headless and print the events, stress tests and index moves                      |
 | `python main.py analyze "Moody's cuts Boeing to junk"` | analyse one text from the command line                                                                |
-| `pytest`                                               | 76 tests: entity linking, index methodology, credit math, stress engine, pipeline, API                |
+| `pytest`                                               | 84 tests: entity linking, index methodology, credit math, stress engine, pipeline, API                |
 | `python main.py evaluate`                              | accuracy and speed of every model on held-out data                                                    |
 | `python main.py backtest --rebuild`                    | recompute the one-year Module A backtest                                                              |
+
+**Replay or live?** The default is a replay of real history because a quiet day has no event above the
+stress threshold (on 3 Oct 2026 the highest live impact was 6.3), and because history has an answer key -
+the scenario can be checked against what markets then did. Both modes can run side by side:
+`python main.py` (replay, port 8000) and `python main.py serve --mode live --port 8001` (today's feeds).
 
 Rebuilding everything from public data (optional): `pip install -r requirements-dev.txt`, then
 `python scripts/fetch_data.py`, `python main.py finetune` (8 minutes on a laptop GPU),
 `python main.py evaluate`, `python scripts/build_portfolio.py`, `python scripts/build_analog_library.py`.
 
-**Suggested 5-minute demo.** Risk radar: watch the Russia-Ukraine event climb from 7.7 to 9.9 and open its
+**Suggested 5-minute demo.** Live tab first (today's feed, nothing above 7, so no stress test) -> the
+replay. Risk radar: watch the Russia-Ukraine event climb from 7.7 to 9.9 and open its
 scorecard -> Stress lab: the escalation ladder of stress tests, the scenario's historical analogs, the
 before/after value and CET1 -> edit a shock and re-run -> Index rebalancer: JPMorgan underweighted on
 sanctions news, the weight heatmap, the rebalance log with the headline behind each trade -> Analyze text:
@@ -164,7 +172,8 @@ Full tables, generated from the result files: [`docs/RESULTS.md`](docs/RESULTS.m
 \* FinBERT was trained on PhraseBank, so its PhraseBank score is partly in-sample.
 
 **Efficiency vs. the naive and the standard approach.** On the four-day crisis replay the engine processed
-39,242 documents in 90-100 s on a laptop CPU (end to end, including clustering and both modules), folded 6,692 syndicated
+39,242 documents in 1.5-3 minutes on a laptop CPU (end to end, including clustering and both modules; 91-192 s
+across our runs, slower when the laptop was hot from hours of load) - four days of news in under three minutes - folded 6,692 syndicated
 copies into corroboration and discarded 7,834 as noise. Rolling articles up into events turned 39k
 documents into scored events of which only **14** warranted a stress test, on a 34 MB model that needs
 neither a GPU nor an API key. (Counts are from the headless replay, `python main.py replay`; in the dashboard
@@ -183,8 +192,8 @@ episode involved a war-driven supply shock from a major commodity exporter - sta
 
 **Module A backtest (Oct 2021 - Sep 2022, bear market, 20 stocks, 5 bp costs).** TREMOR-20 returned
 -19.6% vs -19.9% for the equal-weight benchmark (+0.32% a year, information ratio 0.33); the naive
-keyword-sentiment tilt lost 0.23% a year. Neither signal's daily information coefficient is statistically
-distinguishable from zero over one year (TREMOR +0.006, t = 0.3; naive +0.012, t = 0.7), and an earlier
+keyword-sentiment tilt lost 0.22% a year. Neither signal's daily information coefficient is statistically
+distinguishable from zero over one year (TREMOR +0.006, t = 0.3; naive +0.008, t = 0.5), and an earlier
 training run of the same model gave +0.63% - so the honest reading is that one year of 20 stocks cannot
 establish alpha either way. The backtest demonstrates an investable, cost-aware, look-ahead-free
 methodology; proving a durable signal needs a longer, broader sample.
@@ -203,7 +212,9 @@ history (the oil miss above) - next: condition the analog search on the commodit
 an LLM "scenario reviewer" for narrative and plausibility checks; the backtest covers one year; RSS and
 search archives give dates but not exact times; the in-process bus would become Kafka or Redis Streams in
 production; GDELT coverage is English-language here, while GDELT itself covers 100+ languages (a
-multilingual encoder is the next step).
+multilingual encoder is the next step); the encoder learned "war" as a geopolitical word, so on live feeds it
+read idioms ("a price war", "God of War") as conflict - a rule guard now reassigns idiomatic "war" to market
+commentary, and retraining with idiom examples is the proper fix.
 
 ---
 
@@ -227,7 +238,8 @@ src/tremor/
 models/tremor-encoder/     the fine-tuned model (int8 ONNX, 34 MB) and its metadata
 data/                      everything the prototype runs on (see data/README.md)
 scripts/                   data collection, replay / portfolio / analog builders, benchmarks, diagrams
-docs/                      architecture.png, RESULTS.md, results/*.json, screenshots/, presentation.pdf
+docs/                      architecture.png, PROJECT_GUIDE.md (plain-language walkthrough with diagrams),
+                           RESULTS.md, results/*.json, diagrams/, screenshots/, presentation.pdf
 tests/                     pytest suite
 ```
 

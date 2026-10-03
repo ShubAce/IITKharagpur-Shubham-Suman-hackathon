@@ -20,11 +20,32 @@ _BROKER_RATING = re.compile(
     re.IGNORECASE,
 )
 
+# The vocabulary of war used for competition: a price war is not an armed conflict. Always figurative:
+_WAR_IDIOM = re.compile(
+    r"\b(price|pricing|bidding|talent|streaming|console|culture|fare|format|flame|turf|patent|browser|cola|"
+    r"subscription|search|cloud|smartphone|delivery|grocery|discount|deposit)\s+wars?\b"
+    r"|\bgod of war\b|\bstar wars\b|\bwar (chest|room)s?\b",
+    re.IGNORECASE,
+)
+# Figurative unless the text names a country or an alliance ("a silent war" between two retailers).
+_WAR_FIGURE = re.compile(
+    r"\b(silent|secret|quiet|stealth)\s+wars?\b"
+    r"|\bwar (on|against) (inflation|cash|talent|counterfeits?|fraud|waste|costs?|prices|bots|spam)\b",
+    re.IGNORECASE,
+)
+_WAR_WORD = re.compile(r"\bwars?\b", re.IGNORECASE)
+
+
+def _drop_war(match: re.Match) -> str:
+    """Blank out only the war word, so "oil price war" still reads as oil prices."""
+    return _WAR_WORD.sub(" ", match.group(0))
+
 
 @dataclass(frozen=True)
 class CueHits:
     by_type: dict[str, int]  # event type -> number of distinct cue patterns that fired
     severity: dict[str, int]  # "extreme" | "high" | "scale" -> hit count
+    figurative_war: bool = False  # "war" only as an idiom, with nothing else geopolitical in the text
 
     @property
     def best_type(self) -> str | None:
@@ -40,10 +61,16 @@ class CueMatcher:
         }
         self._severity_patterns = {name: re.compile(p, re.IGNORECASE) for name, p in taxonomy.severity_cues.items()}
 
-    def match(self, text: str) -> CueHits:
+    def match(self, text: str, geo_anchor: bool = True) -> CueHits:
+        """``geo_anchor``: the text names a country or an alliance, which keeps "a silent war" literal."""
+        literal = text
+        if "war" in text.lower():  # cheap pre-check: every idiom contains it
+            literal = _WAR_IDIOM.sub(_drop_war, text)
+            if not geo_anchor:
+                literal = _WAR_FIGURE.sub(_drop_war, literal)
         by_type = {}
         for type_id, patterns in self._type_patterns.items():
-            hits = sum(1 for p in patterns if p.search(text))
+            hits = sum(1 for p in patterns if p.search(literal))
             if hits:
                 by_type[type_id] = hits
         if "CREDIT_EVENT" in by_type and _BROKER_RATING.search(text):
@@ -52,5 +79,6 @@ class CueMatcher:
             if by_type["CREDIT_EVENT"] <= 0:
                 del by_type["CREDIT_EVENT"]
             by_type["MARKET_COMMENTARY"] = by_type.get("MARKET_COMMENTARY", 0) + 1
-        severity = {name: len(p.findall(text)) for name, p in self._severity_patterns.items()}
-        return CueHits(by_type=by_type, severity={k: v for k, v in severity.items() if v})
+        severity = {name: len(p.findall(literal)) for name, p in self._severity_patterns.items()}
+        return CueHits(by_type=by_type, severity={k: v for k, v in severity.items() if v},
+                       figurative_war=literal != text and "GEOPOLITICAL" not in by_type)

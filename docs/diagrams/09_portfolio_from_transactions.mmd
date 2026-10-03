@@ -1,0 +1,20 @@
+flowchart TB
+  classDef src fill:#f1f3f5,stroke:#868e96,color:#1f2328
+  classDef eng fill:#e7f0fd,stroke:#2a6fdb,color:#1f2328
+  classDef modB fill:#fdeee8,stroke:#e0603a,color:#1f2328
+
+  T["<b>13.3 million card transactions</b><br/>Kaggle Financial Transactions Dataset, named in the brief"]:::src
+  P["<b>120 merchants</b><br/>a cash-flow profile of each: turnover, stability,<br/>growth, refunds, declined payments"]:::eng
+  RT["<b>Rating</b><br/>steadier cash flow, better rating<br/>mostly BB and B"]:::eng
+  SZ["<b>Loan size</b><br/>40x yearly card turnover<br/>capped at $150m"]:::eng
+  L["<b>Mid-market loans and credit lines</b><br/>to those 120 merchants"]:::modB
+  C["<b>Synthetic large-company part</b><br/>loans and bonds to big firms, incl. Russian,<br/>Chinese and Indian names; swaps, FX forwards,<br/>CDS, equity swaps, an oil swap"]:::src
+  BOOK["<b>The bank's book</b><br/>388 positions worth $22.3bn"]:::modB
+
+  T --> P
+  P --> RT
+  P --> SZ
+  RT --> L
+  SZ --> L
+  L --> BOOK
+  C --> BOOK

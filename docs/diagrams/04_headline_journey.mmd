@@ -1,0 +1,22 @@
+flowchart TB
+  classDef src fill:#f1f3f5,stroke:#868e96,color:#1f2328
+  classDef eng fill:#e7f0fd,stroke:#2a6fdb,color:#1f2328
+  classDef modA fill:#e6f6ef,stroke:#1f9d6b,color:#1f2328
+  classDef modB fill:#fdeee8,stroke:#e0603a,color:#1f2328
+  classDef out fill:#f3eefc,stroke:#7b5cd6,color:#1f2328
+
+  H["<b>A headline arrives</b><br/><i>Putin Announces Military Assault Against Ukraine in Surprise Speech</i><br/>24 Feb 2022, 05:45 UTC"]:::src
+  S0["<b>0 · Gate</b><br/>does it name a tracked company, country or commodity,<br/>or talk about risk? If not, skip it - no model cost"]:::eng
+  S1["<b>1 · Seen it before?</b><br/>an exact copy counts as extra evidence<br/>for the story it copies, not as new news"]:::eng
+  S2["<b>2 · Who is it about?</b><br/>here: Russia and Ukraine.<br/>Tricky names need context: Ford the carmaker, not a person called Ford"]:::eng
+  S3["<b>3 · The AI model reads it - one pass, four answers</b><br/>sentiment · event type (here Geopolitical) ·<br/>tone towards each company named · a meaning vector"]:::eng
+  S4["<b>4 · Which story, which event?</b><br/>same kind of event + similar meaning = same event<br/>(naming the same country helps). Here it joins the Russia-Ukraine event"]:::eng
+  S5["<b>5 · Impact score</b><br/>the event's scorecard is updated:<br/>it reached 9.4 at this moment"]:::eng
+  S6["<b>6 · Memory per company and country</b><br/>sentiment moves with new evidence and<br/>fades back to neutral when the news stops"]:::eng
+  S7["<b>7 · Published</b><br/>API · live stream · signals.jsonl"]:::out
+  A["<b>Module A</b><br/>re-weights the index"]:::modA
+  B["<b>Module B</b><br/>impact above 7: stress test"]:::modB
+
+  H --> S0 --> S1 --> S2 --> S3 --> S4 --> S5 --> S6 --> S7
+  S7 --> A
+  S7 --> B

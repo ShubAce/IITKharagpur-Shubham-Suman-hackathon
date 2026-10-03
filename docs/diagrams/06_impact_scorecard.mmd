@@ -1,0 +1,25 @@
+flowchart TB
+  classDef base fill:#f1f3f5,stroke:#868e96,color:#1f2328
+  classDef plus fill:#e7f0fd,stroke:#2a6fdb,color:#1f2328
+  classDef total fill:#fdeee8,stroke:#e0603a,color:#1f2328
+
+  subgraph ROW1[" "]
+    direction LR
+    B["<b>Kind of event</b><br/><b>5.0</b><br/>Geopolitical<br/>base severity"]:::base
+    I["<b>Severe words</b><br/><b>+1.15</b><br/>invasion, nuclear ...<br/>amounts in billions"]:::plus
+    C["<b>Independent reports</b><br/><b>+2.0</b><br/>2,522 stories from<br/>1,937 publishers"]:::plus
+    V["<b>Speed</b><br/><b>+1.0</b><br/>46 new reports<br/>in the last hour"]:::plus
+    B --> I --> C --> V
+  end
+
+  subgraph ROW2[" "]
+    direction LR
+    BR["<b>Breadth</b><br/><b>+0.25</b><br/>9 countries<br/>named"]:::plus
+    M["<b>Market link</b><br/><b>+0.5</b><br/>520 reports talk<br/>about markets"]:::plus
+    T["<b>IMPACT 9.9</b><br/>out of 10"]:::total
+    BR --> M --> T
+  end
+
+  ROW1 --> ROW2
+  style ROW1 fill:none,stroke:none
+  style ROW2 fill:none,stroke:none

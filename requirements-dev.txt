@@ -11,3 +11,6 @@ ruff>=0.5
 # Baseline comparison only (FinBERT reference numbers in the evaluation report)
 torch>=2.2
 transformers>=4.40,<5.0
+# Documentation images: dashboard screenshots and the diagrams in docs/PROJECT_GUIDE.md
+# (after installing, run once: playwright install chromium)
+playwright>=1.40

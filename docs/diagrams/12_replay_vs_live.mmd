@@ -1,0 +1,13 @@
+flowchart TB
+  classDef src fill:#f1f3f5,stroke:#868e96,color:#1f2328
+  classDef eng fill:#e7f0fd,stroke:#2a6fdb,color:#1f2328
+  classDef warn fill:#fff8e1,stroke:#c99a06,color:#1f2328
+
+  R["<b>Replay</b> - the default<br/>command: python main.py<br/>real news of 21-24 Feb 2022,<br/>played at 30 minutes per second"]:::src
+  L["<b>Live</b><br/>command: python main.py serve --mode live<br/>today's GDELT, RSS, StockTwits,<br/>Bluesky and prices"]:::src
+  E["<b>Exactly the same</b><br/>engine, Module A, Module B and dashboard"]:::eng
+  W["<b>Why the demo uses the replay</b><br/>1 · a big event is guaranteed: quiet days have nothing above 7<br/>2 · we know what markets did next, so results can be checked<br/>3 · same result every time, offline, no keys"]:::warn
+
+  R --> E
+  L --> E
+  E -.- W

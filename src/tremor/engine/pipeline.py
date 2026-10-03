@@ -21,7 +21,7 @@ import numpy as np
 from tremor.config import Settings, Taxonomy, Universe
 from tremor.engine.clustering import Cluster, EventClusterer, StoryClusterer
 from tremor.engine.state import SentimentState
-from tremor.nlp.cues import CueMatcher
+from tremor.nlp.cues import CueHits, CueMatcher
 from tremor.nlp.entities import EntityLinker, has_finance_cue
 from tremor.nlp.impact import ImpactInputs, score_impact
 from tremor.nlp.models import TextModel
@@ -51,6 +51,9 @@ class RiskEngine:
         self._entities = universe.by_id()
         self._type_ids = taxonomy.ids
         self._other = self._type_ids.index("OTHER")
+        self._geo, self._commentary = self._type_ids.index("GEOPOLITICAL"), self._type_ids.index("MARKET_COMMENTARY")
+        # Naming a country or the military alliance keeps "war" literal ("a silent war" between retailers is not).
+        self._geo_anchors = frozenset(e.id for e in universe.entities if e.type == "country") | {"NATO"}
         self._linker = EntityLinker(universe)
         self._cues = CueMatcher(taxonomy)
         self._company_ids = frozenset(e.id for e in universe.entities if e.type == "company")
@@ -158,12 +161,12 @@ class RiskEngine:
         """Stateless one-off analysis of arbitrary text (the dashboard playground). Changes nothing."""
         text = clean_text(text)
         out = self.model.predict([text])
-        hits = self._cues.match(text)
-        probs = self._fuse_cues(out.event[0], hits.by_type)
-        top = int(probs.argmax())
         doc = RawDocument(doc_id="adhoc", source="playground", kind=kind, published_at=datetime.now(timezone.utc), text=text,
                           finance_feed=kind is SourceKind.SOCIAL)
         entity_ids, surfaces = self._link(doc, text)
+        hits = self._match_cues(text, entity_ids)
+        probs = self._fuse_cues(out.event[0], hits)
+        top = int(probs.argmax())
         entity_scores = self._target_scores([text], [(entity_ids, surfaces)]).get(0, {})
         sectors = {self._entities[e].sector for e in entity_ids if self._entities[e].sector}
         regions = {e for e in entity_ids if self._entities[e].type == "country"}
@@ -199,14 +202,25 @@ class RiskEngine:
         while len(self._seen) > self.settings.engine.dedupe_cache_size:
             self._seen.popitem(last=False)
 
-    def _fuse_cues(self, probs: np.ndarray, cue_hits: dict[str, int]) -> np.ndarray:
-        """Rules as a prior: nudge the model towards event types whose cue patterns fire."""
-        if not cue_hits:
+    def _fuse_cues(self, probs: np.ndarray, hits: CueHits) -> np.ndarray:
+        """Rules as a prior: nudge the model towards event types whose cue patterns fire.
+
+        The encoder learned "war" as a strong geopolitical word, so it also reads "a price war" or "God of
+        War" that way. When "war" appears only as an idiom and nothing else in the text is geopolitical,
+        the probability it gave to Geopolitical moves to Market commentary (competition, not conflict).
+        """
+        if not hits.by_type and not hits.figurative_war:
             return probs
         fused = probs.astype(np.float64).copy()
-        for type_id, n in cue_hits.items():
+        if hits.figurative_war:
+            fused[self._commentary] += fused[self._geo]
+            fused[self._geo] = 0.0
+        for type_id, n in hits.by_type.items():
             fused[self._type_ids.index(type_id)] *= 1.0 + CUE_PRIOR_BOOST * n
         return fused / fused.sum()
+
+    def _match_cues(self, text: str, entity_ids: list[str]) -> CueHits:
+        return self._cues.match(text, geo_anchor=not self._geo_anchors.isdisjoint(entity_ids))
 
     def _link(self, doc: RawDocument, text: str) -> tuple[list[str], dict[str, str]]:
         """Entity ids in order of appearance, and the surface form each was first mentioned by."""
@@ -246,8 +260,8 @@ class RiskEngine:
     def _analyse(self, doc: RawDocument, text: str, embedding: np.ndarray, sent_probs: np.ndarray, sentiment: float,
                  event_probs: np.ndarray, entity_ids: list[str], targeted: dict[str, float],
                  ) -> tuple[DocSignal, Cluster | None, Cluster | None]:
-        cues = self._cues.match(text)
-        probs = self._fuse_cues(event_probs, cues.by_type)
+        cues = self._match_cues(text, entity_ids)
+        probs = self._fuse_cues(event_probs, cues)
         top = int(probs.argmax())
         relevance = float(1.0 - probs[self._other])
 

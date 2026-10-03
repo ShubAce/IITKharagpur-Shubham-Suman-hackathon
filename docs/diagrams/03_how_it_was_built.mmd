@@ -1,0 +1,25 @@
+flowchart TB
+  classDef step fill:#e7f0fd,stroke:#2a6fdb,color:#1f2328
+  classDef check fill:#e6f6ef,stroke:#1f9d6b,color:#1f2328
+
+  subgraph ROW1[" "]
+    direction LR
+    a["<b>1 · Read the brief</b><br/>list every requirement<br/>and how it is judged"]:::step
+    b["<b>2 · Collect public data</b><br/>news, tweets, prices,<br/>card transactions"]:::step
+    c["<b>3 · Train the AI model</b><br/>test it against simple<br/>baselines and FinBERT"]:::step
+    d["<b>4 · Build the engine</b><br/>copies, names, events,<br/>impact score, memory"]:::step
+    a --> b --> c --> d
+  end
+
+  subgraph ROW2[" "]
+    direction LR
+    e["<b>5 · Build Module A</b><br/>an index methodology<br/>with a backtest"]:::step
+    f["<b>6 · Build Module B</b><br/>a bank book, historical<br/>scenarios, credit maths"]:::step
+    g["<b>7 · API + dashboard</b><br/>live updates<br/>in the browser"]:::step
+    h["<b>8 · Prove it</b><br/>replay a real crisis, tests,<br/>results, screenshots"]:::check
+    e --> f --> g --> h
+  end
+
+  ROW1 --> ROW2
+  style ROW1 fill:none,stroke:none
+  style ROW2 fill:none,stroke:none

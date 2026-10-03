@@ -1,0 +1,30 @@
+flowchart TB
+  classDef eng fill:#e7f0fd,stroke:#2a6fdb,color:#1f2328
+  classDef modB fill:#fdeee8,stroke:#e0603a,color:#1f2328
+  classDef warn fill:#fff8e1,stroke:#c99a06,color:#1f2328
+  classDef quiet fill:#f1f3f5,stroke:#868e96,color:#1f2328
+  classDef out fill:#f3eefc,stroke:#7b5cd6,color:#1f2328
+
+  E["<b>Event signal from the engine</b><br/>event type + impact score"]:::eng
+  Q{"<b>Impact above 7?</b><br/>macro news: above 8"}:::warn
+  N["<b>No stress test</b><br/>keep watching"]:::quiet
+  NEW{"<b>New situation,<br/>or clearly worse?</b><br/>impact up 0.75, or<br/>coverage nearly doubled"}:::warn
+  A["<b>1 · Find similar past crises</b><br/>26 real episodes, 2001-2025<br/>only ones that had ended before this event"]:::modB
+  SC["<b>2 · Build the scenario</b><br/>blend how markets moved in them (26 factors)<br/>scale by impact · extra hit to the countries at the centre<br/>add oil, gas or gold moves if the news names them"]:::modB
+  RV["<b>3 · Revalue all 388 positions</b>"]:::modB
+  MK["<b>Market losses</b><br/>bonds, swaps, FX,<br/>equity, oil"]:::modB
+  CR["<b>Credit losses</b><br/>default chances rise,<br/>expected loss, downgrades"]:::modB
+  CAP["<b>Capital</b><br/>risk-weighted assets,<br/>CET1 ratio vs 9.5% minimum"]:::modB
+  D["<b>Dashboard</b><br/>value before and after · losses by channel and sector ·<br/>biggest losers · edit any shock and re-run"]:::out
+
+  E --> Q
+  Q -- no --> N
+  Q -- yes --> NEW
+  NEW -- "no: already tested" --> N
+  NEW -- yes --> A --> SC --> RV
+  RV --> MK
+  RV --> CR
+  RV --> CAP
+  MK --> D
+  CR --> D
+  CAP --> D

@@ -1,0 +1,15 @@
+flowchart TB
+  classDef src fill:#f1f3f5,stroke:#868e96,color:#1f2328
+  classDef eng fill:#e7f0fd,stroke:#2a6fdb,color:#1f2328
+  classDef out fill:#f3eefc,stroke:#7b5cd6,color:#1f2328
+  classDef good fill:#e6f6ef,stroke:#1f9d6b,color:#1f2328
+
+  DATA["<b>Labelled examples</b> - test sets kept apart<br/>Financial PhraseBank: news sentences<br/>Twitter Financial News: tweets with sentiment and topics<br/>SEntFiN: Indian news, tone per company<br/>FiQA: tone towards a named target<br/>StockTwits: posts their authors tagged bullish or bearish<br/>News searches + GDELT: extra event-type examples"]:::src
+  M["<b>Start</b><br/>a small open model<br/>BAAI bge-small, 33M parameters"]:::eng
+  FT["<b>Fine-tune once</b> on all four jobs together<br/>8 minutes on a laptop GPU"]:::eng
+  OUT["<b>One pass gives four answers</b><br/>1 · sentiment · 2 · event type, 11 kinds<br/>3 · tone per company · 4 · meaning vector for grouping"]:::out
+  X["<b>Shrink it for any laptop</b><br/>ONNX, 8-bit weights · 34 MB · CPU only<br/>about 300 headlines a second"]:::good
+
+  DATA --> FT
+  M --> FT
+  FT --> OUT --> X

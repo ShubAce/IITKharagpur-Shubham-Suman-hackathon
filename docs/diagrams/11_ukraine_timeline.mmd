@@ -1,0 +1,16 @@
+flowchart TB
+  classDef s1 fill:#fdeee8,stroke:#e0603a,color:#1f2328
+  classDef s2 fill:#fbd5c5,stroke:#e0603a,color:#1f2328
+  classDef s3 fill:#f6b59b,stroke:#d4552f,color:#1f2328
+  classDef s4 fill:#ef8f6c,stroke:#c84b26,color:#1f2328
+  classDef s5 fill:#e0603a,stroke:#b8431f,color:#ffffff
+  classDef s6 fill:#b8431f,stroke:#8f3216,color:#ffffff
+
+  t1["<b>21 Feb · 07.00 UTC · impact 7.7</b><br/>first stress test: a new situation"]:::s1
+  t2["<b>21 Feb · 11.45 UTC · impact 8.8</b><br/>the US plans to cut off targeted Russian banks"]:::s2
+  t3["<b>21 Feb · 16.45 UTC · coverage nearly doubles</b><br/>44 to 81 reports an hour"]:::s3
+  t4["<b>22 Feb · 01.00 UTC · impact 9.2</b><br/>Putin weighs recognising the separatist regions"]:::s4
+  t5["<b>24 Feb · 05.45 UTC · impact 9.4</b><br/>the invasion is announced · loss $154m · CET1 13.5% to 11.9%"]:::s5
+  t6["<b>24 Feb · 19.45 UTC · impact 9.9</b><br/>539 reports an hour · loss $160m · CET1 13.5% to 11.8%"]:::s6
+
+  t1 --> t2 --> t3 --> t4 --> t5 --> t6
