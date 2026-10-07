@@ -3,7 +3,8 @@
 The PNGs are what docs/PROJECT_GUIDE.md shows, so the diagrams display everywhere (GitHub, the
 VS Code preview, a PDF export); the .mmd files are the editable sources.
 
-    .venv-train/Scripts/python.exe scripts/render_diagrams.py
+    .venv-train/Scripts/python.exe scripts/render_diagrams.py              # all diagrams
+    .venv-train/Scripts/python.exe scripts/render_diagrams.py 06_impact    # only the ones whose name matches
 
 Needs Playwright with Chromium (as scripts/screenshots.py does) and internet access: Mermaid is
 loaded from jsDelivr.
@@ -11,6 +12,7 @@ loaded from jsDelivr.
 
 from __future__ import annotations
 
+import sys
 from pathlib import Path
 
 from playwright.sync_api import sync_playwright
@@ -54,7 +56,8 @@ PAGE = """<!doctype html>
 
 
 def main() -> None:
-    sources = sorted(DIAGRAMS.glob("*.mmd"))
+    names = sys.argv[1:]  # optional: render only the diagrams whose file name contains one of these
+    sources = [s for s in sorted(DIAGRAMS.glob("*.mmd")) if not names or any(n in s.stem for n in names)]
     with sync_playwright() as p:
         browser = p.chromium.launch()
         page = browser.new_page(device_scale_factor=2, viewport={"width": 2400, "height": 2000})
