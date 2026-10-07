@@ -1,9 +1,9 @@
 # TREMOR: Text-driven Risk Engine for Market Observation & Response - S&P Global & Crisil Campus Hackathon
 
-**Candidate Name:** Shubham Suman
-**College Email ID:** shubhamsuman@kgpian.iitkgp.ac.in
-**College / Campus:** IIT Kharagpur
-**Demo Video Link:** _to be added (YouTube, unlisted)_
+**Candidate Name:** Shubham Suman\
+**College Email ID:** shubhamsuman@kgpian.iitkgp.ac.in\
+**College / Campus:** IIT Kharagpur\
+**Demo Video Link:** _to be added (YouTube, unlisted)_\
 **Slide Deck Link (if hosted externally):** [`docs/presentation.pdf`](docs/presentation.pdf) (in this repository)
 
 ---
