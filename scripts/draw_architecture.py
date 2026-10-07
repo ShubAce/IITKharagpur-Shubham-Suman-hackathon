@@ -46,15 +46,15 @@ def main() -> None:
     fig.patch.set_facecolor("#fcfcfb")
 
     ax.text(0.02, 0.965, "TREMOR - Text-driven Risk Engine for Market Observation & Response", fontsize=17, fontweight="bold", color=INK)
-    ax.text(0.02, 0.935, "Unstructured news and social media in, structured risk signals out, consumed by a tactical index (Module A) "
-            "and a strategic stress test (Module B).", fontsize=10.5, color=MUTED)
+    ax.text(0.02, 0.935, "Unstructured news and social media in, structured risk signals out, consumed by a tactical index (Module A), "
+            "a strategic stress test (Module B) and a credit early-warning watchlist.", fontsize=10.5, color=MUTED)
 
     # ------------------------------------------------------------------ sources
     ax.text(0.02, 0.885, "SOURCES", fontsize=9, color=MUTED, fontweight="bold")
     sources = [("GDELT 2.0 (news)", ["global news, every 15 minutes", "raw GKG files, no API key"]),
                ("RSS (news)", ["Yahoo Finance per ticker,", "Google News topics, Federal Reserve"]),
-               ("StockTwits + Bluesky (social)", ["cashtag streams, no API key", "(X/Twitter API is paid)"]),
-               ("Replay packs (history)", ["real crisis windows, e.g.", "Russia-Ukraine, 21-24 Feb 2022"]),
+               ("StockTwits + Bluesky (social)", ["live cashtag streams, no API key;", "replays: tweet archive, Hacker News"]),
+               ("Replay packs (history)", ["Russia-Ukraine, 21-24 Feb 2022;", "SVB + bank contagion, 8-15 Mar 2023"]),
                ("Prices (yfinance)", ["constituents, risk factors,", "26 historical episodes"])]
     for i, (title, lines) in enumerate(sources):
         box(ax, 0.02, 0.765 - i * 0.135, 0.17, 0.11, title, lines, face="#ffffff", size=10)
@@ -68,7 +68,7 @@ def main() -> None:
     steps = [
         ("1  Gate", ["drop text naming no tracked entity / risk theme", "(~10x volume cut, zero model cost)"]),
         ("2  De-duplicate", ["fingerprint: syndicated copies = corroboration,", "not new information"]),
-        ("3  Entity linking", ["80 entities: companies, countries, central banks,", "commodities; ambiguity guard ('Ford' vs Ford Motor)"]),
+        ("3  Entity linking", ["88 entities: companies, banks, countries, central", "banks, commodities; ambiguity + context guards"]),
         ("4  One encoder, many heads (ONNX int8, CPU)", ["fine-tuned bge-small, 34 MB, ~4 ms/headline:", "embedding | sentiment | event type | entity sentiment"]),
     ]
     top, gap, h, w = 0.715, 0.118, 0.096, 0.188
@@ -78,7 +78,7 @@ def main() -> None:
         ("5  Story & event clustering", ["single-pass, online: stories (same report),", "events (related stories) -> novelty"]),
         ("6  Impact scorecard (1-10)", ["base severity + intensity + corroboration", "+ velocity + breadth + market linkage"]),
         ("7  Entity sentiment state", ["Bayesian filter with decay + uncertainty;", "news vs social divergence"]),
-        ("8  Signals", ["DocSignal / EventSignal / EntitySignal:", "sentiment -1..1, event type, impact 1-10"]),
+        ("8  Signals", ["Doc / Event / Entity signals: sentiment -1..1,", "event type, impact 1-10, price direction"]),
     ]
     for i, (title, lines) in enumerate(steps2):
         box(ax, 0.452, top - i * gap, w, h, title, lines, face="#ffffff", edge=BLUE, size=9.5)
@@ -95,40 +95,44 @@ def main() -> None:
 
     # ------------------------------------------------------------------ modules
     ax.text(0.69, 0.885, "DOWNSTREAM APPLICATIONS", fontsize=9, color=MUTED, fontweight="bold")
-    box(ax, 0.69, 0.585, 0.29, 0.285, "Module A - Tactical index rebalancer",
+    box(ax, 0.69, 0.64, 0.29, 0.23, "Module A - Tactical index rebalancer",
         ["subscribes to: entity sentiment (with uncertainty)",
-         "TREMOR-20: 20 S&P 100 stocks, 8 sectors",
-         "tilt  w ~ parent x exp(2 x sentiment)",
+         "TREMOR-20: 20 S&P 100 stocks; w ~ parent x exp(2s)",
          "caps 0.4x-2x parent, max 12%, sector bands +/-8 pts",
          "no-trade band 25 bp, turnover cap 10%, cost 5 bp",
-         "hourly + event-driven (tactical) rebalances",
-         "index units / benchmark with identical costs",
+         "hourly + event-driven rebalances vs equal weight",
          "every weight change attributed to a headline"],
         face=AQUA_WASH, edge=AQUA, title_color=INK, size=10.5)
-    box(ax, 0.69, 0.235, 0.29, 0.33, "Module B - Strategic stress test",
+    box(ax, 0.69, 0.325, 0.29, 0.295, "Module B - Strategic stress test",
         ["subscribes to: event type + impact score",
-         "trigger: Geopolitical / Credit > 7, Macro > 8; one run",
-         "  per situation, re-run on escalation",
-         "scenario: nearest historical analogs (point-in-time),",
-         "  scaled by impact + epicentre notching + text overlays",
-         "book: 388 positions, $22bn - loans from 13M card",
-         "  transactions, bonds, swaps, CDS, FX, equity TRS",
-         "credit: Vasicek PD shift, downturn LGD, IFRS 9 ECL",
-         "capital: Basel IRB RWA, CET1 before -> after"],
+         "trigger: Geopolitical / Credit > 7, Macro > 8, per situation",
+         "scenario: closest analogs (point-in-time), credibility-",
+         "  weighted with the average crisis, scaled by impact;",
+         "  prices the reports say are moving override history",
+         "book: 388 positions, $22bn (loans from 13M card txns)",
+         "Vasicek PD, IFRS 9 ECL, Basel IRB RWA, CET1 -> risk memo",
+         "  (optional LLM summary: guarded, off by default)",
+         "backtest, 21 crises: 88% of directions right (naive 35%)"],
         face=ORANGE_WASH, edge=ORANGE, title_color=INK, size=10.5)
-    arrow(ax, 0.64, 0.25, 0.69, 0.66, label="entity", color=AQUA, rad=0.15)
-    arrow(ax, 0.64, 0.24, 0.69, 0.36, label="event", color=ORANGE, rad=-0.1)
+    box(ax, 0.69, 0.165, 0.29, 0.14, "Credit early-warning watchlist",
+        ["subscribes to: events + the entity sentiment state",
+         "points scorecard -> Watch Negative / Monitor, exposure",
+         "lead time measured against public rating actions"],
+        face="#f6eefb", edge="#8a5cc4", title_color=INK, size=10.5)
+    arrow(ax, 0.64, 0.25, 0.69, 0.72, label="entity", color=AQUA, rad=0.15)
+    arrow(ax, 0.64, 0.245, 0.69, 0.45, label="event", color=ORANGE, rad=-0.05)
+    arrow(ax, 0.64, 0.235, 0.69, 0.235, color="#8a5cc4")
 
-    box(ax, 0.69, 0.06, 0.29, 0.14, "Dashboard (no build step)",
-        ["risk radar - index rebalancer - stress lab -", "analyze any text - model & results", "live via server-sent events; light / dark"],
+    box(ax, 0.69, 0.03, 0.29, 0.115, "Dashboard (no build step)",
+        ["radar - index - stress lab - credit watch - analyze -", "results; live via server-sent events; light / dark"],
         face="#ffffff", size=10.5)
-    arrow(ax, 0.835, 0.235, 0.835, 0.2, color=MUTED)
+    arrow(ax, 0.835, 0.165, 0.835, 0.147, color=MUTED)
 
     # ------------------------------------------------------------------ offline
-    box(ax, 0.02, 0.06, 0.635, 0.12, "Offline: training, calibration, evaluation  (python main.py finetune | evaluate | backtest)",
+    box(ax, 0.02, 0.06, 0.635, 0.12, "Offline: training, evaluation, validation  (python main.py finetune | evaluate | backtest | validate | impact)",
         ["public labelled data (PhraseBank, TFNS, FiQA, SEntFiN, StockTwits self-labels, topic tweets) + weak labels (news searches, GDELT)",
-         "-> multi-task fine-tune on a laptop GPU (8 min) with embedding distillation -> ONNX int8 -> held-out evaluation vs keyword baseline,",
-         "frozen-encoder probe and FinBERT; one-year two-source backtest of Module A; analog shock library measured from market data"],
+         "-> multi-task fine-tune (8 min, laptop GPU) with embedding distillation -> ONNX int8 -> held-out evaluation vs keyword baseline, FinBERT;",
+         "Module A backtest; point-in-time scenario backtest (21 crises); impact event study vs market moves; price-direction check"],
         face=GRAY_WASH, size=10)
     arrow(ax, 0.215, 0.185, 0.236, top - 3 * gap + h / 2, label="", color=MUTED, rad=-0.3)
     ax.text(0.205, 0.255, "fine-tuned model", fontsize=8, color=MUTED, ha="center", rotation=90)

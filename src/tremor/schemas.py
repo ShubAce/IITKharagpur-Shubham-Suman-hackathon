@@ -64,6 +64,7 @@ class DocSignal(BaseModel):
     entities: list[str] = Field(default_factory=list)
     sentiment_score: float  # -1 .. 1, document level
     entity_sentiment: dict[str, float] = Field(default_factory=dict)  # -1 .. 1 per mentioned entity
+    price_moves: dict[str, int] = Field(default_factory=dict)  # price entity -> +1 / -1: which way the text says it moves
     sentiment_confidence: float
     event_type: str
     event_confidence: float
@@ -131,6 +132,9 @@ class EventSignal(BaseModel):
     reports_last_hour: int = 0
     entity_sentiment: dict[str, float] = Field(default_factory=dict)  # how the reports talk about each named entity
     entity_mentions: dict[str, int] = Field(default_factory=dict)
+    # Direction, not tone: how many reports say each named price (oil, gas, gold, the stock market) is rising
+    # or falling - "oil soars on war fears" is negative in tone but says oil is going up.
+    price_moves: dict[str, dict[str, int]] = Field(default_factory=dict)  # e.g. {"OIL": {"up": 31, "down": 4}}
     stories: list[StoryBrief] = Field(default_factory=list)  # most widely reported sub-stories
     evidence: list[Evidence] = Field(default_factory=list)  # individual documents (first and latest)
 

@@ -1,5 +1,5 @@
 # Runtime dependencies: everything needed to run the engine, both modules and the dashboard.
-# Deliberately light - no PyTorch, no GPU, no API keys. Tested on Python 3.12 / Windows 11.
+# Deliberately light - no PyTorch, no GPU, no API keys. Tested on Python 3.10 and 3.12 (Windows 11, Ubuntu).
 fastapi>=0.110,<1.0
 uvicorn>=0.29,<1.0
 pydantic>=2.6,<3.0

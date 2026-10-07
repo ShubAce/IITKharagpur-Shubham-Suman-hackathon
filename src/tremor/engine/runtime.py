@@ -3,6 +3,7 @@
     sources (poll loops) --docs--> RiskEngine --signals--> Bus
                                                           |-- "entity" --> Module A (SentimentIndex)
                                                           |-- "event"  --> Module B (StressMonitor)
+                                                          |-- "event"  --> credit early-warning watchlist (CreditWatch)
                                                           '-- every topic --> SignalStore (API, JSONL file) and SSE clients
 
 Downstream modules *subscribe* to signal topics exactly as the brief describes; the in-process
@@ -29,6 +30,7 @@ from tremor.modules.rebalancer.index import IndexConfig, PriceBook, SentimentInd
 from tremor.modules.stress.engine import StressMonitor, StressResult
 from tremor.modules.stress.portfolio import load_portfolio
 from tremor.modules.stress.scenarios import ScenarioLibrary
+from tremor.modules.watchlist import CreditWatch
 from tremor.nlp.cues import CueMatcher
 from tremor.nlp.entities import EntityLinker
 from tremor.nlp.models import TextModel
@@ -160,7 +162,7 @@ class Runtime:
                  sources: list[Source], prices: PriceBook | None = None, mode: str = "replay"):
         self.settings, self.universe, self.taxonomy, self.model, self.mode = settings, universe, taxonomy, model, mode
         self.sources = sources
-        self.bus = Bus()
+        self.bus = Bus()  # one per runtime: a restarted replay never receives the old run's signals
         self.store: SignalStore | None = None
         self._lock = threading.Lock()
         self.busy = False  # True while a batch is being analysed
@@ -173,14 +175,17 @@ class Runtime:
         self.engine = RiskEngine(self.settings, self.universe, self.taxonomy, self.model)
         self.index = SentimentIndex(self.universe, IndexConfig(), prices)
         self.library = ScenarioLibrary(encode=lambda texts: self.model.predict(texts).embeddings)
-        self.stress = StressMonitor(load_portfolio(), self.library, threshold=self.settings.impact.trigger_threshold,
+        book = load_portfolio()
+        self.stress = StressMonitor(book, self.library, threshold=self.settings.impact.trigger_threshold,
                                     retrigger_delta=self.settings.impact.retrigger_delta)
+        self.watch = CreditWatch(self.universe, book, window_hours=self.settings.clustering.window_hours)
         if getattr(self, "store", None) is not None:
             self.store.close()
         self.store = SignalStore()
         self.bus._subscribers.clear()
         self.bus.subscribe("entity", self._on_entity)  # Module A subscribes to sentiment
         self.bus.subscribe("event", self._on_event)  # Module B subscribes to event type + impact
+        self.bus.subscribe("event", self.watch.on_event)  # the watchlist reads events (and the entity state after each batch)
 
     # ------------------------------------------------------------------ subscriptions
     def _on_entity(self, sig: EntitySignal) -> None:
@@ -224,6 +229,9 @@ class Runtime:
                 self.bus.broadcast("index", record)
             else:
                 self.index.mark(now)
+            changes = self.watch.update(self.engine, self.store, now, self.stress)
+            if changes:
+                self.bus.broadcast("watch", changes)
         top = sorted(merged.events, key=lambda e: -e.impact_score)[:20]
         self.bus.broadcast("batch", {
             "clock": now.isoformat() if now else None, "counters": self.store.counters,

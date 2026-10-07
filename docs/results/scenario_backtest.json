@@ -1,0 +1,6103 @@
+{
+  "description": "Is the scenario generator any good? A point-in-time backtest on real crises.",
+  "methods": {
+    "naive": "Naive fixed shock (the brief's example)",
+    "template": "Expert template per event type",
+    "all_mean": "Average of all earlier crises",
+    "same_type_mean": "Average of earlier crises of the same type",
+    "nearest": "Closest analogs alone",
+    "tremor": "TREMOR (analogs, credibility-weighted)"
+  },
+  "headline_factors": [
+    "EQ_US",
+    "EQ_EU",
+    "EQ_EM",
+    "EQ_IN",
+    "IR_USD_10Y",
+    "CS_IG",
+    "CS_HY",
+    "CS_EM",
+    "FX_EUR",
+    "FX_JPY",
+    "CMD_OIL",
+    "CMD_GOLD",
+    "VOL_VIX"
+  ],
+  "materiality": {
+    "pct": 1.0,
+    "bp": 5.0,
+    "pts": 1.0
+  },
+  "naive_shock": {
+    "EQ_US": -10.0,
+    "EQ_EU": -10.0,
+    "EQ_EM": -10.0,
+    "EQ_IN": -10.0,
+    "IR_USD_5Y": 200.0,
+    "IR_USD_10Y": 200.0
+  },
+  "min_prior": 4,
+  "episodes": [
+    {
+      "episode_id": "us_downgrade_2011",
+      "title": "US sovereign downgrade and euro crisis",
+      "event_type": "CREDIT_EVENT",
+      "start": "2011-07-22",
+      "headline": "Debt-ceiling talks collapse in Washington, raising the risk of a US default and downgrade",
+      "n_prior": 4,
+      "realised": {
+        "EQ_US": -16.67,
+        "EQ_EU": -22.32,
+        "EQ_EM": -17.88,
+        "EQ_IN": -8.39,
+        "IR_USD_10Y": -82.7,
+        "CS_IG": 50.82,
+        "CS_HY": 279.34,
+        "CS_EM": 97.55,
+        "FX_EUR": -0.26,
+        "FX_JPY": 1.99,
+        "CMD_OIL": -17.0,
+        "CMD_GOLD": 11.24,
+        "VOL_VIX": 25.47
+      },
+      "realised_pnl_musd": -239.5,
+      "realised_cet1_after": 9.73,
+      "methods": {
+        "naive": {
+          "hits": 4,
+          "scored": 12,
+          "factor_hits": {
+            "EQ_US": true,
+            "EQ_EU": true,
+            "EQ_EM": true,
+            "EQ_IN": true,
+            "IR_USD_10Y": false,
+            "CS_IG": false,
+            "CS_HY": false,
+            "CS_EM": false,
+            "FX_JPY": false,
+            "CMD_OIL": false,
+            "CMD_GOLD": false,
+            "VOL_VIX": false
+          },
+          "pnl_musd": -581.3,
+          "pnl_error_musd": 341.8,
+          "cet1_after": 8.46,
+          "cet1_error_pp": 1.27,
+          "shocks": {
+            "EQ_US": -10.0,
+            "EQ_EU": -10.0,
+            "EQ_EM": -10.0,
+            "EQ_IN": -10.0,
+            "IR_USD_10Y": 200.0,
+            "CS_IG": null,
+            "CS_HY": null,
+            "CS_EM": null,
+            "FX_EUR": null,
+            "FX_JPY": null,
+            "CMD_OIL": null,
+            "CMD_GOLD": null,
+            "VOL_VIX": null
+          }
+        },
+        "template": {
+          "hits": 12,
+          "scored": 12,
+          "factor_hits": {
+            "EQ_US": true,
+            "EQ_EU": true,
+            "EQ_EM": true,
+            "EQ_IN": true,
+            "IR_USD_10Y": true,
+            "CS_IG": true,
+            "CS_HY": true,
+            "CS_EM": true,
+            "FX_JPY": true,
+            "CMD_OIL": true,
+            "CMD_GOLD": true,
+            "VOL_VIX": true
+          },
+          "pnl_musd": -618.2,
+          "pnl_error_musd": 378.6,
+          "cet1_after": 7.43,
+          "cet1_error_pp": 2.3,
+          "shocks": {
+            "EQ_US": -15,
+            "EQ_EU": -18,
+            "EQ_EM": -18,
+            "EQ_IN": -12,
+            "IR_USD_10Y": -40,
+            "CS_IG": 120,
+            "CS_HY": 400,
+            "CS_EM": 300,
+            "FX_EUR": -5,
+            "FX_JPY": 5,
+            "CMD_OIL": -20,
+            "CMD_GOLD": 5,
+            "VOL_VIX": 25
+          }
+        },
+        "all_mean": {
+          "hits": 11,
+          "scored": 12,
+          "factor_hits": {
+            "EQ_US": true,
+            "EQ_EU": true,
+            "EQ_EM": true,
+            "EQ_IN": true,
+            "IR_USD_10Y": true,
+            "CS_IG": true,
+            "CS_HY": true,
+            "CS_EM": true,
+            "FX_JPY": true,
+            "CMD_OIL": false,
+            "CMD_GOLD": true,
+            "VOL_VIX": true
+          },
+          "pnl_musd": -200.2,
+          "pnl_error_musd": 39.4,
+          "cet1_after": 10.7,
+          "cet1_error_pp": 0.97,
+          "shocks": {
+            "EQ_US": -9.27,
+            "EQ_EU": -11.27,
+            "EQ_EM": -9.39,
+            "EQ_IN": -11.66,
+            "IR_USD_10Y": -19.8,
+            "CS_IG": 37.8,
+            "CS_HY": 138.98,
+            "CS_EM": 52.01,
+            "FX_EUR": -1.19,
+            "FX_JPY": 1.73,
+            "CMD_OIL": 4.77,
+            "CMD_GOLD": 6.85,
+            "VOL_VIX": 10.59
+          }
+        },
+        "same_type_mean": {
+          "hits": 12,
+          "scored": 12,
+          "factor_hits": {
+            "EQ_US": true,
+            "EQ_EU": true,
+            "EQ_EM": true,
+            "EQ_IN": true,
+            "IR_USD_10Y": true,
+            "CS_IG": true,
+            "CS_HY": true,
+            "CS_EM": true,
+            "FX_JPY": true,
+            "CMD_OIL": true,
+            "CMD_GOLD": true,
+            "VOL_VIX": true
+          },
+          "pnl_musd": -198.2,
+          "pnl_error_musd": 41.3,
+          "cet1_after": 10.57,
+          "cet1_error_pp": 0.84,
+          "shocks": {
+            "EQ_US": -11.77,
+            "EQ_EU": -14.72,
+            "EQ_EM": -15.12,
+            "EQ_IN": -9.38,
+            "IR_USD_10Y": -65.9,
+            "CS_IG": 56.08,
+            "CS_HY": 212.45,
+            "CS_EM": 121.44,
+            "FX_EUR": -7.76,
+            "FX_JPY": 4.01,
+            "CMD_OIL": -19.23,
+            "CMD_GOLD": 3.88,
+            "VOL_VIX": 17.99
+          }
+        },
+        "nearest": {
+          "hits": "12",
+          "scored": 12,
+          "factor_hits": {
+            "EQ_US": "True",
+            "EQ_EU": "True",
+            "EQ_EM": "True",
+            "EQ_IN": "True",
+            "IR_USD_10Y": "True",
+            "CS_IG": "True",
+            "CS_HY": "True",
+            "CS_EM": "True",
+            "FX_JPY": "True",
+            "CMD_OIL": "True",
+            "CMD_GOLD": "True",
+            "VOL_VIX": "True"
+          },
+          "pnl_musd": -204.9,
+          "pnl_error_musd": 34.6,
+          "cet1_after": 10.52,
+          "cet1_error_pp": 0.79,
+          "shocks": {
+            "EQ_US": -11.78,
+            "EQ_EU": -14.76,
+            "EQ_EM": -15.04,
+            "EQ_IN": -9.7,
+            "IR_USD_10Y": -63.69,
+            "CS_IG": 55.9,
+            "CS_HY": 211.61,
+            "CS_EM": 118.92,
+            "FX_EUR": -7.5,
+            "FX_JPY": 3.85,
+            "CMD_OIL": -17.98,
+            "CMD_GOLD": 4.12,
+            "VOL_VIX": 17.75
+          },
+          "analogs": [
+            {
+              "episode_id": "euro_sovereign_2010",
+              "title": "Greek debt crisis and euro-area contagion",
+              "weight": 0.974,
+              "similarity": 0.68
+            },
+            {
+              "episode_id": "oil_spike_2008",
+              "title": "Oil price spike to $147",
+              "weight": 0.026,
+              "similarity": 0.456
+            }
+          ]
+        },
+        "tremor": {
+          "hits": "12",
+          "scored": 12,
+          "factor_hits": {
+            "EQ_US": "True",
+            "EQ_EU": "True",
+            "EQ_EM": "True",
+            "EQ_IN": "True",
+            "IR_USD_10Y": "True",
+            "CS_IG": "True",
+            "CS_HY": "True",
+            "CS_EM": "True",
+            "FX_JPY": "True",
+            "CMD_OIL": "True",
+            "CMD_GOLD": "True",
+            "VOL_VIX": "True"
+          },
+          "pnl_musd": -202.8,
+          "pnl_error_musd": 36.7,
+          "cet1_after": 10.61,
+          "cet1_error_pp": 0.88,
+          "shocks": {
+            "EQ_US": -10.52,
+            "EQ_EU": -13.02,
+            "EQ_EM": -12.21,
+            "EQ_IN": -10.68,
+            "IR_USD_10Y": -41.74,
+            "CS_IG": 46.85,
+            "CS_HY": 175.3,
+            "CS_EM": 85.47,
+            "FX_EUR": -4.35,
+            "FX_JPY": 2.79,
+            "CMD_OIL": -6.61,
+            "CMD_GOLD": 5.49,
+            "VOL_VIX": 14.17
+          },
+          "analogs": [
+            {
+              "episode_id": "euro_sovereign_2010",
+              "title": "Greek debt crisis and euro-area contagion",
+              "weight": 0.974,
+              "similarity": 0.68
+            },
+            {
+              "episode_id": "oil_spike_2008",
+              "title": "Oil price spike to $147",
+              "weight": 0.026,
+              "similarity": 0.456
+            }
+          ]
+        }
+      }
+    },
+    {
+      "episode_id": "taper_tantrum_2013",
+      "title": "Taper tantrum",
+      "event_type": "MACROECONOMIC",
+      "start": "2013-05-21",
+      "headline": "Bernanke says the Fed could scale back its bond purchases in the next few meetings",
+      "n_prior": 5,
+      "realised": {
+        "EQ_US": -5.76,
+        "EQ_EU": -10.98,
+        "EQ_EM": -15.63,
+        "EQ_IN": -8.57,
+        "IR_USD_10Y": 60.4,
+        "CS_IG": 26.68,
+        "CS_HY": 105.3,
+        "CS_EM": 111.32,
+        "FX_EUR": 1.66,
+        "FX_JPY": 3.8,
+        "CMD_OIL": -1.02,
+        "CMD_GOLD": -7.33,
+        "VOL_VIX": 6.74
+      },
+      "realised_pnl_musd": -366.4,
+      "realised_cet1_after": 10.11,
+      "methods": {
+        "naive": {
+          "hits": 5,
+          "scored": 13,
+          "factor_hits": {
+            "EQ_US": true,
+            "EQ_EU": true,
+            "EQ_EM": true,
+            "EQ_IN": true,
+            "IR_USD_10Y": true,
+            "CS_IG": false,
+            "CS_HY": false,
+            "CS_EM": false,
+            "FX_EUR": false,
+            "FX_JPY": false,
+            "CMD_OIL": false,
+            "CMD_GOLD": false,
+            "VOL_VIX": false
+          },
+          "pnl_musd": -581.3,
+          "pnl_error_musd": 214.9,
+          "cet1_after": 8.46,
+          "cet1_error_pp": 1.65,
+          "shocks": {
+            "EQ_US": -10.0,
+            "EQ_EU": -10.0,
+            "EQ_EM": -10.0,
+            "EQ_IN": -10.0,
+            "IR_USD_10Y": 200.0,
+            "CS_IG": null,
+            "CS_HY": null,
+            "CS_EM": null,
+            "FX_EUR": null,
+            "FX_JPY": null,
+            "CMD_OIL": null,
+            "CMD_GOLD": null,
+            "VOL_VIX": null
+          }
+        },
+        "template": {
+          "hits": 11,
+          "scored": 13,
+          "factor_hits": {
+            "EQ_US": true,
+            "EQ_EU": true,
+            "EQ_EM": true,
+            "EQ_IN": true,
+            "IR_USD_10Y": true,
+            "CS_IG": true,
+            "CS_HY": true,
+            "CS_EM": true,
+            "FX_EUR": false,
+            "FX_JPY": false,
+            "CMD_OIL": true,
+            "CMD_GOLD": true,
+            "VOL_VIX": true
+          },
+          "pnl_musd": -545.0,
+          "pnl_error_musd": 178.6,
+          "cet1_after": 8.57,
+          "cet1_error_pp": 1.54,
+          "shocks": {
+            "EQ_US": -10,
+            "EQ_EU": -10,
+            "EQ_EM": -12,
+            "EQ_IN": -8,
+            "IR_USD_10Y": 75,
+            "CS_IG": 50,
+            "CS_HY": 200,
+            "CS_EM": 150,
+            "FX_EUR": -3,
+            "FX_JPY": -5,
+            "CMD_OIL": -10,
+            "CMD_GOLD": -3,
+            "VOL_VIX": 10
+          }
+        },
+        "all_mean": {
+          "hits": 9,
+          "scored": 13,
+          "factor_hits": {
+            "EQ_US": true,
+            "EQ_EU": true,
+            "EQ_EM": true,
+            "EQ_IN": true,
+            "IR_USD_10Y": false,
+            "CS_IG": true,
+            "CS_HY": true,
+            "CS_EM": true,
+            "FX_EUR": false,
+            "FX_JPY": true,
+            "CMD_OIL": false,
+            "CMD_GOLD": false,
+            "VOL_VIX": true
+          },
+          "pnl_musd": -205.8,
+          "pnl_error_musd": 160.6,
+          "cet1_after": 10.51,
+          "cet1_error_pp": 0.4,
+          "shocks": {
+            "EQ_US": -10.75,
+            "EQ_EU": -14.03,
+            "EQ_EM": -11.51,
+            "EQ_IN": -10.84,
+            "IR_USD_10Y": -32.38,
+            "CS_IG": 41.06,
+            "CS_HY": 174.07,
+            "CS_EM": 63.4,
+            "FX_EUR": -0.96,
+            "FX_JPY": 1.78,
+            "CMD_OIL": 0.41,
+            "CMD_GOLD": 7.73,
+            "VOL_VIX": 13.57
+          }
+        },
+        "same_type_mean": {
+          "hits": 10,
+          "scored": 13,
+          "factor_hits": {
+            "EQ_US": true,
+            "EQ_EU": true,
+            "EQ_EM": true,
+            "EQ_IN": true,
+            "IR_USD_10Y": true,
+            "CS_IG": true,
+            "CS_HY": true,
+            "CS_EM": true,
+            "FX_EUR": true,
+            "FX_JPY": false,
+            "CMD_OIL": false,
+            "CMD_GOLD": false,
+            "VOL_VIX": true
+          },
+          "pnl_musd": -686.8,
+          "pnl_error_musd": 320.4,
+          "cet1_after": 6.99,
+          "cet1_error_pp": 3.12,
+          "shocks": {
+            "EQ_US": -12.05,
+            "EQ_EU": -16.4,
+            "EQ_EM": -11.93,
+            "EQ_IN": -21.62,
+            "IR_USD_10Y": 19.1,
+            "CS_IG": 49.06,
+            "CS_HY": 180.16,
+            "CS_EM": 24.52,
+            "FX_EUR": 2.09,
+            "FX_JPY": -2.13,
+            "CMD_OIL": 28.94,
+            "CMD_GOLD": 13.03,
+            "VOL_VIX": 8.61
+          }
+        },
+        "nearest": {
+          "hits": "10",
+          "scored": 13,
+          "factor_hits": {
+            "EQ_US": "True",
+            "EQ_EU": "True",
+            "EQ_EM": "True",
+            "EQ_IN": "True",
+            "IR_USD_10Y": "False",
+            "CS_IG": "True",
+            "CS_HY": "True",
+            "CS_EM": "True",
+            "FX_EUR": "False",
+            "FX_JPY": "True",
+            "CMD_OIL": "True",
+            "CMD_GOLD": "False",
+            "VOL_VIX": "True"
+          },
+          "pnl_musd": -250.9,
+          "pnl_error_musd": 115.5,
+          "cet1_after": 9.97,
+          "cet1_error_pp": 0.14,
+          "shocks": {
+            "EQ_US": -13.53,
+            "EQ_EU": -18.58,
+            "EQ_EM": -16.52,
+            "EQ_IN": -8.88,
+            "IR_USD_10Y": -58.12,
+            "CS_IG": 53.41,
+            "CS_HY": 246.45,
+            "CS_EM": 109.3,
+            "FX_EUR": -3.95,
+            "FX_JPY": 3.23,
+            "CMD_OIL": -14.8,
+            "CMD_GOLD": 7.58,
+            "VOL_VIX": 18.8
+          },
+          "analogs": [
+            {
+              "episode_id": "us_downgrade_2011",
+              "title": "US sovereign downgrade and euro crisis",
+              "weight": 0.37,
+              "similarity": 0.61
+            },
+            {
+              "episode_id": "euro_sovereign_2010",
+              "title": "Greek debt crisis and euro-area contagion",
+              "weight": 0.358,
+              "similarity": 0.607
+            },
+            {
+              "episode_id": "sep11_2001",
+              "title": "September 11 attacks",
+              "weight": 0.273,
+              "similarity": 0.585
+            }
+          ]
+        },
+        "tremor": {
+          "hits": "10",
+          "scored": 13,
+          "factor_hits": {
+            "EQ_US": "True",
+            "EQ_EU": "True",
+            "EQ_EM": "True",
+            "EQ_IN": "True",
+            "IR_USD_10Y": "False",
+            "CS_IG": "True",
+            "CS_HY": "True",
+            "CS_EM": "True",
+            "FX_EUR": "False",
+            "FX_JPY": "True",
+            "CMD_OIL": "True",
+            "CMD_GOLD": "False",
+            "VOL_VIX": "True"
+          },
+          "pnl_musd": -229.0,
+          "pnl_error_musd": 137.4,
+          "cet1_after": 10.24,
+          "cet1_error_pp": 0.13,
+          "shocks": {
+            "EQ_US": -12.14,
+            "EQ_EU": -16.31,
+            "EQ_EM": -14.02,
+            "EQ_IN": -9.86,
+            "IR_USD_10Y": -45.25,
+            "CS_IG": 47.23,
+            "CS_HY": 210.26,
+            "CS_EM": 86.35,
+            "FX_EUR": -2.45,
+            "FX_JPY": 2.5,
+            "CMD_OIL": -7.19,
+            "CMD_GOLD": 7.66,
+            "VOL_VIX": 16.18
+          },
+          "analogs": [
+            {
+              "episode_id": "us_downgrade_2011",
+              "title": "US sovereign downgrade and euro crisis",
+              "weight": 0.37,
+              "similarity": 0.61
+            },
+            {
+              "episode_id": "euro_sovereign_2010",
+              "title": "Greek debt crisis and euro-area contagion",
+              "weight": 0.358,
+              "similarity": 0.607
+            },
+            {
+              "episode_id": "sep11_2001",
+              "title": "September 11 attacks",
+              "weight": 0.273,
+              "similarity": 0.585
+            }
+          ]
+        }
+      }
+    },
+    {
+      "episode_id": "crimea_2014",
+      "title": "Russia annexes Crimea",
+      "event_type": "GEOPOLITICAL",
+      "start": "2014-02-28",
+      "headline": "Russian forces seize Crimea as Moscow moves to annex the Ukrainian peninsula",
+      "n_prior": 6,
+      "realised": {
+        "EQ_US": -0.99,
+        "EQ_EU": -4.59,
+        "EQ_EM": -2.74,
+        "EQ_IN": 3.62,
+        "IR_USD_10Y": -1.3,
+        "CS_IG": 7.98,
+        "CS_HY": 18.86,
+        "CS_EM": 14.63,
+        "FX_EUR": 1.15,
+        "FX_JPY": 0.32,
+        "CMD_OIL": -3.61,
+        "CMD_GOLD": 4.36,
+        "VOL_VIX": 3.82
+      },
+      "realised_pnl_musd": -14.5,
+      "realised_cet1_after": 13.23,
+      "methods": {
+        "naive": {
+          "hits": 2,
+          "scored": 10,
+          "factor_hits": {
+            "EQ_EU": true,
+            "EQ_EM": true,
+            "EQ_IN": false,
+            "CS_IG": false,
+            "CS_HY": false,
+            "CS_EM": false,
+            "FX_EUR": false,
+            "CMD_OIL": false,
+            "CMD_GOLD": false,
+            "VOL_VIX": false
+          },
+          "pnl_musd": -581.3,
+          "pnl_error_musd": 566.9,
+          "cet1_after": 8.46,
+          "cet1_error_pp": 4.77,
+          "shocks": {
+            "EQ_US": -10.0,
+            "EQ_EU": -10.0,
+            "EQ_EM": -10.0,
+            "EQ_IN": -10.0,
+            "IR_USD_10Y": 200.0,
+            "CS_IG": null,
+            "CS_HY": null,
+            "CS_EM": null,
+            "FX_EUR": null,
+            "FX_JPY": null,
+            "CMD_OIL": null,
+            "CMD_GOLD": null,
+            "VOL_VIX": null
+          }
+        },
+        "template": {
+          "hits": 7,
+          "scored": 10,
+          "factor_hits": {
+            "EQ_EU": true,
+            "EQ_EM": true,
+            "EQ_IN": false,
+            "CS_IG": true,
+            "CS_HY": true,
+            "CS_EM": true,
+            "FX_EUR": false,
+            "CMD_OIL": false,
+            "CMD_GOLD": true,
+            "VOL_VIX": true
+          },
+          "pnl_musd": -259.7,
+          "pnl_error_musd": 245.3,
+          "cet1_after": 10.59,
+          "cet1_error_pp": 2.64,
+          "shocks": {
+            "EQ_US": -8,
+            "EQ_EU": -12,
+            "EQ_EM": -12,
+            "EQ_IN": -8,
+            "IR_USD_10Y": -20,
+            "CS_IG": 40,
+            "CS_HY": 150,
+            "CS_EM": 120,
+            "FX_EUR": -4,
+            "FX_JPY": 3,
+            "CMD_OIL": 30,
+            "CMD_GOLD": 8,
+            "VOL_VIX": 12
+          }
+        },
+        "all_mean": {
+          "hits": 7,
+          "scored": 10,
+          "factor_hits": {
+            "EQ_EU": true,
+            "EQ_EM": true,
+            "EQ_IN": false,
+            "CS_IG": true,
+            "CS_HY": true,
+            "CS_EM": true,
+            "FX_EUR": false,
+            "CMD_OIL": false,
+            "CMD_GOLD": true,
+            "VOL_VIX": true
+          },
+          "pnl_musd": -226.9,
+          "pnl_error_musd": 212.5,
+          "cet1_after": 10.49,
+          "cet1_error_pp": 2.74,
+          "shocks": {
+            "EQ_US": -9.92,
+            "EQ_EU": -13.42,
+            "EQ_EM": -12.34,
+            "EQ_IN": -10.39,
+            "IR_USD_10Y": -16.92,
+            "CS_IG": 38.18,
+            "CS_HY": 160.32,
+            "CS_EM": 72.98,
+            "FX_EUR": -0.43,
+            "FX_JPY": 2.12,
+            "CMD_OIL": 0.18,
+            "CMD_GOLD": 5.22,
+            "VOL_VIX": 12.43
+          }
+        },
+        "same_type_mean": {
+          "hits": 8,
+          "scored": 10,
+          "factor_hits": {
+            "EQ_EU": true,
+            "EQ_EM": true,
+            "EQ_IN": false,
+            "CS_IG": true,
+            "CS_HY": true,
+            "CS_EM": true,
+            "FX_EUR": true,
+            "CMD_OIL": false,
+            "CMD_GOLD": true,
+            "VOL_VIX": true
+          },
+          "pnl_musd": 6.3,
+          "pnl_error_musd": 20.7,
+          "cet1_after": 12.64,
+          "cet1_error_pp": 0.59,
+          "shocks": {
+            "EQ_US": -6.62,
+            "EQ_EU": -2.68,
+            "EQ_EM": -1.12,
+            "EQ_IN": -3.98,
+            "IR_USD_10Y": -16.2,
+            "CS_IG": 8.27,
+            "CS_HY": 24.34,
+            "CS_EM": 10.08,
+            "FX_EUR": 2.1,
+            "FX_JPY": 2.52,
+            "CMD_OIL": 4.68,
+            "CMD_GOLD": 5.25,
+            "VOL_VIX": 7.88
+          }
+        },
+        "nearest": {
+          "hits": "8",
+          "scored": 10,
+          "factor_hits": {
+            "EQ_EU": "True",
+            "EQ_EM": "True",
+            "EQ_IN": "False",
+            "CS_IG": "True",
+            "CS_HY": "True",
+            "CS_EM": "True",
+            "FX_EUR": "True",
+            "CMD_OIL": "False",
+            "CMD_GOLD": "True",
+            "VOL_VIX": "True"
+          },
+          "pnl_musd": -42.3,
+          "pnl_error_musd": 27.8,
+          "cet1_after": 12.48,
+          "cet1_error_pp": 0.75,
+          "shocks": {
+            "EQ_US": -4.91,
+            "EQ_EU": -3.92,
+            "EQ_EM": -3.29,
+            "EQ_IN": -4.66,
+            "IR_USD_10Y": -8.53,
+            "CS_IG": 11.02,
+            "CS_HY": 36.42,
+            "CS_EM": 25.19,
+            "FX_EUR": 2.03,
+            "FX_JPY": 2.22,
+            "CMD_OIL": 7.57,
+            "CMD_GOLD": 3.18,
+            "VOL_VIX": 6.8
+          },
+          "analogs": [
+            {
+              "episode_id": "libya_2011",
+              "title": "Libyan civil war and Arab Spring oil shock",
+              "weight": 0.61,
+              "similarity": 0.54
+            },
+            {
+              "episode_id": "sep11_2001",
+              "title": "September 11 attacks",
+              "weight": 0.283,
+              "similarity": 0.476
+            },
+            {
+              "episode_id": "taper_tantrum_2013",
+              "title": "Taper tantrum",
+              "weight": 0.107,
+              "similarity": 0.472
+            }
+          ]
+        },
+        "tremor": {
+          "hits": "8",
+          "scored": 10,
+          "factor_hits": {
+            "EQ_EU": "True",
+            "EQ_EM": "True",
+            "EQ_IN": "False",
+            "CS_IG": "True",
+            "CS_HY": "True",
+            "CS_EM": "True",
+            "FX_EUR": "True",
+            "CMD_OIL": "False",
+            "CMD_GOLD": "True",
+            "VOL_VIX": "True"
+          },
+          "pnl_musd": -112.0,
+          "pnl_error_musd": 97.5,
+          "cet1_after": 11.62,
+          "cet1_error_pp": 1.61,
+          "shocks": {
+            "EQ_US": -7.41,
+            "EQ_EU": -8.67,
+            "EQ_EM": -7.81,
+            "EQ_IN": -7.53,
+            "IR_USD_10Y": -12.72,
+            "CS_IG": 24.6,
+            "CS_HY": 98.37,
+            "CS_EM": 49.09,
+            "FX_EUR": 0.8,
+            "FX_JPY": 2.17,
+            "CMD_OIL": 3.87,
+            "CMD_GOLD": 4.2,
+            "VOL_VIX": 9.62
+          },
+          "analogs": [
+            {
+              "episode_id": "libya_2011",
+              "title": "Libyan civil war and Arab Spring oil shock",
+              "weight": 0.61,
+              "similarity": 0.54
+            },
+            {
+              "episode_id": "sep11_2001",
+              "title": "September 11 attacks",
+              "weight": 0.283,
+              "similarity": 0.476
+            },
+            {
+              "episode_id": "taper_tantrum_2013",
+              "title": "Taper tantrum",
+              "weight": 0.107,
+              "similarity": 0.472
+            }
+          ]
+        }
+      }
+    },
+    {
+      "episode_id": "china_deval_2015",
+      "title": "Yuan devaluation and China slowdown",
+      "event_type": "MACROECONOMIC",
+      "start": "2015-08-10",
+      "headline": "China devalues the yuan by the most in two decades",
+      "n_prior": 7,
+      "realised": {
+        "EQ_US": -11.24,
+        "EQ_EU": -12.43,
+        "EQ_EM": -14.06,
+        "EQ_IN": -7.56,
+        "IR_USD_10Y": -10.5,
+        "CS_IG": 17.04,
+        "CS_HY": 81.74,
+        "CS_EM": 44.9,
+        "FX_EUR": 5.64,
+        "FX_JPY": 4.56,
+        "CMD_OIL": -12.57,
+        "CMD_GOLD": 3.08,
+        "VOL_VIX": 23.79
+      },
+      "realised_pnl_musd": -99.6,
+      "realised_cet1_after": 11.37,
+      "methods": {
+        "naive": {
+          "hits": 4,
+          "scored": 13,
+          "factor_hits": {
+            "EQ_US": true,
+            "EQ_EU": true,
+            "EQ_EM": true,
+            "EQ_IN": true,
+            "IR_USD_10Y": false,
+            "CS_IG": false,
+            "CS_HY": false,
+            "CS_EM": false,
+            "FX_EUR": false,
+            "FX_JPY": false,
+            "CMD_OIL": false,
+            "CMD_GOLD": false,
+            "VOL_VIX": false
+          },
+          "pnl_musd": -581.3,
+          "pnl_error_musd": 481.7,
+          "cet1_after": 8.46,
+          "cet1_error_pp": 2.91,
+          "shocks": {
+            "EQ_US": -10.0,
+            "EQ_EU": -10.0,
+            "EQ_EM": -10.0,
+            "EQ_IN": -10.0,
+            "IR_USD_10Y": 200.0,
+            "CS_IG": null,
+            "CS_HY": null,
+            "CS_EM": null,
+            "FX_EUR": null,
+            "FX_JPY": null,
+            "CMD_OIL": null,
+            "CMD_GOLD": null,
+            "VOL_VIX": null
+          }
+        },
+        "template": {
+          "hits": 9,
+          "scored": 13,
+          "factor_hits": {
+            "EQ_US": true,
+            "EQ_EU": true,
+            "EQ_EM": true,
+            "EQ_IN": true,
+            "IR_USD_10Y": false,
+            "CS_IG": true,
+            "CS_HY": true,
+            "CS_EM": true,
+            "FX_EUR": false,
+            "FX_JPY": false,
+            "CMD_OIL": true,
+            "CMD_GOLD": false,
+            "VOL_VIX": true
+          },
+          "pnl_musd": -545.0,
+          "pnl_error_musd": 445.3,
+          "cet1_after": 8.57,
+          "cet1_error_pp": 2.8,
+          "shocks": {
+            "EQ_US": -10,
+            "EQ_EU": -10,
+            "EQ_EM": -12,
+            "EQ_IN": -8,
+            "IR_USD_10Y": 75,
+            "CS_IG": 50,
+            "CS_HY": 200,
+            "CS_EM": 150,
+            "FX_EUR": -3,
+            "FX_JPY": -5,
+            "CMD_OIL": -10,
+            "CMD_GOLD": -3,
+            "VOL_VIX": 10
+          }
+        },
+        "all_mean": {
+          "hits": 12,
+          "scored": 13,
+          "factor_hits": {
+            "EQ_US": true,
+            "EQ_EU": true,
+            "EQ_EM": true,
+            "EQ_IN": true,
+            "IR_USD_10Y": true,
+            "CS_IG": true,
+            "CS_HY": true,
+            "CS_EM": true,
+            "FX_EUR": false,
+            "FX_JPY": true,
+            "CMD_OIL": true,
+            "CMD_GOLD": true,
+            "VOL_VIX": true
+          },
+          "pnl_musd": -174.5,
+          "pnl_error_musd": 74.9,
+          "cet1_after": 11.02,
+          "cet1_error_pp": 0.35,
+          "shocks": {
+            "EQ_US": -8.64,
+            "EQ_EU": -11.95,
+            "EQ_EM": -10.74,
+            "EQ_IN": -8.05,
+            "IR_USD_10Y": -14.69,
+            "CS_IG": 33.15,
+            "CS_HY": 136.74,
+            "CS_EM": 63.26,
+            "FX_EUR": -0.17,
+            "FX_JPY": 1.86,
+            "CMD_OIL": -0.37,
+            "CMD_GOLD": 5.1,
+            "VOL_VIX": 11.2
+          }
+        },
+        "same_type_mean": {
+          "hits": 11,
+          "scored": 13,
+          "factor_hits": {
+            "EQ_US": true,
+            "EQ_EU": true,
+            "EQ_EM": true,
+            "EQ_IN": true,
+            "IR_USD_10Y": false,
+            "CS_IG": true,
+            "CS_HY": true,
+            "CS_EM": true,
+            "FX_EUR": true,
+            "FX_JPY": true,
+            "CMD_OIL": false,
+            "CMD_GOLD": true,
+            "VOL_VIX": true
+          },
+          "pnl_musd": -470.4,
+          "pnl_error_musd": 370.8,
+          "cet1_after": 8.87,
+          "cet1_error_pp": 2.5,
+          "shocks": {
+            "EQ_US": -8.91,
+            "EQ_EU": -13.69,
+            "EQ_EM": -13.78,
+            "EQ_IN": -15.1,
+            "IR_USD_10Y": 39.75,
+            "CS_IG": 37.87,
+            "CS_HY": 142.73,
+            "CS_EM": 67.92,
+            "FX_EUR": 1.88,
+            "FX_JPY": 0.83,
+            "CMD_OIL": 13.96,
+            "CMD_GOLD": 2.85,
+            "VOL_VIX": 7.67
+          }
+        },
+        "nearest": {
+          "hits": "11",
+          "scored": 13,
+          "factor_hits": {
+            "EQ_US": "True",
+            "EQ_EU": "True",
+            "EQ_EM": "True",
+            "EQ_IN": "True",
+            "IR_USD_10Y": "False",
+            "CS_IG": "True",
+            "CS_HY": "True",
+            "CS_EM": "True",
+            "FX_EUR": "True",
+            "FX_JPY": "True",
+            "CMD_OIL": "False",
+            "CMD_GOLD": "True",
+            "VOL_VIX": "True"
+          },
+          "pnl_musd": -355.0,
+          "pnl_error_musd": 255.4,
+          "cet1_after": 9.94,
+          "cet1_error_pp": 1.43,
+          "shocks": {
+            "EQ_US": -6.86,
+            "EQ_EU": -11.17,
+            "EQ_EM": -12.27,
+            "EQ_IN": -11.49,
+            "IR_USD_10Y": 36.32,
+            "CS_IG": 30.0,
+            "CS_HY": 113.31,
+            "CS_EM": 70.82,
+            "FX_EUR": 1.85,
+            "FX_JPY": 1.72,
+            "CMD_OIL": 9.99,
+            "CMD_GOLD": 0.03,
+            "VOL_VIX": 6.98
+          },
+          "analogs": [
+            {
+              "episode_id": "taper_tantrum_2013",
+              "title": "Taper tantrum",
+              "weight": 0.56,
+              "similarity": 0.626
+            },
+            {
+              "episode_id": "oil_spike_2008",
+              "title": "Oil price spike to $147",
+              "weight": 0.28,
+              "similarity": 0.568
+            },
+            {
+              "episode_id": "libya_2011",
+              "title": "Libyan civil war and Arab Spring oil shock",
+              "weight": 0.16,
+              "similarity": 0.598
+            }
+          ]
+        },
+        "tremor": {
+          "hits": "11",
+          "scored": 13,
+          "factor_hits": {
+            "EQ_US": "True",
+            "EQ_EU": "True",
+            "EQ_EM": "True",
+            "EQ_IN": "True",
+            "IR_USD_10Y": "False",
+            "CS_IG": "True",
+            "CS_HY": "True",
+            "CS_EM": "True",
+            "FX_EUR": "True",
+            "FX_JPY": "True",
+            "CMD_OIL": "False",
+            "CMD_GOLD": "True",
+            "VOL_VIX": "True"
+          },
+          "pnl_musd": -259.1,
+          "pnl_error_musd": 159.5,
+          "cet1_after": 10.52,
+          "cet1_error_pp": 0.85,
+          "shocks": {
+            "EQ_US": -7.75,
+            "EQ_EU": -11.56,
+            "EQ_EM": -11.5,
+            "EQ_IN": -9.77,
+            "IR_USD_10Y": 10.82,
+            "CS_IG": 31.57,
+            "CS_HY": 125.02,
+            "CS_EM": 67.04,
+            "FX_EUR": 0.84,
+            "FX_JPY": 1.79,
+            "CMD_OIL": 4.81,
+            "CMD_GOLD": 2.56,
+            "VOL_VIX": 9.09
+          },
+          "analogs": [
+            {
+              "episode_id": "taper_tantrum_2013",
+              "title": "Taper tantrum",
+              "weight": 0.56,
+              "similarity": 0.626
+            },
+            {
+              "episode_id": "oil_spike_2008",
+              "title": "Oil price spike to $147",
+              "weight": 0.28,
+              "similarity": 0.568
+            },
+            {
+              "episode_id": "libya_2011",
+              "title": "Libyan civil war and Arab Spring oil shock",
+              "weight": 0.16,
+              "similarity": 0.598
+            }
+          ]
+        }
+      }
+    },
+    {
+      "episode_id": "energy_credit_2015",
+      "title": "Oil crash and high-yield energy defaults",
+      "event_type": "CREDIT_EVENT",
+      "start": "2015-11-30",
+      "headline": "Junk-bond fund halts redemptions as defaults spread among oil and gas producers",
+      "n_prior": 8,
+      "realised": {
+        "EQ_US": -12.08,
+        "EQ_EU": -23.56,
+        "EQ_EM": -13.89,
+        "EQ_IN": -12.08,
+        "IR_USD_10Y": -57.4,
+        "CS_IG": 69.29,
+        "CS_HY": 275.77,
+        "CS_EM": 110.21,
+        "FX_EUR": 6.59,
+        "FX_JPY": 8.46,
+        "CMD_OIL": -37.07,
+        "CMD_GOLD": 17.09,
+        "VOL_VIX": 12.01
+      },
+      "realised_pnl_musd": -212.8,
+      "realised_cet1_after": 10.16,
+      "methods": {
+        "naive": {
+          "hits": 4,
+          "scored": 13,
+          "factor_hits": {
+            "EQ_US": true,
+            "EQ_EU": true,
+            "EQ_EM": true,
+            "EQ_IN": true,
+            "IR_USD_10Y": false,
+            "CS_IG": false,
+            "CS_HY": false,
+            "CS_EM": false,
+            "FX_EUR": false,
+            "FX_JPY": false,
+            "CMD_OIL": false,
+            "CMD_GOLD": false,
+            "VOL_VIX": false
+          },
+          "pnl_musd": -581.3,
+          "pnl_error_musd": 368.6,
+          "cet1_after": 8.46,
+          "cet1_error_pp": 1.7,
+          "shocks": {
+            "EQ_US": -10.0,
+            "EQ_EU": -10.0,
+            "EQ_EM": -10.0,
+            "EQ_IN": -10.0,
+            "IR_USD_10Y": 200.0,
+            "CS_IG": null,
+            "CS_HY": null,
+            "CS_EM": null,
+            "FX_EUR": null,
+            "FX_JPY": null,
+            "CMD_OIL": null,
+            "CMD_GOLD": null,
+            "VOL_VIX": null
+          }
+        },
+        "template": {
+          "hits": 12,
+          "scored": 13,
+          "factor_hits": {
+            "EQ_US": true,
+            "EQ_EU": true,
+            "EQ_EM": true,
+            "EQ_IN": true,
+            "IR_USD_10Y": true,
+            "CS_IG": true,
+            "CS_HY": true,
+            "CS_EM": true,
+            "FX_EUR": false,
+            "FX_JPY": true,
+            "CMD_OIL": true,
+            "CMD_GOLD": true,
+            "VOL_VIX": true
+          },
+          "pnl_musd": -618.2,
+          "pnl_error_musd": 405.4,
+          "cet1_after": 7.43,
+          "cet1_error_pp": 2.73,
+          "shocks": {
+            "EQ_US": -15,
+            "EQ_EU": -18,
+            "EQ_EM": -18,
+            "EQ_IN": -12,
+            "IR_USD_10Y": -40,
+            "CS_IG": 120,
+            "CS_HY": 400,
+            "CS_EM": 300,
+            "FX_EUR": -5,
+            "FX_JPY": 5,
+            "CMD_OIL": -20,
+            "CMD_GOLD": 5,
+            "VOL_VIX": 25
+          }
+        },
+        "all_mean": {
+          "hits": 13,
+          "scored": 13,
+          "factor_hits": {
+            "EQ_US": true,
+            "EQ_EU": true,
+            "EQ_EM": true,
+            "EQ_IN": true,
+            "IR_USD_10Y": true,
+            "CS_IG": true,
+            "CS_HY": true,
+            "CS_EM": true,
+            "FX_EUR": true,
+            "FX_JPY": true,
+            "CMD_OIL": true,
+            "CMD_GOLD": true,
+            "VOL_VIX": true
+          },
+          "pnl_musd": -163.3,
+          "pnl_error_musd": 49.4,
+          "cet1_after": 11.07,
+          "cet1_error_pp": 0.91,
+          "shocks": {
+            "EQ_US": -8.97,
+            "EQ_EU": -12.02,
+            "EQ_EM": -11.21,
+            "EQ_IN": -7.98,
+            "IR_USD_10Y": -14.16,
+            "CS_IG": 30.85,
+            "CS_HY": 128.88,
+            "CS_EM": 60.63,
+            "FX_EUR": 0.66,
+            "FX_JPY": 2.2,
+            "CMD_OIL": -1.89,
+            "CMD_GOLD": 4.85,
+            "VOL_VIX": 12.77
+          }
+        },
+        "same_type_mean": {
+          "hits": 12,
+          "scored": 13,
+          "factor_hits": {
+            "EQ_US": true,
+            "EQ_EU": true,
+            "EQ_EM": true,
+            "EQ_IN": true,
+            "IR_USD_10Y": true,
+            "CS_IG": true,
+            "CS_HY": true,
+            "CS_EM": true,
+            "FX_EUR": false,
+            "FX_JPY": true,
+            "CMD_OIL": true,
+            "CMD_GOLD": true,
+            "VOL_VIX": true
+          },
+          "pnl_musd": -226.8,
+          "pnl_error_musd": 14.0,
+          "cet1_after": 10.09,
+          "cet1_error_pp": 0.07,
+          "shocks": {
+            "EQ_US": -14.22,
+            "EQ_EU": -18.52,
+            "EQ_EM": -16.5,
+            "EQ_IN": -8.89,
+            "IR_USD_10Y": -74.3,
+            "CS_IG": 53.45,
+            "CS_HY": 245.89,
+            "CS_EM": 109.5,
+            "FX_EUR": -4.01,
+            "FX_JPY": 3.0,
+            "CMD_OIL": -18.12,
+            "CMD_GOLD": 7.56,
+            "VOL_VIX": 21.73
+          }
+        },
+        "nearest": {
+          "hits": "12",
+          "scored": 13,
+          "factor_hits": {
+            "EQ_US": "True",
+            "EQ_EU": "True",
+            "EQ_EM": "True",
+            "EQ_IN": "True",
+            "IR_USD_10Y": "True",
+            "CS_IG": "True",
+            "CS_HY": "True",
+            "CS_EM": "True",
+            "FX_EUR": "False",
+            "FX_JPY": "True",
+            "CMD_OIL": "True",
+            "CMD_GOLD": "True",
+            "VOL_VIX": "True"
+          },
+          "pnl_musd": -247.0,
+          "pnl_error_musd": 34.3,
+          "cet1_after": 10.19,
+          "cet1_error_pp": 0.03,
+          "shocks": {
+            "EQ_US": -12.21,
+            "EQ_EU": -16.64,
+            "EQ_EM": -16.24,
+            "EQ_IN": -8.84,
+            "IR_USD_10Y": -43.83,
+            "CS_IG": 47.61,
+            "CS_HY": 212.84,
+            "CS_EM": 110.51,
+            "FX_EUR": -2.94,
+            "FX_JPY": 3.23,
+            "CMD_OIL": -14.36,
+            "CMD_GOLD": 4.05,
+            "VOL_VIX": 18.2
+          },
+          "analogs": [
+            {
+              "episode_id": "euro_sovereign_2010",
+              "title": "Greek debt crisis and euro-area contagion",
+              "weight": 0.414,
+              "similarity": 0.688
+            },
+            {
+              "episode_id": "us_downgrade_2011",
+              "title": "US sovereign downgrade and euro crisis",
+              "weight": 0.363,
+              "similarity": 0.677
+            },
+            {
+              "episode_id": "taper_tantrum_2013",
+              "title": "Taper tantrum",
+              "weight": 0.223,
+              "similarity": 0.713
+            }
+          ]
+        },
+        "tremor": {
+          "hits": "12",
+          "scored": 13,
+          "factor_hits": {
+            "EQ_US": "True",
+            "EQ_EU": "True",
+            "EQ_EM": "True",
+            "EQ_IN": "True",
+            "IR_USD_10Y": "True",
+            "CS_IG": "True",
+            "CS_HY": "True",
+            "CS_EM": "True",
+            "FX_EUR": "False",
+            "FX_JPY": "True",
+            "CMD_OIL": "True",
+            "CMD_GOLD": "True",
+            "VOL_VIX": "True"
+          },
+          "pnl_musd": -190.2,
+          "pnl_error_musd": 22.6,
+          "cet1_after": 10.73,
+          "cet1_error_pp": 0.57,
+          "shocks": {
+            "EQ_US": -10.59,
+            "EQ_EU": -14.33,
+            "EQ_EM": -13.72,
+            "EQ_IN": -8.41,
+            "IR_USD_10Y": -29.0,
+            "CS_IG": 39.23,
+            "CS_HY": 170.86,
+            "CS_EM": 85.57,
+            "FX_EUR": -1.14,
+            "FX_JPY": 2.71,
+            "CMD_OIL": -8.13,
+            "CMD_GOLD": 4.45,
+            "VOL_VIX": 15.49
+          },
+          "analogs": [
+            {
+              "episode_id": "euro_sovereign_2010",
+              "title": "Greek debt crisis and euro-area contagion",
+              "weight": 0.414,
+              "similarity": 0.688
+            },
+            {
+              "episode_id": "us_downgrade_2011",
+              "title": "US sovereign downgrade and euro crisis",
+              "weight": 0.363,
+              "similarity": 0.677
+            },
+            {
+              "episode_id": "taper_tantrum_2013",
+              "title": "Taper tantrum",
+              "weight": 0.223,
+              "similarity": 0.713
+            }
+          ]
+        }
+      }
+    },
+    {
+      "episode_id": "brexit_2016",
+      "title": "Brexit referendum",
+      "event_type": "GEOPOLITICAL",
+      "start": "2016-06-23",
+      "headline": "Britain votes to leave the European Union",
+      "n_prior": 9,
+      "realised": {
+        "EQ_US": -5.34,
+        "EQ_EU": -11.21,
+        "EQ_EM": -7.28,
+        "EQ_IN": -2.13,
+        "IR_USD_10Y": -27.9,
+        "CS_IG": 16.04,
+        "CS_HY": 111.24,
+        "CS_EM": 40.09,
+        "FX_EUR": -2.58,
+        "FX_JPY": 2.47,
+        "CMD_OIL": -7.54,
+        "CMD_GOLD": 4.86,
+        "VOL_VIX": 6.6
+      },
+      "realised_pnl_musd": -81.6,
+      "realised_cet1_after": 12.02,
+      "methods": {
+        "naive": {
+          "hits": 4,
+          "scored": 13,
+          "factor_hits": {
+            "EQ_US": true,
+            "EQ_EU": true,
+            "EQ_EM": true,
+            "EQ_IN": true,
+            "IR_USD_10Y": false,
+            "CS_IG": false,
+            "CS_HY": false,
+            "CS_EM": false,
+            "FX_EUR": false,
+            "FX_JPY": false,
+            "CMD_OIL": false,
+            "CMD_GOLD": false,
+            "VOL_VIX": false
+          },
+          "pnl_musd": -581.3,
+          "pnl_error_musd": 499.7,
+          "cet1_after": 8.46,
+          "cet1_error_pp": 3.56,
+          "shocks": {
+            "EQ_US": -10.0,
+            "EQ_EU": -10.0,
+            "EQ_EM": -10.0,
+            "EQ_IN": -10.0,
+            "IR_USD_10Y": 200.0,
+            "CS_IG": null,
+            "CS_HY": null,
+            "CS_EM": null,
+            "FX_EUR": null,
+            "FX_JPY": null,
+            "CMD_OIL": null,
+            "CMD_GOLD": null,
+            "VOL_VIX": null
+          }
+        },
+        "template": {
+          "hits": 12,
+          "scored": 13,
+          "factor_hits": {
+            "EQ_US": true,
+            "EQ_EU": true,
+            "EQ_EM": true,
+            "EQ_IN": true,
+            "IR_USD_10Y": true,
+            "CS_IG": true,
+            "CS_HY": true,
+            "CS_EM": true,
+            "FX_EUR": true,
+            "FX_JPY": true,
+            "CMD_OIL": false,
+            "CMD_GOLD": true,
+            "VOL_VIX": true
+          },
+          "pnl_musd": -259.7,
+          "pnl_error_musd": 178.1,
+          "cet1_after": 10.59,
+          "cet1_error_pp": 1.43,
+          "shocks": {
+            "EQ_US": -8,
+            "EQ_EU": -12,
+            "EQ_EM": -12,
+            "EQ_IN": -8,
+            "IR_USD_10Y": -20,
+            "CS_IG": 40,
+            "CS_HY": 150,
+            "CS_EM": 120,
+            "FX_EUR": -4,
+            "FX_JPY": 3,
+            "CMD_OIL": 30,
+            "CMD_GOLD": 8,
+            "VOL_VIX": 12
+          }
+        },
+        "all_mean": {
+          "hits": 12,
+          "scored": 13,
+          "factor_hits": {
+            "EQ_US": true,
+            "EQ_EU": true,
+            "EQ_EM": true,
+            "EQ_IN": true,
+            "IR_USD_10Y": true,
+            "CS_IG": true,
+            "CS_HY": true,
+            "CS_EM": true,
+            "FX_EUR": false,
+            "FX_JPY": true,
+            "CMD_OIL": true,
+            "CMD_GOLD": true,
+            "VOL_VIX": true
+          },
+          "pnl_musd": -165.1,
+          "pnl_error_musd": 83.5,
+          "cet1_after": 10.99,
+          "cet1_error_pp": 1.03,
+          "shocks": {
+            "EQ_US": -9.31,
+            "EQ_EU": -13.46,
+            "EQ_EM": -11.55,
+            "EQ_IN": -8.49,
+            "IR_USD_10Y": -18.97,
+            "CS_IG": 35.65,
+            "CS_HY": 147.24,
+            "CS_EM": 66.83,
+            "FX_EUR": 1.4,
+            "FX_JPY": 2.9,
+            "CMD_OIL": -5.8,
+            "CMD_GOLD": 6.21,
+            "VOL_VIX": 12.69
+          }
+        },
+        "same_type_mean": {
+          "hits": 11,
+          "scored": 13,
+          "factor_hits": {
+            "EQ_US": true,
+            "EQ_EU": true,
+            "EQ_EM": true,
+            "EQ_IN": true,
+            "IR_USD_10Y": true,
+            "CS_IG": true,
+            "CS_HY": true,
+            "CS_EM": true,
+            "FX_EUR": false,
+            "FX_JPY": true,
+            "CMD_OIL": false,
+            "CMD_GOLD": true,
+            "VOL_VIX": true
+          },
+          "pnl_musd": -1.3,
+          "pnl_error_musd": 80.4,
+          "cet1_after": 12.84,
+          "cet1_error_pp": 0.82,
+          "shocks": {
+            "EQ_US": -4.75,
+            "EQ_EU": -3.63,
+            "EQ_EM": -1.93,
+            "EQ_IN": -0.18,
+            "IR_USD_10Y": -11.23,
+            "CS_IG": 8.12,
+            "CS_HY": 21.6,
+            "CS_EM": 12.36,
+            "FX_EUR": 1.62,
+            "FX_JPY": 1.79,
+            "CMD_OIL": 1.92,
+            "CMD_GOLD": 4.96,
+            "VOL_VIX": 6.53
+          }
+        },
+        "nearest": {
+          "hits": "10",
+          "scored": 13,
+          "factor_hits": {
+            "EQ_US": "True",
+            "EQ_EU": "True",
+            "EQ_EM": "True",
+            "EQ_IN": "False",
+            "IR_USD_10Y": "True",
+            "CS_IG": "True",
+            "CS_HY": "True",
+            "CS_EM": "True",
+            "FX_EUR": "False",
+            "FX_JPY": "True",
+            "CMD_OIL": "False",
+            "CMD_GOLD": "True",
+            "VOL_VIX": "True"
+          },
+          "pnl_musd": -4.0,
+          "pnl_error_musd": 77.7,
+          "cet1_after": 12.98,
+          "cet1_error_pp": 0.96,
+          "shocks": {
+            "EQ_US": -3.52,
+            "EQ_EU": -3.84,
+            "EQ_EM": -2.1,
+            "EQ_IN": 0.63,
+            "IR_USD_10Y": -9.28,
+            "CS_IG": 8.09,
+            "CS_HY": 21.01,
+            "CS_EM": 12.84,
+            "FX_EUR": 1.52,
+            "FX_JPY": 1.36,
+            "CMD_OIL": 1.69,
+            "CMD_GOLD": 4.64,
+            "VOL_VIX": 5.7
+          },
+          "analogs": [
+            {
+              "episode_id": "crimea_2014",
+              "title": "Russia annexes Crimea",
+              "weight": 0.474,
+              "similarity": 0.572
+            },
+            {
+              "episode_id": "libya_2011",
+              "title": "Libyan civil war and Arab Spring oil shock",
+              "weight": 0.307,
+              "similarity": 0.536
+            },
+            {
+              "episode_id": "sep11_2001",
+              "title": "September 11 attacks",
+              "weight": 0.219,
+              "similarity": 0.507
+            }
+          ]
+        },
+        "tremor": {
+          "hits": "12",
+          "scored": 13,
+          "factor_hits": {
+            "EQ_US": "True",
+            "EQ_EU": "True",
+            "EQ_EM": "True",
+            "EQ_IN": "True",
+            "IR_USD_10Y": "True",
+            "CS_IG": "True",
+            "CS_HY": "True",
+            "CS_EM": "True",
+            "FX_EUR": "False",
+            "FX_JPY": "True",
+            "CMD_OIL": "True",
+            "CMD_GOLD": "True",
+            "VOL_VIX": "True"
+          },
+          "pnl_musd": -68.1,
+          "pnl_error_musd": 13.5,
+          "cet1_after": 12.07,
+          "cet1_error_pp": 0.05,
+          "shocks": {
+            "EQ_US": -6.41,
+            "EQ_EU": -8.65,
+            "EQ_EM": -6.82,
+            "EQ_IN": -3.93,
+            "IR_USD_10Y": -14.12,
+            "CS_IG": 21.87,
+            "CS_HY": 84.13,
+            "CS_EM": 39.84,
+            "FX_EUR": 1.46,
+            "FX_JPY": 2.13,
+            "CMD_OIL": -2.05,
+            "CMD_GOLD": 5.42,
+            "VOL_VIX": 9.19
+          },
+          "analogs": [
+            {
+              "episode_id": "crimea_2014",
+              "title": "Russia annexes Crimea",
+              "weight": 0.474,
+              "similarity": 0.572
+            },
+            {
+              "episode_id": "libya_2011",
+              "title": "Libyan civil war and Arab Spring oil shock",
+              "weight": 0.307,
+              "similarity": 0.536
+            },
+            {
+              "episode_id": "sep11_2001",
+              "title": "September 11 attacks",
+              "weight": 0.219,
+              "similarity": 0.507
+            }
+          ]
+        }
+      }
+    },
+    {
+      "episode_id": "volmageddon_2018",
+      "title": "Volatility spike (Volmageddon)",
+      "event_type": "MACROECONOMIC",
+      "start": "2018-01-26",
+      "headline": "US wage growth jumps the most since 2009, stoking fears of faster rate hikes",
+      "n_prior": 10,
+      "realised": {
+        "EQ_US": -10.16,
+        "EQ_EU": -7.41,
+        "EQ_EM": -12.27,
+        "EQ_IN": -4.45,
+        "IR_USD_10Y": 18.9,
+        "CS_IG": 12.07,
+        "CS_HY": 56.86,
+        "CS_EM": 26.87,
+        "FX_EUR": -1.0,
+        "FX_JPY": 0.47,
+        "CMD_OIL": -7.54,
+        "CMD_GOLD": -2.57,
+        "VOL_VIX": 22.38
+      },
+      "realised_pnl_musd": -160.2,
+      "realised_cet1_after": 11.23,
+      "methods": {
+        "naive": {
+          "hits": 5,
+          "scored": 12,
+          "factor_hits": {
+            "EQ_US": true,
+            "EQ_EU": true,
+            "EQ_EM": true,
+            "EQ_IN": true,
+            "IR_USD_10Y": true,
+            "CS_IG": false,
+            "CS_HY": false,
+            "CS_EM": false,
+            "FX_EUR": false,
+            "CMD_OIL": false,
+            "CMD_GOLD": false,
+            "VOL_VIX": false
+          },
+          "pnl_musd": -581.3,
+          "pnl_error_musd": 421.2,
+          "cet1_after": 8.46,
+          "cet1_error_pp": 2.77,
+          "shocks": {
+            "EQ_US": -10.0,
+            "EQ_EU": -10.0,
+            "EQ_EM": -10.0,
+            "EQ_IN": -10.0,
+            "IR_USD_10Y": 200.0,
+            "CS_IG": null,
+            "CS_HY": null,
+            "CS_EM": null,
+            "FX_EUR": null,
+            "FX_JPY": null,
+            "CMD_OIL": null,
+            "CMD_GOLD": null,
+            "VOL_VIX": null
+          }
+        },
+        "template": {
+          "hits": 12,
+          "scored": 12,
+          "factor_hits": {
+            "EQ_US": true,
+            "EQ_EU": true,
+            "EQ_EM": true,
+            "EQ_IN": true,
+            "IR_USD_10Y": true,
+            "CS_IG": true,
+            "CS_HY": true,
+            "CS_EM": true,
+            "FX_EUR": true,
+            "CMD_OIL": true,
+            "CMD_GOLD": true,
+            "VOL_VIX": true
+          },
+          "pnl_musd": -545.0,
+          "pnl_error_musd": 384.8,
+          "cet1_after": 8.57,
+          "cet1_error_pp": 2.66,
+          "shocks": {
+            "EQ_US": -10,
+            "EQ_EU": -10,
+            "EQ_EM": -12,
+            "EQ_IN": -8,
+            "IR_USD_10Y": 75,
+            "CS_IG": 50,
+            "CS_HY": 200,
+            "CS_EM": 150,
+            "FX_EUR": -3,
+            "FX_JPY": -5,
+            "CMD_OIL": -10,
+            "CMD_GOLD": -3,
+            "VOL_VIX": 10
+          }
+        },
+        "all_mean": {
+          "hits": 9,
+          "scored": 12,
+          "factor_hits": {
+            "EQ_US": true,
+            "EQ_EU": true,
+            "EQ_EM": true,
+            "EQ_IN": true,
+            "IR_USD_10Y": false,
+            "CS_IG": true,
+            "CS_HY": true,
+            "CS_EM": true,
+            "FX_EUR": false,
+            "CMD_OIL": true,
+            "CMD_GOLD": false,
+            "VOL_VIX": true
+          },
+          "pnl_musd": -157.5,
+          "pnl_error_musd": 2.7,
+          "cet1_after": 11.09,
+          "cet1_error_pp": 0.14,
+          "shocks": {
+            "EQ_US": -8.92,
+            "EQ_EU": -13.21,
+            "EQ_EM": -11.07,
+            "EQ_IN": -7.79,
+            "IR_USD_10Y": -19.86,
+            "CS_IG": 33.47,
+            "CS_HY": 143.24,
+            "CS_EM": 63.86,
+            "FX_EUR": 0.96,
+            "FX_JPY": 2.85,
+            "CMD_OIL": -5.97,
+            "CMD_GOLD": 6.07,
+            "VOL_VIX": 12.08
+          }
+        },
+        "same_type_mean": {
+          "hits": 9,
+          "scored": 12,
+          "factor_hits": {
+            "EQ_US": true,
+            "EQ_EU": true,
+            "EQ_EM": true,
+            "EQ_IN": true,
+            "IR_USD_10Y": true,
+            "CS_IG": true,
+            "CS_HY": true,
+            "CS_EM": true,
+            "FX_EUR": false,
+            "CMD_OIL": false,
+            "CMD_GOLD": false,
+            "VOL_VIX": true
+          },
+          "pnl_musd": -342.0,
+          "pnl_error_musd": 181.8,
+          "cet1_after": 9.74,
+          "cet1_error_pp": 1.49,
+          "shocks": {
+            "EQ_US": -9.68,
+            "EQ_EU": -13.27,
+            "EQ_EM": -13.87,
+            "EQ_IN": -12.58,
+            "IR_USD_10Y": 23.0,
+            "CS_IG": 30.93,
+            "CS_HY": 122.4,
+            "CS_EM": 60.25,
+            "FX_EUR": 3.13,
+            "FX_JPY": 2.08,
+            "CMD_OIL": 5.12,
+            "CMD_GOLD": 2.93,
+            "VOL_VIX": 13.05
+          }
+        },
+        "nearest": {
+          "hits": "9",
+          "scored": 12,
+          "factor_hits": {
+            "EQ_US": "True",
+            "EQ_EU": "True",
+            "EQ_EM": "True",
+            "EQ_IN": "True",
+            "IR_USD_10Y": "True",
+            "CS_IG": "True",
+            "CS_HY": "True",
+            "CS_EM": "True",
+            "FX_EUR": "False",
+            "CMD_OIL": "False",
+            "CMD_GOLD": "False",
+            "VOL_VIX": "True"
+          },
+          "pnl_musd": -434.4,
+          "pnl_error_musd": 274.3,
+          "cet1_after": 9.01,
+          "cet1_error_pp": 2.22,
+          "shocks": {
+            "EQ_US": -9.92,
+            "EQ_EU": -14.06,
+            "EQ_EM": -13.44,
+            "EQ_IN": -15.28,
+            "IR_USD_10Y": 27.62,
+            "CS_IG": 36.95,
+            "CS_HY": 141.0,
+            "CS_EM": 55.3,
+            "FX_EUR": 2.51,
+            "FX_JPY": 0.8,
+            "CMD_OIL": 12.94,
+            "CMD_GOLD": 5.0,
+            "VOL_VIX": 10.38
+          },
+          "analogs": [
+            {
+              "episode_id": "oil_spike_2008",
+              "title": "Oil price spike to $147",
+              "weight": 0.526,
+              "similarity": 0.665
+            },
+            {
+              "episode_id": "taper_tantrum_2013",
+              "title": "Taper tantrum",
+              "weight": 0.318,
+              "similarity": 0.623
+            },
+            {
+              "episode_id": "china_deval_2015",
+              "title": "Yuan devaluation and China slowdown",
+              "weight": 0.156,
+              "similarity": 0.563
+            }
+          ]
+        },
+        "tremor": {
+          "hits": "9",
+          "scored": 12,
+          "factor_hits": {
+            "EQ_US": "True",
+            "EQ_EU": "True",
+            "EQ_EM": "True",
+            "EQ_IN": "True",
+            "IR_USD_10Y": "True",
+            "CS_IG": "True",
+            "CS_HY": "True",
+            "CS_EM": "True",
+            "FX_EUR": "False",
+            "CMD_OIL": "False",
+            "CMD_GOLD": "False",
+            "VOL_VIX": "True"
+          },
+          "pnl_musd": -295.3,
+          "pnl_error_musd": 135.1,
+          "cet1_after": 10.04,
+          "cet1_error_pp": 1.19,
+          "shocks": {
+            "EQ_US": -9.42,
+            "EQ_EU": -13.63,
+            "EQ_EM": -12.26,
+            "EQ_IN": -11.53,
+            "IR_USD_10Y": 3.88,
+            "CS_IG": 35.21,
+            "CS_HY": 142.12,
+            "CS_EM": 59.58,
+            "FX_EUR": 1.73,
+            "FX_JPY": 1.83,
+            "CMD_OIL": 3.48,
+            "CMD_GOLD": 5.54,
+            "VOL_VIX": 11.23
+          },
+          "analogs": [
+            {
+              "episode_id": "oil_spike_2008",
+              "title": "Oil price spike to $147",
+              "weight": 0.526,
+              "similarity": 0.665
+            },
+            {
+              "episode_id": "taper_tantrum_2013",
+              "title": "Taper tantrum",
+              "weight": 0.318,
+              "similarity": 0.623
+            },
+            {
+              "episode_id": "china_deval_2015",
+              "title": "Yuan devaluation and China slowdown",
+              "weight": 0.156,
+              "similarity": 0.563
+            }
+          ]
+        }
+      }
+    },
+    {
+      "episode_id": "trade_war_2018",
+      "title": "US-China trade war escalation",
+      "event_type": "GEOPOLITICAL",
+      "start": "2018-10-03",
+      "headline": "US-China trade war escalates as Washington threatens tariffs on all Chinese imports",
+      "n_prior": 11,
+      "realised": {
+        "EQ_US": -19.63,
+        "EQ_EU": -11.89,
+        "EQ_EM": -7.87,
+        "EQ_IN": -1.79,
+        "IR_USD_10Y": -41.2,
+        "CS_IG": 53.19,
+        "CS_HY": 226.19,
+        "CS_EM": 79.94,
+        "FX_EUR": -1.55,
+        "FX_JPY": 2.27,
+        "CMD_OIL": -44.34,
+        "CMD_GOLD": 5.77,
+        "VOL_VIX": 24.46
+      },
+      "realised_pnl_musd": -282.0,
+      "realised_cet1_after": 9.49,
+      "methods": {
+        "naive": {
+          "hits": 4,
+          "scored": 13,
+          "factor_hits": {
+            "EQ_US": true,
+            "EQ_EU": true,
+            "EQ_EM": true,
+            "EQ_IN": true,
+            "IR_USD_10Y": false,
+            "CS_IG": false,
+            "CS_HY": false,
+            "CS_EM": false,
+            "FX_EUR": false,
+            "FX_JPY": false,
+            "CMD_OIL": false,
+            "CMD_GOLD": false,
+            "VOL_VIX": false
+          },
+          "pnl_musd": -581.3,
+          "pnl_error_musd": 299.3,
+          "cet1_after": 8.46,
+          "cet1_error_pp": 1.03,
+          "shocks": {
+            "EQ_US": -10.0,
+            "EQ_EU": -10.0,
+            "EQ_EM": -10.0,
+            "EQ_IN": -10.0,
+            "IR_USD_10Y": 200.0,
+            "CS_IG": null,
+            "CS_HY": null,
+            "CS_EM": null,
+            "FX_EUR": null,
+            "FX_JPY": null,
+            "CMD_OIL": null,
+            "CMD_GOLD": null,
+            "VOL_VIX": null
+          }
+        },
+        "template": {
+          "hits": 12,
+          "scored": 13,
+          "factor_hits": {
+            "EQ_US": true,
+            "EQ_EU": true,
+            "EQ_EM": true,
+            "EQ_IN": true,
+            "IR_USD_10Y": true,
+            "CS_IG": true,
+            "CS_HY": true,
+            "CS_EM": true,
+            "FX_EUR": true,
+            "FX_JPY": true,
+            "CMD_OIL": false,
+            "CMD_GOLD": true,
+            "VOL_VIX": true
+          },
+          "pnl_musd": -259.7,
+          "pnl_error_musd": 22.3,
+          "cet1_after": 10.59,
+          "cet1_error_pp": 1.1,
+          "shocks": {
+            "EQ_US": -8,
+            "EQ_EU": -12,
+            "EQ_EM": -12,
+            "EQ_IN": -8,
+            "IR_USD_10Y": -20,
+            "CS_IG": 40,
+            "CS_HY": 150,
+            "CS_EM": 120,
+            "FX_EUR": -4,
+            "FX_JPY": 3,
+            "CMD_OIL": 30,
+            "CMD_GOLD": 8,
+            "VOL_VIX": 12
+          }
+        },
+        "all_mean": {
+          "hits": 12,
+          "scored": 13,
+          "factor_hits": {
+            "EQ_US": true,
+            "EQ_EU": true,
+            "EQ_EM": true,
+            "EQ_IN": true,
+            "IR_USD_10Y": true,
+            "CS_IG": true,
+            "CS_HY": true,
+            "CS_EM": true,
+            "FX_EUR": false,
+            "FX_JPY": true,
+            "CMD_OIL": true,
+            "CMD_GOLD": true,
+            "VOL_VIX": true
+          },
+          "pnl_musd": -153.6,
+          "pnl_error_musd": 128.4,
+          "cet1_after": 11.13,
+          "cet1_error_pp": 1.64,
+          "shocks": {
+            "EQ_US": -9.03,
+            "EQ_EU": -12.63,
+            "EQ_EM": -11.19,
+            "EQ_IN": -7.45,
+            "IR_USD_10Y": -16.34,
+            "CS_IG": 31.33,
+            "CS_HY": 134.61,
+            "CS_EM": 60.16,
+            "FX_EUR": 0.76,
+            "FX_JPY": 2.64,
+            "CMD_OIL": -6.12,
+            "CMD_GOLD": 5.29,
+            "VOL_VIX": 13.02
+          }
+        },
+        "same_type_mean": {
+          "hits": 12,
+          "scored": 13,
+          "factor_hits": {
+            "EQ_US": true,
+            "EQ_EU": true,
+            "EQ_EM": true,
+            "EQ_IN": true,
+            "IR_USD_10Y": true,
+            "CS_IG": true,
+            "CS_HY": true,
+            "CS_EM": true,
+            "FX_EUR": false,
+            "FX_JPY": true,
+            "CMD_OIL": true,
+            "CMD_GOLD": true,
+            "VOL_VIX": true
+          },
+          "pnl_musd": -28.1,
+          "pnl_error_musd": 253.9,
+          "cet1_after": 12.57,
+          "cet1_error_pp": 3.08,
+          "shocks": {
+            "EQ_US": -4.89,
+            "EQ_EU": -6.16,
+            "EQ_EM": -3.71,
+            "EQ_IN": -0.83,
+            "IR_USD_10Y": -15.4,
+            "CS_IG": 10.76,
+            "CS_HY": 51.48,
+            "CS_EM": 21.6,
+            "FX_EUR": 0.22,
+            "FX_JPY": 1.96,
+            "CMD_OIL": -0.45,
+            "CMD_GOLD": 4.93,
+            "VOL_VIX": 6.55
+          }
+        },
+        "nearest": {
+          "hits": "11",
+          "scored": 13,
+          "factor_hits": {
+            "EQ_US": "True",
+            "EQ_EU": "True",
+            "EQ_EM": "True",
+            "EQ_IN": "True",
+            "IR_USD_10Y": "True",
+            "CS_IG": "True",
+            "CS_HY": "True",
+            "CS_EM": "True",
+            "FX_EUR": "False",
+            "FX_JPY": "True",
+            "CMD_OIL": "False",
+            "CMD_GOLD": "True",
+            "VOL_VIX": "True"
+          },
+          "pnl_musd": -7.0,
+          "pnl_error_musd": 275.0,
+          "cet1_after": 12.6,
+          "cet1_error_pp": 3.11,
+          "shocks": {
+            "EQ_US": -5.93,
+            "EQ_EU": -4.39,
+            "EQ_EM": -3.38,
+            "EQ_IN": -4.61,
+            "IR_USD_10Y": -15.92,
+            "CS_IG": 9.8,
+            "CS_HY": 34.38,
+            "CS_EM": 16.17,
+            "FX_EUR": 2.72,
+            "FX_JPY": 2.43,
+            "CMD_OIL": 5.3,
+            "CMD_GOLD": 4.44,
+            "VOL_VIX": 9.05
+          },
+          "analogs": [
+            {
+              "episode_id": "libya_2011",
+              "title": "Libyan civil war and Arab Spring oil shock",
+              "weight": 0.566,
+              "similarity": 0.676
+            },
+            {
+              "episode_id": "sep11_2001",
+              "title": "September 11 attacks",
+              "weight": 0.314,
+              "similarity": 0.627
+            },
+            {
+              "episode_id": "china_deval_2015",
+              "title": "Yuan devaluation and China slowdown",
+              "weight": 0.12,
+              "similarity": 0.623
+            }
+          ]
+        },
+        "tremor": {
+          "hits": "12",
+          "scored": 13,
+          "factor_hits": {
+            "EQ_US": "True",
+            "EQ_EU": "True",
+            "EQ_EM": "True",
+            "EQ_IN": "True",
+            "IR_USD_10Y": "True",
+            "CS_IG": "True",
+            "CS_HY": "True",
+            "CS_EM": "True",
+            "FX_EUR": "False",
+            "FX_JPY": "True",
+            "CMD_OIL": "True",
+            "CMD_GOLD": "True",
+            "VOL_VIX": "True"
+          },
+          "pnl_musd": -68.2,
+          "pnl_error_musd": 213.8,
+          "cet1_after": 11.94,
+          "cet1_error_pp": 2.45,
+          "shocks": {
+            "EQ_US": -7.48,
+            "EQ_EU": -8.51,
+            "EQ_EM": -7.29,
+            "EQ_IN": -6.03,
+            "IR_USD_10Y": -16.13,
+            "CS_IG": 20.57,
+            "CS_HY": 84.49,
+            "CS_EM": 38.17,
+            "FX_EUR": 1.74,
+            "FX_JPY": 2.53,
+            "CMD_OIL": -0.41,
+            "CMD_GOLD": 4.86,
+            "VOL_VIX": 11.04
+          },
+          "analogs": [
+            {
+              "episode_id": "libya_2011",
+              "title": "Libyan civil war and Arab Spring oil shock",
+              "weight": 0.566,
+              "similarity": 0.676
+            },
+            {
+              "episode_id": "sep11_2001",
+              "title": "September 11 attacks",
+              "weight": 0.314,
+              "similarity": 0.627
+            },
+            {
+              "episode_id": "china_deval_2015",
+              "title": "Yuan devaluation and China slowdown",
+              "weight": 0.12,
+              "similarity": 0.623
+            }
+          ]
+        }
+      }
+    },
+    {
+      "episode_id": "tariff_hike_2019",
+      "title": "US raises tariffs on Chinese goods",
+      "event_type": "GEOPOLITICAL",
+      "start": "2019-05-03",
+      "headline": "Trump raises tariffs on $200 billion of Chinese goods and blacklists Huawei",
+      "n_prior": 12,
+      "realised": {
+        "EQ_US": -6.83,
+        "EQ_EU": -5.77,
+        "EQ_EM": -7.1,
+        "EQ_IN": 3.21,
+        "IR_USD_10Y": -45.0,
+        "CS_IG": 21.62,
+        "CS_HY": 109.09,
+        "CS_EM": 52.52,
+        "FX_EUR": 0.0,
+        "FX_JPY": 3.03,
+        "CMD_OIL": -14.03,
+        "CMD_GOLD": 3.4,
+        "VOL_VIX": 5.99
+      },
+      "realised_pnl_musd": 25.3,
+      "realised_cet1_after": 12.79,
+      "methods": {
+        "naive": {
+          "hits": 3,
+          "scored": 12,
+          "factor_hits": {
+            "EQ_US": true,
+            "EQ_EU": true,
+            "EQ_EM": true,
+            "EQ_IN": false,
+            "IR_USD_10Y": false,
+            "CS_IG": false,
+            "CS_HY": false,
+            "CS_EM": false,
+            "FX_JPY": false,
+            "CMD_OIL": false,
+            "CMD_GOLD": false,
+            "VOL_VIX": false
+          },
+          "pnl_musd": -581.3,
+          "pnl_error_musd": 606.7,
+          "cet1_after": 8.46,
+          "cet1_error_pp": 4.33,
+          "shocks": {
+            "EQ_US": -10.0,
+            "EQ_EU": -10.0,
+            "EQ_EM": -10.0,
+            "EQ_IN": -10.0,
+            "IR_USD_10Y": 200.0,
+            "CS_IG": null,
+            "CS_HY": null,
+            "CS_EM": null,
+            "FX_EUR": null,
+            "FX_JPY": null,
+            "CMD_OIL": null,
+            "CMD_GOLD": null,
+            "VOL_VIX": null
+          }
+        },
+        "template": {
+          "hits": 10,
+          "scored": 12,
+          "factor_hits": {
+            "EQ_US": true,
+            "EQ_EU": true,
+            "EQ_EM": true,
+            "EQ_IN": false,
+            "IR_USD_10Y": true,
+            "CS_IG": true,
+            "CS_HY": true,
+            "CS_EM": true,
+            "FX_JPY": true,
+            "CMD_OIL": false,
+            "CMD_GOLD": true,
+            "VOL_VIX": true
+          },
+          "pnl_musd": -259.7,
+          "pnl_error_musd": 285.1,
+          "cet1_after": 10.59,
+          "cet1_error_pp": 2.2,
+          "shocks": {
+            "EQ_US": -8,
+            "EQ_EU": -12,
+            "EQ_EM": -12,
+            "EQ_IN": -8,
+            "IR_USD_10Y": -20,
+            "CS_IG": 40,
+            "CS_HY": 150,
+            "CS_EM": 120,
+            "FX_EUR": -4,
+            "FX_JPY": 3,
+            "CMD_OIL": 30,
+            "CMD_GOLD": 8,
+            "VOL_VIX": 12
+          }
+        },
+        "all_mean": {
+          "hits": 11,
+          "scored": 12,
+          "factor_hits": {
+            "EQ_US": true,
+            "EQ_EU": true,
+            "EQ_EM": true,
+            "EQ_IN": false,
+            "IR_USD_10Y": true,
+            "CS_IG": true,
+            "CS_HY": true,
+            "CS_EM": true,
+            "FX_JPY": true,
+            "CMD_OIL": true,
+            "CMD_GOLD": true,
+            "VOL_VIX": true
+          },
+          "pnl_musd": -148.6,
+          "pnl_error_musd": 173.9,
+          "cet1_after": 11.1,
+          "cet1_error_pp": 1.69,
+          "shocks": {
+            "EQ_US": -9.91,
+            "EQ_EU": -12.56,
+            "EQ_EM": -10.89,
+            "EQ_IN": -6.94,
+            "IR_USD_10Y": -18.41,
+            "CS_IG": 33.32,
+            "CS_HY": 142.93,
+            "CS_EM": 61.96,
+            "FX_EUR": 0.55,
+            "FX_JPY": 2.61,
+            "CMD_OIL": -9.3,
+            "CMD_GOLD": 5.33,
+            "VOL_VIX": 13.97
+          }
+        },
+        "same_type_mean": {
+          "hits": 11,
+          "scored": 12,
+          "factor_hits": {
+            "EQ_US": true,
+            "EQ_EU": true,
+            "EQ_EM": true,
+            "EQ_IN": false,
+            "IR_USD_10Y": true,
+            "CS_IG": true,
+            "CS_HY": true,
+            "CS_EM": true,
+            "FX_JPY": true,
+            "CMD_OIL": true,
+            "CMD_GOLD": true,
+            "VOL_VIX": true
+          },
+          "pnl_musd": -40.9,
+          "pnl_error_musd": 66.3,
+          "cet1_after": 12.18,
+          "cet1_error_pp": 0.61,
+          "shocks": {
+            "EQ_US": -7.84,
+            "EQ_EU": -7.59,
+            "EQ_EM": -4.75,
+            "EQ_IN": -1.07,
+            "IR_USD_10Y": -20.56,
+            "CS_IG": 21.37,
+            "CS_HY": 95.16,
+            "CS_EM": 36.18,
+            "FX_EUR": -0.22,
+            "FX_JPY": 2.02,
+            "CMD_OIL": -9.23,
+            "CMD_GOLD": 5.1,
+            "VOL_VIX": 10.13
+          }
+        },
+        "nearest": {
+          "hits": "11",
+          "scored": 12,
+          "factor_hits": {
+            "EQ_US": "True",
+            "EQ_EU": "True",
+            "EQ_EM": "True",
+            "EQ_IN": "False",
+            "IR_USD_10Y": "True",
+            "CS_IG": "True",
+            "CS_HY": "True",
+            "CS_EM": "True",
+            "FX_JPY": "True",
+            "CMD_OIL": "True",
+            "CMD_GOLD": "True",
+            "VOL_VIX": "True"
+          },
+          "pnl_musd": -186.7,
+          "pnl_error_musd": 212.1,
+          "cet1_after": 10.42,
+          "cet1_error_pp": 2.37,
+          "shocks": {
+            "EQ_US": -15.99,
+            "EQ_EU": -10.25,
+            "EQ_EM": -6.67,
+            "EQ_IN": -2.18,
+            "IR_USD_10Y": -34.99,
+            "CS_IG": 45.18,
+            "CS_HY": 190.22,
+            "CS_EM": 67.49,
+            "FX_EUR": -0.9,
+            "FX_JPY": 2.24,
+            "CMD_OIL": -31.18,
+            "CMD_GOLD": 5.48,
+            "VOL_VIX": 20.06
+          },
+          "analogs": [
+            {
+              "episode_id": "trade_war_2018",
+              "title": "US-China trade war escalation",
+              "weight": 0.747,
+              "similarity": 0.721
+            },
+            {
+              "episode_id": "libya_2011",
+              "title": "Libyan civil war and Arab Spring oil shock",
+              "weight": 0.162,
+              "similarity": 0.593
+            },
+            {
+              "episode_id": "sep11_2001",
+              "title": "September 11 attacks",
+              "weight": 0.091,
+              "similarity": 0.545
+            }
+          ]
+        },
+        "tremor": {
+          "hits": "11",
+          "scored": 12,
+          "factor_hits": {
+            "EQ_US": "True",
+            "EQ_EU": "True",
+            "EQ_EM": "True",
+            "EQ_IN": "False",
+            "IR_USD_10Y": "True",
+            "CS_IG": "True",
+            "CS_HY": "True",
+            "CS_EM": "True",
+            "FX_JPY": "True",
+            "CMD_OIL": "True",
+            "CMD_GOLD": "True",
+            "VOL_VIX": "True"
+          },
+          "pnl_musd": -154.2,
+          "pnl_error_musd": 179.6,
+          "cet1_after": 10.85,
+          "cet1_error_pp": 1.94,
+          "shocks": {
+            "EQ_US": -12.95,
+            "EQ_EU": -11.41,
+            "EQ_EM": -8.78,
+            "EQ_IN": -4.56,
+            "IR_USD_10Y": -26.7,
+            "CS_IG": 39.25,
+            "CS_HY": 166.57,
+            "CS_EM": 64.72,
+            "FX_EUR": -0.17,
+            "FX_JPY": 2.42,
+            "CMD_OIL": -20.24,
+            "CMD_GOLD": 5.4,
+            "VOL_VIX": 17.01
+          },
+          "analogs": [
+            {
+              "episode_id": "trade_war_2018",
+              "title": "US-China trade war escalation",
+              "weight": 0.747,
+              "similarity": 0.721
+            },
+            {
+              "episode_id": "libya_2011",
+              "title": "Libyan civil war and Arab Spring oil shock",
+              "weight": 0.162,
+              "similarity": 0.593
+            },
+            {
+              "episode_id": "sep11_2001",
+              "title": "September 11 attacks",
+              "weight": 0.091,
+              "similarity": 0.545
+            }
+          ]
+        }
+      }
+    },
+    {
+      "episode_id": "abqaiq_2019",
+      "title": "Attack on Saudi Aramco's Abqaiq facility",
+      "event_type": "GEOPOLITICAL",
+      "start": "2019-09-13",
+      "headline": "Drone attack on Saudi Aramco's Abqaiq plant knocks out half of the kingdom's oil output",
+      "n_prior": 13,
+      "realised": {
+        "EQ_US": -0.06,
+        "EQ_EU": -0.81,
+        "EQ_EM": -0.78,
+        "EQ_IN": -2.33,
+        "IR_USD_10Y": -9.1,
+        "CS_IG": -0.77,
+        "CS_HY": -0.39,
+        "CS_EM": -0.7,
+        "FX_EUR": -0.47,
+        "FX_JPY": 0.01,
+        "CMD_OIL": 8.19,
+        "CMD_GOLD": 0.95,
+        "VOL_VIX": 0.7
+      },
+      "realised_pnl_musd": 9.0,
+      "realised_cet1_after": 13.48,
+      "methods": {
+        "naive": {
+          "hits": 1,
+          "scored": 3,
+          "factor_hits": {
+            "EQ_IN": true,
+            "IR_USD_10Y": false,
+            "CMD_OIL": false
+          },
+          "pnl_musd": -581.3,
+          "pnl_error_musd": 590.3,
+          "cet1_after": 8.46,
+          "cet1_error_pp": 5.02,
+          "shocks": {
+            "EQ_US": -10.0,
+            "EQ_EU": -10.0,
+            "EQ_EM": -10.0,
+            "EQ_IN": -10.0,
+            "IR_USD_10Y": 200.0,
+            "CS_IG": null,
+            "CS_HY": null,
+            "CS_EM": null,
+            "FX_EUR": null,
+            "FX_JPY": null,
+            "CMD_OIL": null,
+            "CMD_GOLD": null,
+            "VOL_VIX": null
+          }
+        },
+        "template": {
+          "hits": 3,
+          "scored": 3,
+          "factor_hits": {
+            "EQ_IN": true,
+            "IR_USD_10Y": true,
+            "CMD_OIL": true
+          },
+          "pnl_musd": -259.7,
+          "pnl_error_musd": 268.7,
+          "cet1_after": 10.59,
+          "cet1_error_pp": 2.89,
+          "shocks": {
+            "EQ_US": -8,
+            "EQ_EU": -12,
+            "EQ_EM": -12,
+            "EQ_IN": -8,
+            "IR_USD_10Y": -20,
+            "CS_IG": 40,
+            "CS_HY": 150,
+            "CS_EM": 120,
+            "FX_EUR": -4,
+            "FX_JPY": 3,
+            "CMD_OIL": 30,
+            "CMD_GOLD": 8,
+            "VOL_VIX": 12
+          }
+        },
+        "all_mean": {
+          "hits": 2,
+          "scored": 3,
+          "factor_hits": {
+            "EQ_IN": true,
+            "IR_USD_10Y": true,
+            "CMD_OIL": false
+          },
+          "pnl_musd": -135.3,
+          "pnl_error_musd": 144.3,
+          "cet1_after": 11.23,
+          "cet1_error_pp": 2.25,
+          "shocks": {
+            "EQ_US": -9.67,
+            "EQ_EU": -12.0,
+            "EQ_EM": -10.57,
+            "EQ_IN": -6.09,
+            "IR_USD_10Y": -20.45,
+            "CS_IG": 32.35,
+            "CS_HY": 140.11,
+            "CS_EM": 61.17,
+            "FX_EUR": 0.51,
+            "FX_JPY": 2.64,
+            "CMD_OIL": -9.67,
+            "CMD_GOLD": 5.18,
+            "VOL_VIX": 13.36
+          }
+        },
+        "same_type_mean": {
+          "hits": 2,
+          "scored": 3,
+          "factor_hits": {
+            "EQ_IN": true,
+            "IR_USD_10Y": true,
+            "CMD_OIL": false
+          },
+          "pnl_musd": -30.6,
+          "pnl_error_musd": 39.6,
+          "cet1_after": 12.28,
+          "cet1_error_pp": 1.2,
+          "shocks": {
+            "EQ_US": -7.67,
+            "EQ_EU": -7.23,
+            "EQ_EM": -5.22,
+            "EQ_IN": -0.21,
+            "IR_USD_10Y": -24.63,
+            "CS_IG": 21.42,
+            "CS_HY": 97.94,
+            "CS_EM": 39.45,
+            "FX_EUR": -0.18,
+            "FX_JPY": 2.19,
+            "CMD_OIL": -10.03,
+            "CMD_GOLD": 4.82,
+            "VOL_VIX": 9.44
+          }
+        },
+        "nearest": {
+          "hits": "3",
+          "scored": 3,
+          "factor_hits": {
+            "EQ_IN": "True",
+            "IR_USD_10Y": "True",
+            "CMD_OIL": "True"
+          },
+          "pnl_musd": 2.1,
+          "pnl_error_musd": 6.9,
+          "cet1_after": 13.05,
+          "cet1_error_pp": 0.43,
+          "shocks": {
+            "EQ_US": -2.86,
+            "EQ_EU": -2.88,
+            "EQ_EM": -1.29,
+            "EQ_IN": -3.17,
+            "IR_USD_10Y": -15.86,
+            "CS_IG": 8.24,
+            "CS_HY": 23.76,
+            "CS_EM": 10.57,
+            "FX_EUR": 2.0,
+            "FX_JPY": 1.44,
+            "CMD_OIL": 10.87,
+            "CMD_GOLD": 3.73,
+            "VOL_VIX": 5.6
+          },
+          "analogs": [
+            {
+              "episode_id": "libya_2011",
+              "title": "Libyan civil war and Arab Spring oil shock",
+              "weight": 0.779,
+              "similarity": 0.706
+            },
+            {
+              "episode_id": "sep11_2001",
+              "title": "September 11 attacks",
+              "weight": 0.128,
+              "similarity": 0.555
+            },
+            {
+              "episode_id": "crimea_2014",
+              "title": "Russia annexes Crimea",
+              "weight": 0.093,
+              "similarity": 0.528
+            }
+          ]
+        },
+        "tremor": {
+          "hits": "3",
+          "scored": 3,
+          "factor_hits": {
+            "EQ_IN": "True",
+            "IR_USD_10Y": "True",
+            "CMD_OIL": "True"
+          },
+          "pnl_musd": -54.6,
+          "pnl_error_musd": 63.6,
+          "cet1_after": 12.2,
+          "cet1_error_pp": 1.28,
+          "shocks": {
+            "EQ_US": -6.27,
+            "EQ_EU": -7.44,
+            "EQ_EM": -5.93,
+            "EQ_IN": -4.63,
+            "IR_USD_10Y": -18.15,
+            "CS_IG": 20.29,
+            "CS_HY": 81.93,
+            "CS_EM": 35.87,
+            "FX_EUR": 1.25,
+            "FX_JPY": 2.04,
+            "CMD_OIL": 0.6,
+            "CMD_GOLD": 4.45,
+            "VOL_VIX": 9.48
+          },
+          "analogs": [
+            {
+              "episode_id": "libya_2011",
+              "title": "Libyan civil war and Arab Spring oil shock",
+              "weight": 0.779,
+              "similarity": 0.706
+            },
+            {
+              "episode_id": "sep11_2001",
+              "title": "September 11 attacks",
+              "weight": 0.128,
+              "similarity": 0.555
+            },
+            {
+              "episode_id": "crimea_2014",
+              "title": "Russia annexes Crimea",
+              "weight": 0.093,
+              "similarity": 0.528
+            }
+          ]
+        }
+      }
+    },
+    {
+      "episode_id": "soleimani_2020",
+      "title": "US strike kills Iranian general",
+      "event_type": "GEOPOLITICAL",
+      "start": "2020-01-02",
+      "headline": "US strike kills top Iranian general Qassem Soleimani in Baghdad",
+      "n_prior": 14,
+      "realised": {
+        "EQ_US": -0.15,
+        "EQ_EU": 0.64,
+        "EQ_EM": -1.59,
+        "EQ_IN": -2.09,
+        "IR_USD_10Y": -0.8,
+        "CS_IG": 6.71,
+        "CS_HY": 7.66,
+        "CS_EM": 3.08,
+        "FX_EUR": -0.59,
+        "FX_JPY": 0.65,
+        "CMD_OIL": -2.57,
+        "CMD_GOLD": 2.16,
+        "VOL_VIX": 0.98
+      },
+      "realised_pnl_musd": -29.2,
+      "realised_cet1_after": 13.2,
+      "methods": {
+        "naive": {
+          "hits": 2,
+          "scored": 6,
+          "factor_hits": {
+            "EQ_EM": true,
+            "EQ_IN": true,
+            "CS_IG": false,
+            "CS_HY": false,
+            "CMD_OIL": false,
+            "CMD_GOLD": false
+          },
+          "pnl_musd": -581.3,
+          "pnl_error_musd": 552.1,
+          "cet1_after": 8.46,
+          "cet1_error_pp": 4.74,
+          "shocks": {
+            "EQ_US": -10.0,
+            "EQ_EU": -10.0,
+            "EQ_EM": -10.0,
+            "EQ_IN": -10.0,
+            "IR_USD_10Y": 200.0,
+            "CS_IG": null,
+            "CS_HY": null,
+            "CS_EM": null,
+            "FX_EUR": null,
+            "FX_JPY": null,
+            "CMD_OIL": null,
+            "CMD_GOLD": null,
+            "VOL_VIX": null
+          }
+        },
+        "template": {
+          "hits": 5,
+          "scored": 6,
+          "factor_hits": {
+            "EQ_EM": true,
+            "EQ_IN": true,
+            "CS_IG": true,
+            "CS_HY": true,
+            "CMD_OIL": false,
+            "CMD_GOLD": true
+          },
+          "pnl_musd": -259.7,
+          "pnl_error_musd": 230.5,
+          "cet1_after": 10.59,
+          "cet1_error_pp": 2.61,
+          "shocks": {
+            "EQ_US": -8,
+            "EQ_EU": -12,
+            "EQ_EM": -12,
+            "EQ_IN": -8,
+            "IR_USD_10Y": -20,
+            "CS_IG": 40,
+            "CS_HY": 150,
+            "CS_EM": 120,
+            "FX_EUR": -4,
+            "FX_JPY": 3,
+            "CMD_OIL": 30,
+            "CMD_GOLD": 8,
+            "VOL_VIX": 12
+          }
+        },
+        "all_mean": {
+          "hits": 6,
+          "scored": 6,
+          "factor_hits": {
+            "EQ_EM": true,
+            "EQ_IN": true,
+            "CS_IG": true,
+            "CS_HY": true,
+            "CMD_OIL": true,
+            "CMD_GOLD": true
+          },
+          "pnl_musd": -113.6,
+          "pnl_error_musd": 84.4,
+          "cet1_after": 11.46,
+          "cet1_error_pp": 1.74,
+          "shocks": {
+            "EQ_US": -8.99,
+            "EQ_EU": -11.14,
+            "EQ_EM": -9.82,
+            "EQ_IN": -5.8,
+            "IR_USD_10Y": -19.64,
+            "CS_IG": 29.8,
+            "CS_HY": 129.3,
+            "CS_EM": 56.41,
+            "FX_EUR": 0.43,
+            "FX_JPY": 2.45,
+            "CMD_OIL": -8.39,
+            "CMD_GOLD": 4.88,
+            "VOL_VIX": 12.45
+          }
+        },
+        "same_type_mean": {
+          "hits": 6,
+          "scored": 6,
+          "factor_hits": {
+            "EQ_EM": true,
+            "EQ_IN": true,
+            "CS_IG": true,
+            "CS_HY": true,
+            "CMD_OIL": true,
+            "CMD_GOLD": true
+          },
+          "pnl_musd": -22.6,
+          "pnl_error_musd": 6.6,
+          "cet1_after": 12.47,
+          "cet1_error_pp": 0.73,
+          "shocks": {
+            "EQ_US": -6.59,
+            "EQ_EU": -6.16,
+            "EQ_EM": -4.48,
+            "EQ_IN": -0.57,
+            "IR_USD_10Y": -22.41,
+            "CS_IG": 17.72,
+            "CS_HY": 81.56,
+            "CS_EM": 32.76,
+            "FX_EUR": -0.23,
+            "FX_JPY": 1.88,
+            "CMD_OIL": -7.42,
+            "CMD_GOLD": 4.26,
+            "VOL_VIX": 8.19
+          }
+        },
+        "nearest": {
+          "hits": "5",
+          "scored": 6,
+          "factor_hits": {
+            "EQ_EM": "True",
+            "EQ_IN": "True",
+            "CS_IG": "True",
+            "CS_HY": "True",
+            "CMD_OIL": "False",
+            "CMD_GOLD": "True"
+          },
+          "pnl_musd": 8.6,
+          "pnl_error_musd": 37.8,
+          "cet1_after": 13.01,
+          "cet1_error_pp": 0.19,
+          "shocks": {
+            "EQ_US": -3.88,
+            "EQ_EU": -1.4,
+            "EQ_EM": -0.89,
+            "EQ_IN": -2.85,
+            "IR_USD_10Y": -12.67,
+            "CS_IG": 2.08,
+            "CS_HY": 7.39,
+            "CS_EM": 2.69,
+            "FX_EUR": 0.34,
+            "FX_JPY": 1.43,
+            "CMD_OIL": 5.5,
+            "CMD_GOLD": 3.37,
+            "VOL_VIX": 4.68
+          },
+          "analogs": [
+            {
+              "episode_id": "abqaiq_2019",
+              "title": "Attack on Saudi Aramco's Abqaiq facility",
+              "weight": 0.479,
+              "similarity": 0.577
+            },
+            {
+              "episode_id": "sep11_2001",
+              "title": "September 11 attacks",
+              "weight": 0.301,
+              "similarity": 0.538
+            },
+            {
+              "episode_id": "libya_2011",
+              "title": "Libyan civil war and Arab Spring oil shock",
+              "weight": 0.22,
+              "similarity": 0.512
+            }
+          ]
+        },
+        "tremor": {
+          "hits": "6",
+          "scored": 6,
+          "factor_hits": {
+            "EQ_EM": "True",
+            "EQ_IN": "True",
+            "CS_IG": "True",
+            "CS_HY": "True",
+            "CMD_OIL": "True",
+            "CMD_GOLD": "True"
+          },
+          "pnl_musd": -46.7,
+          "pnl_error_musd": 17.5,
+          "cet1_after": 12.26,
+          "cet1_error_pp": 0.94,
+          "shocks": {
+            "EQ_US": -6.44,
+            "EQ_EU": -6.27,
+            "EQ_EM": -5.35,
+            "EQ_IN": -4.33,
+            "IR_USD_10Y": -16.16,
+            "CS_IG": 15.94,
+            "CS_HY": 68.35,
+            "CS_EM": 29.55,
+            "FX_EUR": 0.39,
+            "FX_JPY": 1.94,
+            "CMD_OIL": -1.45,
+            "CMD_GOLD": 4.12,
+            "VOL_VIX": 8.57
+          },
+          "analogs": [
+            {
+              "episode_id": "abqaiq_2019",
+              "title": "Attack on Saudi Aramco's Abqaiq facility",
+              "weight": 0.479,
+              "similarity": 0.577
+            },
+            {
+              "episode_id": "sep11_2001",
+              "title": "September 11 attacks",
+              "weight": 0.301,
+              "similarity": 0.538
+            },
+            {
+              "episode_id": "libya_2011",
+              "title": "Libyan civil war and Arab Spring oil shock",
+              "weight": 0.22,
+              "similarity": 0.512
+            }
+          ]
+        }
+      }
+    },
+    {
+      "episode_id": "covid_2020",
+      "title": "COVID-19 market crash",
+      "event_type": "MACROECONOMIC",
+      "start": "2020-02-19",
+      "headline": "Coronavirus spreads beyond China as Italy locks down towns and global cases surge",
+      "n_prior": 15,
+      "realised": {
+        "EQ_US": -33.92,
+        "EQ_EU": -35.69,
+        "EQ_EM": -30.79,
+        "EQ_IN": -37.24,
+        "IR_USD_10Y": -80.6,
+        "CS_IG": 219.69,
+        "CS_HY": 691.28,
+        "CS_EM": 397.11,
+        "FX_EUR": -0.94,
+        "FX_JPY": -0.49,
+        "CMD_OIL": -56.16,
+        "CMD_GOLD": -2.52,
+        "VOL_VIX": 47.21
+      },
+      "realised_pnl_musd": -1864.0,
+      "realised_cet1_after": -0.37,
+      "methods": {
+        "naive": {
+          "hits": 4,
+          "scored": 11,
+          "factor_hits": {
+            "EQ_US": true,
+            "EQ_EU": true,
+            "EQ_EM": true,
+            "EQ_IN": true,
+            "IR_USD_10Y": false,
+            "CS_IG": false,
+            "CS_HY": false,
+            "CS_EM": false,
+            "CMD_OIL": false,
+            "CMD_GOLD": false,
+            "VOL_VIX": false
+          },
+          "pnl_musd": -581.3,
+          "pnl_error_musd": 1282.6,
+          "cet1_after": 8.46,
+          "cet1_error_pp": 8.83,
+          "shocks": {
+            "EQ_US": -10.0,
+            "EQ_EU": -10.0,
+            "EQ_EM": -10.0,
+            "EQ_IN": -10.0,
+            "IR_USD_10Y": 200.0,
+            "CS_IG": null,
+            "CS_HY": null,
+            "CS_EM": null,
+            "FX_EUR": null,
+            "FX_JPY": null,
+            "CMD_OIL": null,
+            "CMD_GOLD": null,
+            "VOL_VIX": null
+          }
+        },
+        "template": {
+          "hits": 10,
+          "scored": 11,
+          "factor_hits": {
+            "EQ_US": true,
+            "EQ_EU": true,
+            "EQ_EM": true,
+            "EQ_IN": true,
+            "IR_USD_10Y": false,
+            "CS_IG": true,
+            "CS_HY": true,
+            "CS_EM": true,
+            "CMD_OIL": true,
+            "CMD_GOLD": true,
+            "VOL_VIX": true
+          },
+          "pnl_musd": -545.0,
+          "pnl_error_musd": 1319.0,
+          "cet1_after": 8.57,
+          "cet1_error_pp": 8.94,
+          "shocks": {
+            "EQ_US": -10,
+            "EQ_EU": -10,
+            "EQ_EM": -12,
+            "EQ_IN": -8,
+            "IR_USD_10Y": 75,
+            "CS_IG": 50,
+            "CS_HY": 200,
+            "CS_EM": 150,
+            "FX_EUR": -3,
+            "FX_JPY": -5,
+            "CMD_OIL": -10,
+            "CMD_GOLD": -3,
+            "VOL_VIX": 10
+          }
+        },
+        "all_mean": {
+          "hits": 10,
+          "scored": 11,
+          "factor_hits": {
+            "EQ_US": true,
+            "EQ_EU": true,
+            "EQ_EM": true,
+            "EQ_IN": true,
+            "IR_USD_10Y": true,
+            "CS_IG": true,
+            "CS_HY": true,
+            "CS_EM": true,
+            "CMD_OIL": true,
+            "CMD_GOLD": false,
+            "VOL_VIX": true
+          },
+          "pnl_musd": -98.6,
+          "pnl_error_musd": 1765.3,
+          "cet1_after": 11.63,
+          "cet1_error_pp": 12.0,
+          "shocks": {
+            "EQ_US": -8.4,
+            "EQ_EU": -10.29,
+            "EQ_EM": -9.23,
+            "EQ_IN": -5.54,
+            "IR_USD_10Y": -18.39,
+            "CS_IG": 28.15,
+            "CS_HY": 120.62,
+            "CS_EM": 52.6,
+            "FX_EUR": 0.36,
+            "FX_JPY": 2.33,
+            "CMD_OIL": -8.0,
+            "CMD_GOLD": 4.7,
+            "VOL_VIX": 11.69
+          }
+        },
+        "same_type_mean": {
+          "hits": 8,
+          "scored": 11,
+          "factor_hits": {
+            "EQ_US": true,
+            "EQ_EU": true,
+            "EQ_EM": true,
+            "EQ_IN": true,
+            "IR_USD_10Y": false,
+            "CS_IG": true,
+            "CS_HY": true,
+            "CS_EM": true,
+            "CMD_OIL": false,
+            "CMD_GOLD": false,
+            "VOL_VIX": true
+          },
+          "pnl_musd": -295.2,
+          "pnl_error_musd": 1568.8,
+          "cet1_after": 10.12,
+          "cet1_error_pp": 10.49,
+          "shocks": {
+            "EQ_US": -9.8,
+            "EQ_EU": -11.8,
+            "EQ_EM": -13.47,
+            "EQ_IN": -10.55,
+            "IR_USD_10Y": 21.98,
+            "CS_IG": 26.21,
+            "CS_HY": 106.02,
+            "CS_EM": 51.9,
+            "FX_EUR": 2.1,
+            "FX_JPY": 1.67,
+            "CMD_OIL": 1.95,
+            "CMD_GOLD": 1.55,
+            "VOL_VIX": 15.38
+          }
+        },
+        "nearest": {
+          "hits": "10",
+          "scored": 11,
+          "factor_hits": {
+            "EQ_US": "True",
+            "EQ_EU": "True",
+            "EQ_EM": "True",
+            "EQ_IN": "True",
+            "IR_USD_10Y": "True",
+            "CS_IG": "True",
+            "CS_HY": "True",
+            "CS_EM": "True",
+            "CMD_OIL": "True",
+            "CMD_GOLD": "False",
+            "VOL_VIX": "True"
+          },
+          "pnl_musd": -140.6,
+          "pnl_error_musd": 1723.3,
+          "cet1_after": 11.13,
+          "cet1_error_pp": 11.5,
+          "shocks": {
+            "EQ_US": -11.07,
+            "EQ_EU": -11.61,
+            "EQ_EM": -13.84,
+            "EQ_IN": -7.17,
+            "IR_USD_10Y": -18.19,
+            "CS_IG": 27.18,
+            "CS_HY": 113.23,
+            "CS_EM": 62.3,
+            "FX_EUR": -0.35,
+            "FX_JPY": 3.17,
+            "CMD_OIL": -13.05,
+            "CMD_GOLD": 1.62,
+            "VOL_VIX": 21.64
+          },
+          "analogs": [
+            {
+              "episode_id": "china_deval_2015",
+              "title": "Yuan devaluation and China slowdown",
+              "weight": 0.402,
+              "similarity": 0.562
+            },
+            {
+              "episode_id": "volmageddon_2018",
+              "title": "Volatility spike (Volmageddon)",
+              "weight": 0.3,
+              "similarity": 0.537
+            },
+            {
+              "episode_id": "euro_sovereign_2010",
+              "title": "Greek debt crisis and euro-area contagion",
+              "weight": 0.298,
+              "similarity": 0.613
+            }
+          ]
+        },
+        "tremor": {
+          "hits": "10",
+          "scored": 11,
+          "factor_hits": {
+            "EQ_US": "True",
+            "EQ_EU": "True",
+            "EQ_EM": "True",
+            "EQ_IN": "True",
+            "IR_USD_10Y": "True",
+            "CS_IG": "True",
+            "CS_HY": "True",
+            "CS_EM": "True",
+            "CMD_OIL": "True",
+            "CMD_GOLD": "False",
+            "VOL_VIX": "True"
+          },
+          "pnl_musd": -114.8,
+          "pnl_error_musd": 1749.1,
+          "cet1_after": 11.42,
+          "cet1_error_pp": 11.79,
+          "shocks": {
+            "EQ_US": -9.74,
+            "EQ_EU": -10.95,
+            "EQ_EM": -11.54,
+            "EQ_IN": -6.35,
+            "IR_USD_10Y": -18.29,
+            "CS_IG": 27.67,
+            "CS_HY": 116.92,
+            "CS_EM": 57.45,
+            "FX_EUR": 0.01,
+            "FX_JPY": 2.75,
+            "CMD_OIL": -10.52,
+            "CMD_GOLD": 3.16,
+            "VOL_VIX": 16.66
+          },
+          "analogs": [
+            {
+              "episode_id": "china_deval_2015",
+              "title": "Yuan devaluation and China slowdown",
+              "weight": 0.402,
+              "similarity": 0.562
+            },
+            {
+              "episode_id": "volmageddon_2018",
+              "title": "Volatility spike (Volmageddon)",
+              "weight": 0.3,
+              "similarity": 0.537
+            },
+            {
+              "episode_id": "euro_sovereign_2010",
+              "title": "Greek debt crisis and euro-area contagion",
+              "weight": 0.298,
+              "similarity": 0.613
+            }
+          ]
+        }
+      }
+    },
+    {
+      "episode_id": "inflation_scare_2021",
+      "title": "US inflation scare",
+      "event_type": "MACROECONOMIC",
+      "start": "2021-05-07",
+      "headline": "US consumer prices rise the most since 2008",
+      "n_prior": 15,
+      "realised": {
+        "EQ_US": -4.01,
+        "EQ_EU": -2.15,
+        "EQ_EM": -4.77,
+        "EQ_IN": -0.85,
+        "IR_USD_10Y": 11.8,
+        "CS_IG": 7.0,
+        "CS_HY": 10.73,
+        "CS_EM": 7.35,
+        "FX_EUR": 0.63,
+        "FX_JPY": 0.31,
+        "CMD_OIL": 1.82,
+        "CMD_GOLD": -0.46,
+        "VOL_VIX": 10.9
+      },
+      "realised_pnl_musd": -63.2,
+      "realised_cet1_after": 12.6,
+      "methods": {
+        "naive": {
+          "hits": 4,
+          "scored": 9,
+          "factor_hits": {
+            "EQ_US": true,
+            "EQ_EU": true,
+            "EQ_EM": true,
+            "IR_USD_10Y": true,
+            "CS_IG": false,
+            "CS_HY": false,
+            "CS_EM": false,
+            "CMD_OIL": false,
+            "VOL_VIX": false
+          },
+          "pnl_musd": -581.3,
+          "pnl_error_musd": 518.1,
+          "cet1_after": 8.46,
+          "cet1_error_pp": 4.14,
+          "shocks": {
+            "EQ_US": -10.0,
+            "EQ_EU": -10.0,
+            "EQ_EM": -10.0,
+            "EQ_IN": -10.0,
+            "IR_USD_10Y": 200.0,
+            "CS_IG": null,
+            "CS_HY": null,
+            "CS_EM": null,
+            "FX_EUR": null,
+            "FX_JPY": null,
+            "CMD_OIL": null,
+            "CMD_GOLD": null,
+            "VOL_VIX": null
+          }
+        },
+        "template": {
+          "hits": 8,
+          "scored": 9,
+          "factor_hits": {
+            "EQ_US": true,
+            "EQ_EU": true,
+            "EQ_EM": true,
+            "IR_USD_10Y": true,
+            "CS_IG": true,
+            "CS_HY": true,
+            "CS_EM": true,
+            "CMD_OIL": false,
+            "VOL_VIX": true
+          },
+          "pnl_musd": -545.0,
+          "pnl_error_musd": 481.7,
+          "cet1_after": 8.57,
+          "cet1_error_pp": 4.03,
+          "shocks": {
+            "EQ_US": -10,
+            "EQ_EU": -10,
+            "EQ_EM": -12,
+            "EQ_IN": -8,
+            "IR_USD_10Y": 75,
+            "CS_IG": 50,
+            "CS_HY": 200,
+            "CS_EM": 150,
+            "FX_EUR": -3,
+            "FX_JPY": -5,
+            "CMD_OIL": -10,
+            "CMD_GOLD": -3,
+            "VOL_VIX": 10
+          }
+        },
+        "all_mean": {
+          "hits": 7,
+          "scored": 9,
+          "factor_hits": {
+            "EQ_US": true,
+            "EQ_EU": true,
+            "EQ_EM": true,
+            "IR_USD_10Y": false,
+            "CS_IG": true,
+            "CS_HY": true,
+            "CS_EM": true,
+            "CMD_OIL": false,
+            "VOL_VIX": true
+          },
+          "pnl_musd": -98.6,
+          "pnl_error_musd": 35.4,
+          "cet1_after": 11.63,
+          "cet1_error_pp": 0.97,
+          "shocks": {
+            "EQ_US": -8.4,
+            "EQ_EU": -10.29,
+            "EQ_EM": -9.23,
+            "EQ_IN": -5.54,
+            "IR_USD_10Y": -18.39,
+            "CS_IG": 28.15,
+            "CS_HY": 120.62,
+            "CS_EM": 52.6,
+            "FX_EUR": 0.36,
+            "FX_JPY": 2.33,
+            "CMD_OIL": -8.0,
+            "CMD_GOLD": 4.7,
+            "VOL_VIX": 11.69
+          }
+        },
+        "same_type_mean": {
+          "hits": 9,
+          "scored": 9,
+          "factor_hits": {
+            "EQ_US": true,
+            "EQ_EU": true,
+            "EQ_EM": true,
+            "IR_USD_10Y": true,
+            "CS_IG": true,
+            "CS_HY": true,
+            "CS_EM": true,
+            "CMD_OIL": true,
+            "VOL_VIX": true
+          },
+          "pnl_musd": -295.2,
+          "pnl_error_musd": 232.0,
+          "cet1_after": 10.12,
+          "cet1_error_pp": 2.48,
+          "shocks": {
+            "EQ_US": -9.8,
+            "EQ_EU": -11.8,
+            "EQ_EM": -13.47,
+            "EQ_IN": -10.55,
+            "IR_USD_10Y": 21.98,
+            "CS_IG": 26.21,
+            "CS_HY": 106.02,
+            "CS_EM": 51.9,
+            "FX_EUR": 2.1,
+            "FX_JPY": 1.67,
+            "CMD_OIL": 1.95,
+            "CMD_GOLD": 1.55,
+            "VOL_VIX": 15.38
+          }
+        },
+        "nearest": {
+          "hits": "9",
+          "scored": 9,
+          "factor_hits": {
+            "EQ_US": "True",
+            "EQ_EU": "True",
+            "EQ_EM": "True",
+            "IR_USD_10Y": "True",
+            "CS_IG": "True",
+            "CS_HY": "True",
+            "CS_EM": "True",
+            "CMD_OIL": "True",
+            "VOL_VIX": "True"
+          },
+          "pnl_musd": -397.9,
+          "pnl_error_musd": 334.6,
+          "cet1_after": 9.26,
+          "cet1_error_pp": 3.34,
+          "shocks": {
+            "EQ_US": -10.26,
+            "EQ_EU": -12.71,
+            "EQ_EM": -12.76,
+            "EQ_IN": -14.04,
+            "IR_USD_10Y": 27.18,
+            "CS_IG": 33.85,
+            "CS_HY": 129.41,
+            "CS_EM": 42.31,
+            "FX_EUR": 1.1,
+            "FX_JPY": -0.2,
+            "CMD_OIL": 12.39,
+            "CMD_GOLD": 4.46,
+            "VOL_VIX": 12.26
+          },
+          "analogs": [
+            {
+              "episode_id": "oil_spike_2008",
+              "title": "Oil price spike to $147",
+              "weight": 0.511,
+              "similarity": 0.696
+            },
+            {
+              "episode_id": "volmageddon_2018",
+              "title": "Volatility spike (Volmageddon)",
+              "weight": 0.292,
+              "similarity": 0.649
+            },
+            {
+              "episode_id": "taper_tantrum_2013",
+              "title": "Taper tantrum",
+              "weight": 0.197,
+              "similarity": 0.616
+            }
+          ]
+        },
+        "tremor": {
+          "hits": "9",
+          "scored": 9,
+          "factor_hits": {
+            "EQ_US": "True",
+            "EQ_EU": "True",
+            "EQ_EM": "True",
+            "IR_USD_10Y": "True",
+            "CS_IG": "True",
+            "CS_HY": "True",
+            "CS_EM": "True",
+            "CMD_OIL": "True",
+            "VOL_VIX": "True"
+          },
+          "pnl_musd": -241.4,
+          "pnl_error_musd": 178.2,
+          "cet1_after": 10.48,
+          "cet1_error_pp": 2.12,
+          "shocks": {
+            "EQ_US": -9.33,
+            "EQ_EU": -11.5,
+            "EQ_EM": -11.0,
+            "EQ_IN": -9.79,
+            "IR_USD_10Y": 4.4,
+            "CS_IG": 31.0,
+            "CS_HY": 125.01,
+            "CS_EM": 47.45,
+            "FX_EUR": 0.73,
+            "FX_JPY": 1.06,
+            "CMD_OIL": 2.19,
+            "CMD_GOLD": 4.58,
+            "VOL_VIX": 11.97
+          },
+          "analogs": [
+            {
+              "episode_id": "oil_spike_2008",
+              "title": "Oil price spike to $147",
+              "weight": 0.511,
+              "similarity": 0.696
+            },
+            {
+              "episode_id": "volmageddon_2018",
+              "title": "Volatility spike (Volmageddon)",
+              "weight": 0.292,
+              "similarity": 0.649
+            },
+            {
+              "episode_id": "taper_tantrum_2013",
+              "title": "Taper tantrum",
+              "weight": 0.197,
+              "similarity": 0.616
+            }
+          ]
+        }
+      }
+    },
+    {
+      "episode_id": "evergrande_2021",
+      "title": "Evergrande debt crisis",
+      "event_type": "CREDIT_EVENT",
+      "start": "2021-09-13",
+      "headline": "China Evergrande warns of default as it misses payments to banks and investors",
+      "n_prior": 16,
+      "realised": {
+        "EQ_US": -2.48,
+        "EQ_EU": -3.48,
+        "EQ_EM": -5.02,
+        "EQ_IN": 0.24,
+        "IR_USD_10Y": -1.5,
+        "CS_IG": -0.35,
+        "CS_HY": 8.95,
+        "CS_EM": 14.99,
+        "FX_EUR": -0.69,
+        "FX_JPY": -0.05,
+        "CMD_OIL": -0.23,
+        "CMD_GOLD": -1.71,
+        "VOL_VIX": 6.34
+      },
+      "realised_pnl_musd": -38.8,
+      "realised_cet1_after": 12.86,
+      "methods": {
+        "naive": {
+          "hits": 3,
+          "scored": 7,
+          "factor_hits": {
+            "EQ_US": true,
+            "EQ_EU": true,
+            "EQ_EM": true,
+            "CS_HY": false,
+            "CS_EM": false,
+            "CMD_GOLD": false,
+            "VOL_VIX": false
+          },
+          "pnl_musd": -581.3,
+          "pnl_error_musd": 542.5,
+          "cet1_after": 8.46,
+          "cet1_error_pp": 4.4,
+          "shocks": {
+            "EQ_US": -10.0,
+            "EQ_EU": -10.0,
+            "EQ_EM": -10.0,
+            "EQ_IN": -10.0,
+            "IR_USD_10Y": 200.0,
+            "CS_IG": null,
+            "CS_HY": null,
+            "CS_EM": null,
+            "FX_EUR": null,
+            "FX_JPY": null,
+            "CMD_OIL": null,
+            "CMD_GOLD": null,
+            "VOL_VIX": null
+          }
+        },
+        "template": {
+          "hits": 6,
+          "scored": 7,
+          "factor_hits": {
+            "EQ_US": true,
+            "EQ_EU": true,
+            "EQ_EM": true,
+            "CS_HY": true,
+            "CS_EM": true,
+            "CMD_GOLD": false,
+            "VOL_VIX": true
+          },
+          "pnl_musd": -618.2,
+          "pnl_error_musd": 579.4,
+          "cet1_after": 7.43,
+          "cet1_error_pp": 5.43,
+          "shocks": {
+            "EQ_US": -15,
+            "EQ_EU": -18,
+            "EQ_EM": -18,
+            "EQ_IN": -12,
+            "IR_USD_10Y": -40,
+            "CS_IG": 120,
+            "CS_HY": 400,
+            "CS_EM": 300,
+            "FX_EUR": -5,
+            "FX_JPY": 5,
+            "CMD_OIL": -20,
+            "CMD_GOLD": 5,
+            "VOL_VIX": 25
+          }
+        },
+        "all_mean": {
+          "hits": 6,
+          "scored": 7,
+          "factor_hits": {
+            "EQ_US": true,
+            "EQ_EU": true,
+            "EQ_EM": true,
+            "CS_HY": true,
+            "CS_EM": true,
+            "CMD_GOLD": false,
+            "VOL_VIX": true
+          },
+          "pnl_musd": -95.6,
+          "pnl_error_musd": 56.8,
+          "cet1_after": 11.7,
+          "cet1_error_pp": 1.16,
+          "shocks": {
+            "EQ_US": -8.12,
+            "EQ_EU": -9.75,
+            "EQ_EM": -8.94,
+            "EQ_IN": -5.23,
+            "IR_USD_10Y": -16.5,
+            "CS_IG": 26.74,
+            "CS_HY": 113.29,
+            "CS_EM": 49.59,
+            "FX_EUR": 0.38,
+            "FX_JPY": 2.2,
+            "CMD_OIL": -7.39,
+            "CMD_GOLD": 4.37,
+            "VOL_VIX": 11.64
+          }
+        },
+        "same_type_mean": {
+          "hits": 6,
+          "scored": 7,
+          "factor_hits": {
+            "EQ_US": true,
+            "EQ_EU": true,
+            "EQ_EM": true,
+            "CS_HY": true,
+            "CS_EM": true,
+            "CMD_GOLD": false,
+            "VOL_VIX": true
+          },
+          "pnl_musd": -225.0,
+          "pnl_error_musd": 186.2,
+          "cet1_after": 10.1,
+          "cet1_error_pp": 2.76,
+          "shocks": {
+            "EQ_US": -13.51,
+            "EQ_EU": -20.2,
+            "EQ_EM": -15.63,
+            "EQ_IN": -9.95,
+            "IR_USD_10Y": -68.67,
+            "CS_IG": 58.73,
+            "CS_HY": 255.85,
+            "CS_EM": 109.73,
+            "FX_EUR": -0.48,
+            "FX_JPY": 4.82,
+            "CMD_OIL": -24.43,
+            "CMD_GOLD": 10.74,
+            "VOL_VIX": 18.49
+          }
+        },
+        "nearest": {
+          "hits": "6",
+          "scored": 7,
+          "factor_hits": {
+            "EQ_US": "True",
+            "EQ_EU": "True",
+            "EQ_EM": "True",
+            "CS_HY": "True",
+            "CS_EM": "True",
+            "CMD_GOLD": "False",
+            "VOL_VIX": "True"
+          },
+          "pnl_musd": -225.9,
+          "pnl_error_musd": 187.1,
+          "cet1_after": 10.13,
+          "cet1_error_pp": 2.73,
+          "shocks": {
+            "EQ_US": -13.21,
+            "EQ_EU": -19.75,
+            "EQ_EM": -15.47,
+            "EQ_IN": -10.01,
+            "IR_USD_10Y": -67.66,
+            "CS_IG": 59.05,
+            "CS_HY": 251.89,
+            "CS_EM": 111.15,
+            "FX_EUR": -0.92,
+            "FX_JPY": 4.94,
+            "CMD_OIL": -24.57,
+            "CMD_GOLD": 10.3,
+            "VOL_VIX": 18.04
+          },
+          "analogs": [
+            {
+              "episode_id": "euro_sovereign_2010",
+              "title": "Greek debt crisis and euro-area contagion",
+              "weight": 0.393,
+              "similarity": 0.65
+            },
+            {
+              "episode_id": "energy_credit_2015",
+              "title": "Oil crash and high-yield energy defaults",
+              "weight": 0.334,
+              "similarity": 0.636
+            },
+            {
+              "episode_id": "us_downgrade_2011",
+              "title": "US sovereign downgrade and euro crisis",
+              "weight": 0.274,
+              "similarity": 0.62
+            }
+          ]
+        },
+        "tremor": {
+          "hits": "6",
+          "scored": 7,
+          "factor_hits": {
+            "EQ_US": "True",
+            "EQ_EU": "True",
+            "EQ_EM": "True",
+            "CS_HY": "True",
+            "CS_EM": "True",
+            "CMD_GOLD": "False",
+            "VOL_VIX": "True"
+          },
+          "pnl_musd": -134.3,
+          "pnl_error_musd": 95.5,
+          "cet1_after": 11.07,
+          "cet1_error_pp": 1.79,
+          "shocks": {
+            "EQ_US": -10.67,
+            "EQ_EU": -14.75,
+            "EQ_EM": -12.2,
+            "EQ_IN": -7.62,
+            "IR_USD_10Y": -42.08,
+            "CS_IG": 42.89,
+            "CS_HY": 182.59,
+            "CS_EM": 80.37,
+            "FX_EUR": -0.27,
+            "FX_JPY": 3.57,
+            "CMD_OIL": -15.98,
+            "CMD_GOLD": 7.34,
+            "VOL_VIX": 14.84
+          },
+          "analogs": [
+            {
+              "episode_id": "euro_sovereign_2010",
+              "title": "Greek debt crisis and euro-area contagion",
+              "weight": 0.393,
+              "similarity": 0.65
+            },
+            {
+              "episode_id": "energy_credit_2015",
+              "title": "Oil crash and high-yield energy defaults",
+              "weight": 0.334,
+              "similarity": 0.636
+            },
+            {
+              "episode_id": "us_downgrade_2011",
+              "title": "US sovereign downgrade and euro crisis",
+              "weight": 0.274,
+              "similarity": 0.62
+            }
+          ]
+        }
+      }
+    },
+    {
+      "episode_id": "ukraine_2022",
+      "title": "Russia invades Ukraine",
+      "event_type": "GEOPOLITICAL",
+      "start": "2022-02-16",
+      "headline": "Russia launches a full-scale invasion of Ukraine",
+      "n_prior": 17,
+      "realised": {
+        "EQ_US": -6.8,
+        "EQ_EU": -15.27,
+        "EQ_EM": -13.46,
+        "EQ_IN": -7.56,
+        "IR_USD_10Y": -17.5,
+        "CS_IG": 32.85,
+        "CS_HY": 54.9,
+        "CS_EM": 137.13,
+        "FX_EUR": -4.33,
+        "FX_JPY": 0.23,
+        "CMD_OIL": 32.07,
+        "CMD_GOLD": 9.18,
+        "VOL_VIX": 10.84
+      },
+      "realised_pnl_musd": -302.1,
+      "realised_cet1_after": 10.31,
+      "methods": {
+        "naive": {
+          "hits": 4,
+          "scored": 12,
+          "factor_hits": {
+            "EQ_US": true,
+            "EQ_EU": true,
+            "EQ_EM": true,
+            "EQ_IN": true,
+            "IR_USD_10Y": false,
+            "CS_IG": false,
+            "CS_HY": false,
+            "CS_EM": false,
+            "FX_EUR": false,
+            "CMD_OIL": false,
+            "CMD_GOLD": false,
+            "VOL_VIX": false
+          },
+          "pnl_musd": -581.3,
+          "pnl_error_musd": 279.2,
+          "cet1_after": 8.46,
+          "cet1_error_pp": 1.85,
+          "shocks": {
+            "EQ_US": -10.0,
+            "EQ_EU": -10.0,
+            "EQ_EM": -10.0,
+            "EQ_IN": -10.0,
+            "IR_USD_10Y": 200.0,
+            "CS_IG": null,
+            "CS_HY": null,
+            "CS_EM": null,
+            "FX_EUR": null,
+            "FX_JPY": null,
+            "CMD_OIL": null,
+            "CMD_GOLD": null,
+            "VOL_VIX": null
+          }
+        },
+        "template": {
+          "hits": 12,
+          "scored": 12,
+          "factor_hits": {
+            "EQ_US": true,
+            "EQ_EU": true,
+            "EQ_EM": true,
+            "EQ_IN": true,
+            "IR_USD_10Y": true,
+            "CS_IG": true,
+            "CS_HY": true,
+            "CS_EM": true,
+            "FX_EUR": true,
+            "CMD_OIL": true,
+            "CMD_GOLD": true,
+            "VOL_VIX": true
+          },
+          "pnl_musd": -259.7,
+          "pnl_error_musd": 42.4,
+          "cet1_after": 10.59,
+          "cet1_error_pp": 0.28,
+          "shocks": {
+            "EQ_US": -8,
+            "EQ_EU": -12,
+            "EQ_EM": -12,
+            "EQ_IN": -8,
+            "IR_USD_10Y": -20,
+            "CS_IG": 40,
+            "CS_HY": 150,
+            "CS_EM": 120,
+            "FX_EUR": -4,
+            "FX_JPY": 3,
+            "CMD_OIL": 30,
+            "CMD_GOLD": 8,
+            "VOL_VIX": 12
+          }
+        },
+        "all_mean": {
+          "hits": 10,
+          "scored": 12,
+          "factor_hits": {
+            "EQ_US": true,
+            "EQ_EU": true,
+            "EQ_EM": true,
+            "EQ_IN": true,
+            "IR_USD_10Y": true,
+            "CS_IG": true,
+            "CS_HY": true,
+            "CS_EM": true,
+            "FX_EUR": false,
+            "CMD_OIL": false,
+            "CMD_GOLD": true,
+            "VOL_VIX": true
+          },
+          "pnl_musd": -91.2,
+          "pnl_error_musd": 210.9,
+          "cet1_after": 11.77,
+          "cet1_error_pp": 1.46,
+          "shocks": {
+            "EQ_US": -7.79,
+            "EQ_EU": -9.36,
+            "EQ_EM": -8.69,
+            "EQ_IN": -4.88,
+            "IR_USD_10Y": -15.62,
+            "CS_IG": 25.05,
+            "CS_HY": 106.77,
+            "CS_EM": 47.42,
+            "FX_EUR": 0.31,
+            "FX_JPY": 2.07,
+            "CMD_OIL": -6.97,
+            "CMD_GOLD": 4.02,
+            "VOL_VIX": 11.33
+          }
+        },
+        "same_type_mean": {
+          "hits": 11,
+          "scored": 12,
+          "factor_hits": {
+            "EQ_US": true,
+            "EQ_EU": true,
+            "EQ_EM": true,
+            "EQ_IN": true,
+            "IR_USD_10Y": true,
+            "CS_IG": true,
+            "CS_HY": true,
+            "CS_EM": true,
+            "FX_EUR": true,
+            "CMD_OIL": false,
+            "CMD_GOLD": true,
+            "VOL_VIX": true
+          },
+          "pnl_musd": -22.6,
+          "pnl_error_musd": 279.5,
+          "cet1_after": 12.57,
+          "cet1_error_pp": 2.26,
+          "shocks": {
+            "EQ_US": -5.78,
+            "EQ_EU": -5.19,
+            "EQ_EM": -4.07,
+            "EQ_IN": -0.78,
+            "IR_USD_10Y": -19.71,
+            "CS_IG": 16.15,
+            "CS_HY": 71.0,
+            "CS_EM": 28.52,
+            "FX_EUR": -0.28,
+            "FX_JPY": 1.72,
+            "CMD_OIL": -6.82,
+            "CMD_GOLD": 4.0,
+            "VOL_VIX": 7.29
+          }
+        },
+        "nearest": {
+          "hits": "9",
+          "scored": 12,
+          "factor_hits": {
+            "EQ_US": "True",
+            "EQ_EU": "True",
+            "EQ_EM": "True",
+            "EQ_IN": "False",
+            "IR_USD_10Y": "True",
+            "CS_IG": "True",
+            "CS_HY": "True",
+            "CS_EM": "True",
+            "FX_EUR": "False",
+            "CMD_OIL": "False",
+            "CMD_GOLD": "True",
+            "VOL_VIX": "True"
+          },
+          "pnl_musd": -10.6,
+          "pnl_error_musd": 291.5,
+          "cet1_after": 13.26,
+          "cet1_error_pp": 2.95,
+          "shocks": {
+            "EQ_US": -0.98,
+            "EQ_EU": -4.12,
+            "EQ_EM": -2.44,
+            "EQ_IN": 2.46,
+            "IR_USD_10Y": -3.42,
+            "CS_IG": 7.32,
+            "CS_HY": 17.84,
+            "CS_EM": 13.0,
+            "FX_EUR": 1.11,
+            "FX_JPY": 0.37,
+            "CMD_OIL": -0.95,
+            "CMD_GOLD": 3.97,
+            "VOL_VIX": 3.68
+          },
+          "analogs": [
+            {
+              "episode_id": "crimea_2014",
+              "title": "Russia annexes Crimea",
+              "weight": 0.83,
+              "similarity": 0.759
+            },
+            {
+              "episode_id": "libya_2011",
+              "title": "Libyan civil war and Arab Spring oil shock",
+              "weight": 0.091,
+              "similarity": 0.575
+            },
+            {
+              "episode_id": "abqaiq_2019",
+              "title": "Attack on Saudi Aramco's Abqaiq facility",
+              "weight": 0.079,
+              "similarity": 0.563
+            }
+          ]
+        },
+        "tremor": {
+          "hits": "10",
+          "scored": 12,
+          "factor_hits": {
+            "EQ_US": "True",
+            "EQ_EU": "True",
+            "EQ_EM": "True",
+            "EQ_IN": "True",
+            "IR_USD_10Y": "True",
+            "CS_IG": "True",
+            "CS_HY": "True",
+            "CS_EM": "True",
+            "FX_EUR": "False",
+            "CMD_OIL": "False",
+            "CMD_GOLD": "True",
+            "VOL_VIX": "True"
+          },
+          "pnl_musd": -48.8,
+          "pnl_error_musd": 253.3,
+          "cet1_after": 12.52,
+          "cet1_error_pp": 2.21,
+          "shocks": {
+            "EQ_US": -4.38,
+            "EQ_EU": -6.74,
+            "EQ_EM": -5.56,
+            "EQ_IN": -1.21,
+            "IR_USD_10Y": -9.52,
+            "CS_IG": 16.18,
+            "CS_HY": 62.3,
+            "CS_EM": 30.21,
+            "FX_EUR": 0.71,
+            "FX_JPY": 1.22,
+            "CMD_OIL": -3.96,
+            "CMD_GOLD": 3.99,
+            "VOL_VIX": 7.5
+          },
+          "analogs": [
+            {
+              "episode_id": "crimea_2014",
+              "title": "Russia annexes Crimea",
+              "weight": 0.83,
+              "similarity": 0.759
+            },
+            {
+              "episode_id": "libya_2011",
+              "title": "Libyan civil war and Arab Spring oil shock",
+              "weight": 0.091,
+              "similarity": 0.575
+            },
+            {
+              "episode_id": "abqaiq_2019",
+              "title": "Attack on Saudi Aramco's Abqaiq facility",
+              "weight": 0.079,
+              "similarity": 0.563
+            }
+          ]
+        }
+      }
+    },
+    {
+      "episode_id": "inflation_shock_2022",
+      "title": "Inflation surprise and 75bp Fed hike",
+      "event_type": "MACROECONOMIC",
+      "start": "2022-06-08",
+      "headline": "US inflation hits a 40-year high, fuelling bets on a 75 basis-point Fed hike",
+      "n_prior": 18,
+      "realised": {
+        "EQ_US": -10.91,
+        "EQ_EU": -9.53,
+        "EQ_EM": -7.23,
+        "EQ_IN": -6.09,
+        "IR_USD_10Y": 27.8,
+        "CS_IG": 13.71,
+        "CS_HY": 95.09,
+        "CS_EM": 40.41,
+        "FX_EUR": -2.27,
+        "FX_JPY": -0.95,
+        "CMD_OIL": -3.7,
+        "CMD_GOLD": -0.36,
+        "VOL_VIX": 8.99
+      },
+      "realised_pnl_musd": -248.8,
+      "realised_cet1_after": 10.54,
+      "methods": {
+        "naive": {
+          "hits": 5,
+          "scored": 11,
+          "factor_hits": {
+            "EQ_US": true,
+            "EQ_EU": true,
+            "EQ_EM": true,
+            "EQ_IN": true,
+            "IR_USD_10Y": true,
+            "CS_IG": false,
+            "CS_HY": false,
+            "CS_EM": false,
+            "FX_EUR": false,
+            "CMD_OIL": false,
+            "VOL_VIX": false
+          },
+          "pnl_musd": -581.3,
+          "pnl_error_musd": 332.5,
+          "cet1_after": 8.46,
+          "cet1_error_pp": 2.08,
+          "shocks": {
+            "EQ_US": -10.0,
+            "EQ_EU": -10.0,
+            "EQ_EM": -10.0,
+            "EQ_IN": -10.0,
+            "IR_USD_10Y": 200.0,
+            "CS_IG": null,
+            "CS_HY": null,
+            "CS_EM": null,
+            "FX_EUR": null,
+            "FX_JPY": null,
+            "CMD_OIL": null,
+            "CMD_GOLD": null,
+            "VOL_VIX": null
+          }
+        },
+        "template": {
+          "hits": 11,
+          "scored": 11,
+          "factor_hits": {
+            "EQ_US": true,
+            "EQ_EU": true,
+            "EQ_EM": true,
+            "EQ_IN": true,
+            "IR_USD_10Y": true,
+            "CS_IG": true,
+            "CS_HY": true,
+            "CS_EM": true,
+            "FX_EUR": true,
+            "CMD_OIL": true,
+            "VOL_VIX": true
+          },
+          "pnl_musd": -545.0,
+          "pnl_error_musd": 296.1,
+          "cet1_after": 8.57,
+          "cet1_error_pp": 1.97,
+          "shocks": {
+            "EQ_US": -10,
+            "EQ_EU": -10,
+            "EQ_EM": -12,
+            "EQ_IN": -8,
+            "IR_USD_10Y": 75,
+            "CS_IG": 50,
+            "CS_HY": 200,
+            "CS_EM": 150,
+            "FX_EUR": -3,
+            "FX_JPY": -5,
+            "CMD_OIL": -10,
+            "CMD_GOLD": -3,
+            "VOL_VIX": 10
+          }
+        },
+        "all_mean": {
+          "hits": 9,
+          "scored": 11,
+          "factor_hits": {
+            "EQ_US": true,
+            "EQ_EU": true,
+            "EQ_EM": true,
+            "EQ_IN": true,
+            "IR_USD_10Y": false,
+            "CS_IG": true,
+            "CS_HY": true,
+            "CS_EM": true,
+            "FX_EUR": false,
+            "CMD_OIL": true,
+            "VOL_VIX": true
+          },
+          "pnl_musd": -101.2,
+          "pnl_error_musd": 147.6,
+          "cet1_after": 11.71,
+          "cet1_error_pp": 1.17,
+          "shocks": {
+            "EQ_US": -7.74,
+            "EQ_EU": -9.71,
+            "EQ_EM": -8.97,
+            "EQ_IN": -5.04,
+            "IR_USD_10Y": -15.72,
+            "CS_IG": 25.5,
+            "CS_HY": 103.72,
+            "CS_EM": 52.7,
+            "FX_EUR": 0.04,
+            "FX_JPY": 1.97,
+            "CMD_OIL": -4.8,
+            "CMD_GOLD": 4.3,
+            "VOL_VIX": 11.3
+          }
+        },
+        "same_type_mean": {
+          "hits": 9,
+          "scored": 11,
+          "factor_hits": {
+            "EQ_US": true,
+            "EQ_EU": true,
+            "EQ_EM": true,
+            "EQ_IN": true,
+            "IR_USD_10Y": true,
+            "CS_IG": true,
+            "CS_HY": true,
+            "CS_EM": true,
+            "FX_EUR": false,
+            "CMD_OIL": false,
+            "VOL_VIX": true
+          },
+          "pnl_musd": -225.5,
+          "pnl_error_musd": 23.3,
+          "cet1_after": 10.75,
+          "cet1_error_pp": 0.21,
+          "shocks": {
+            "EQ_US": -8.64,
+            "EQ_EU": -9.87,
+            "EQ_EM": -11.73,
+            "EQ_IN": -8.61,
+            "IR_USD_10Y": 19.94,
+            "CS_IG": 22.37,
+            "CS_HY": 86.96,
+            "CS_EM": 42.99,
+            "FX_EUR": 1.8,
+            "FX_JPY": 1.4,
+            "CMD_OIL": 1.93,
+            "CMD_GOLD": 1.15,
+            "VOL_VIX": 14.48
+          }
+        },
+        "nearest": {
+          "hits": "10",
+          "scored": 11,
+          "factor_hits": {
+            "EQ_US": "True",
+            "EQ_EU": "True",
+            "EQ_EM": "True",
+            "EQ_IN": "True",
+            "IR_USD_10Y": "True",
+            "CS_IG": "True",
+            "CS_HY": "True",
+            "CS_EM": "True",
+            "FX_EUR": "False",
+            "CMD_OIL": "True",
+            "VOL_VIX": "True"
+          },
+          "pnl_musd": -124.4,
+          "pnl_error_musd": 124.4,
+          "cet1_after": 11.98,
+          "cet1_error_pp": 1.44,
+          "shocks": {
+            "EQ_US": -5.39,
+            "EQ_EU": -4.41,
+            "EQ_EM": -7.73,
+            "EQ_IN": -2.64,
+            "IR_USD_10Y": 20.24,
+            "CS_IG": 10.82,
+            "CS_HY": 33.03,
+            "CS_EM": 26.19,
+            "FX_EUR": 0.48,
+            "FX_JPY": 0.85,
+            "CMD_OIL": -0.3,
+            "CMD_GOLD": -1.85,
+            "VOL_VIX": 12.38
+          },
+          "analogs": [
+            {
+              "episode_id": "inflation_scare_2021",
+              "title": "US inflation scare",
+              "weight": 0.671,
+              "similarity": 0.808
+            },
+            {
+              "episode_id": "volmageddon_2018",
+              "title": "Volatility spike (Volmageddon)",
+              "weight": 0.182,
+              "similarity": 0.7
+            },
+            {
+              "episode_id": "taper_tantrum_2013",
+              "title": "Taper tantrum",
+              "weight": 0.147,
+              "similarity": 0.682
+            }
+          ]
+        },
+        "tremor": {
+          "hits": "10",
+          "scored": 11,
+          "factor_hits": {
+            "EQ_US": "True",
+            "EQ_EU": "True",
+            "EQ_EM": "True",
+            "EQ_IN": "True",
+            "IR_USD_10Y": "True",
+            "CS_IG": "True",
+            "CS_HY": "True",
+            "CS_EM": "True",
+            "FX_EUR": "False",
+            "CMD_OIL": "True",
+            "VOL_VIX": "True"
+          },
+          "pnl_musd": -111.5,
+          "pnl_error_musd": 137.4,
+          "cet1_after": 11.85,
+          "cet1_error_pp": 1.31,
+          "shocks": {
+            "EQ_US": -6.56,
+            "EQ_EU": -7.06,
+            "EQ_EM": -8.35,
+            "EQ_IN": -3.84,
+            "IR_USD_10Y": 2.26,
+            "CS_IG": 18.16,
+            "CS_HY": 68.37,
+            "CS_EM": 39.44,
+            "FX_EUR": 0.26,
+            "FX_JPY": 1.41,
+            "CMD_OIL": -2.55,
+            "CMD_GOLD": 1.22,
+            "VOL_VIX": 11.84
+          },
+          "analogs": [
+            {
+              "episode_id": "inflation_scare_2021",
+              "title": "US inflation scare",
+              "weight": 0.671,
+              "similarity": 0.808
+            },
+            {
+              "episode_id": "volmageddon_2018",
+              "title": "Volatility spike (Volmageddon)",
+              "weight": 0.182,
+              "similarity": 0.7
+            },
+            {
+              "episode_id": "taper_tantrum_2013",
+              "title": "Taper tantrum",
+              "weight": 0.147,
+              "similarity": 0.682
+            }
+          ]
+        }
+      }
+    },
+    {
+      "episode_id": "uk_gilt_2022",
+      "title": "UK mini-budget and gilt crisis",
+      "event_type": "MACROECONOMIC",
+      "start": "2022-09-22",
+      "headline": "UK unveils the biggest tax cuts in fifty years, funded by borrowing",
+      "n_prior": 19,
+      "realised": {
+        "EQ_US": -1.04,
+        "EQ_EU": -2.68,
+        "EQ_EM": -2.93,
+        "EQ_IN": -4.37,
+        "IR_USD_10Y": -0.3,
+        "CS_IG": 18.12,
+        "CS_HY": 24.92,
+        "CS_EM": 39.82,
+        "FX_EUR": -2.39,
+        "FX_JPY": -0.26,
+        "CMD_OIL": -1.6,
+        "CMD_GOLD": -0.66,
+        "VOL_VIX": 2.83
+      },
+      "realised_pnl_musd": -111.2,
+      "realised_cet1_after": 12.46,
+      "methods": {
+        "naive": {
+          "hits": 4,
+          "scored": 10,
+          "factor_hits": {
+            "EQ_US": true,
+            "EQ_EU": true,
+            "EQ_EM": true,
+            "EQ_IN": true,
+            "CS_IG": false,
+            "CS_HY": false,
+            "CS_EM": false,
+            "FX_EUR": false,
+            "CMD_OIL": false,
+            "VOL_VIX": false
+          },
+          "pnl_musd": -581.3,
+          "pnl_error_musd": 470.1,
+          "cet1_after": 8.46,
+          "cet1_error_pp": 4.0,
+          "shocks": {
+            "EQ_US": -10.0,
+            "EQ_EU": -10.0,
+            "EQ_EM": -10.0,
+            "EQ_IN": -10.0,
+            "IR_USD_10Y": 200.0,
+            "CS_IG": null,
+            "CS_HY": null,
+            "CS_EM": null,
+            "FX_EUR": null,
+            "FX_JPY": null,
+            "CMD_OIL": null,
+            "CMD_GOLD": null,
+            "VOL_VIX": null
+          }
+        },
+        "template": {
+          "hits": 10,
+          "scored": 10,
+          "factor_hits": {
+            "EQ_US": true,
+            "EQ_EU": true,
+            "EQ_EM": true,
+            "EQ_IN": true,
+            "CS_IG": true,
+            "CS_HY": true,
+            "CS_EM": true,
+            "FX_EUR": true,
+            "CMD_OIL": true,
+            "VOL_VIX": true
+          },
+          "pnl_musd": -545.0,
+          "pnl_error_musd": 433.7,
+          "cet1_after": 8.57,
+          "cet1_error_pp": 3.89,
+          "shocks": {
+            "EQ_US": -10,
+            "EQ_EU": -10,
+            "EQ_EM": -12,
+            "EQ_IN": -8,
+            "IR_USD_10Y": 75,
+            "CS_IG": 50,
+            "CS_HY": 200,
+            "CS_EM": 150,
+            "FX_EUR": -3,
+            "FX_JPY": -5,
+            "CMD_OIL": -10,
+            "CMD_GOLD": -3,
+            "VOL_VIX": 10
+          }
+        },
+        "all_mean": {
+          "hits": 10,
+          "scored": 10,
+          "factor_hits": {
+            "EQ_US": true,
+            "EQ_EU": true,
+            "EQ_EM": true,
+            "EQ_IN": true,
+            "CS_IG": true,
+            "CS_HY": true,
+            "CS_EM": true,
+            "FX_EUR": true,
+            "CMD_OIL": true,
+            "VOL_VIX": true
+          },
+          "pnl_musd": -108.4,
+          "pnl_error_musd": 2.8,
+          "cet1_after": 11.65,
+          "cet1_error_pp": 0.81,
+          "shocks": {
+            "EQ_US": -7.9,
+            "EQ_EU": -9.7,
+            "EQ_EM": -8.87,
+            "EQ_IN": -5.1,
+            "IR_USD_10Y": -13.43,
+            "CS_IG": 24.85,
+            "CS_HY": 103.24,
+            "CS_EM": 52.02,
+            "FX_EUR": -0.09,
+            "FX_JPY": 1.82,
+            "CMD_OIL": -4.74,
+            "CMD_GOLD": 4.06,
+            "VOL_VIX": 11.18
+          }
+        },
+        "same_type_mean": {
+          "hits": 8,
+          "scored": 10,
+          "factor_hits": {
+            "EQ_US": true,
+            "EQ_EU": true,
+            "EQ_EM": true,
+            "EQ_IN": true,
+            "CS_IG": true,
+            "CS_HY": true,
+            "CS_EM": true,
+            "FX_EUR": false,
+            "CMD_OIL": false,
+            "VOL_VIX": true
+          },
+          "pnl_musd": -224.0,
+          "pnl_error_musd": 112.8,
+          "cet1_after": 10.75,
+          "cet1_error_pp": 1.71,
+          "shocks": {
+            "EQ_US": -9.02,
+            "EQ_EU": -9.82,
+            "EQ_EM": -10.98,
+            "EQ_IN": -8.19,
+            "IR_USD_10Y": 21.25,
+            "CS_IG": 20.93,
+            "CS_HY": 88.31,
+            "CS_EM": 42.56,
+            "FX_EUR": 1.13,
+            "FX_JPY": 1.01,
+            "CMD_OIL": 0.99,
+            "CMD_GOLD": 0.9,
+            "VOL_VIX": 13.57
+          }
+        },
+        "nearest": {
+          "hits": "10",
+          "scored": 10,
+          "factor_hits": {
+            "EQ_US": "True",
+            "EQ_EU": "True",
+            "EQ_EM": "True",
+            "EQ_IN": "True",
+            "CS_IG": "True",
+            "CS_HY": "True",
+            "CS_EM": "True",
+            "FX_EUR": "True",
+            "CMD_OIL": "True",
+            "VOL_VIX": "True"
+          },
+          "pnl_musd": -128.6,
+          "pnl_error_musd": 17.4,
+          "cet1_after": 11.73,
+          "cet1_error_pp": 0.73,
+          "shocks": {
+            "EQ_US": -6.92,
+            "EQ_EU": -7.29,
+            "EQ_EM": -6.35,
+            "EQ_IN": -3.13,
+            "IR_USD_10Y": 7.16,
+            "CS_IG": 11.89,
+            "CS_HY": 68.68,
+            "CS_EM": 28.29,
+            "FX_EUR": -1.3,
+            "FX_JPY": 0.42,
+            "CMD_OIL": -2.71,
+            "CMD_GOLD": 0.99,
+            "VOL_VIX": 9.05
+          },
+          "analogs": [
+            {
+              "episode_id": "inflation_shock_2022",
+              "title": "Inflation surprise and 75bp Fed hike",
+              "weight": 0.37,
+              "similarity": 0.59
+            },
+            {
+              "episode_id": "inflation_scare_2021",
+              "title": "US inflation scare",
+              "weight": 0.364,
+              "similarity": 0.589
+            },
+            {
+              "episode_id": "brexit_2016",
+              "title": "Brexit referendum",
+              "weight": 0.266,
+              "similarity": 0.639
+            }
+          ]
+        },
+        "tremor": {
+          "hits": "10",
+          "scored": 10,
+          "factor_hits": {
+            "EQ_US": "True",
+            "EQ_EU": "True",
+            "EQ_EM": "True",
+            "EQ_IN": "True",
+            "CS_IG": "True",
+            "CS_HY": "True",
+            "CS_EM": "True",
+            "FX_EUR": "True",
+            "CMD_OIL": "True",
+            "VOL_VIX": "True"
+          },
+          "pnl_musd": -118.2,
+          "pnl_error_musd": 6.9,
+          "cet1_after": 11.69,
+          "cet1_error_pp": 0.77,
+          "shocks": {
+            "EQ_US": -7.41,
+            "EQ_EU": -8.49,
+            "EQ_EM": -7.61,
+            "EQ_IN": -4.11,
+            "IR_USD_10Y": -3.14,
+            "CS_IG": 18.37,
+            "CS_HY": 85.96,
+            "CS_EM": 40.15,
+            "FX_EUR": -0.69,
+            "FX_JPY": 1.12,
+            "CMD_OIL": -3.73,
+            "CMD_GOLD": 2.52,
+            "VOL_VIX": 10.11
+          },
+          "analogs": [
+            {
+              "episode_id": "inflation_shock_2022",
+              "title": "Inflation surprise and 75bp Fed hike",
+              "weight": 0.37,
+              "similarity": 0.59
+            },
+            {
+              "episode_id": "inflation_scare_2021",
+              "title": "US inflation scare",
+              "weight": 0.364,
+              "similarity": 0.589
+            },
+            {
+              "episode_id": "brexit_2016",
+              "title": "Brexit referendum",
+              "weight": 0.266,
+              "similarity": 0.639
+            }
+          ]
+        }
+      }
+    },
+    {
+      "episode_id": "svb_2023",
+      "title": "Silicon Valley Bank collapse",
+      "event_type": "CREDIT_EVENT",
+      "start": "2023-03-08",
+      "headline": "Silicon Valley Bank collapses after a run on deposits and is seized by regulators",
+      "n_prior": 20,
+      "realised": {
+        "EQ_US": -2.51,
+        "EQ_EU": -5.91,
+        "EQ_EM": -4.19,
+        "EQ_IN": -4.41,
+        "IR_USD_10Y": -48.4,
+        "CS_IG": 25.12,
+        "CS_HY": 110.65,
+        "CS_EM": 47.59,
+        "FX_EUR": 1.68,
+        "FX_JPY": 2.23,
+        "CMD_OIL": -11.81,
+        "CMD_GOLD": 6.2,
+        "VOL_VIX": 7.03
+      },
+      "realised_pnl_musd": 82.7,
+      "realised_cet1_after": 13.31,
+      "methods": {
+        "naive": {
+          "hits": 4,
+          "scored": 13,
+          "factor_hits": {
+            "EQ_US": true,
+            "EQ_EU": true,
+            "EQ_EM": true,
+            "EQ_IN": true,
+            "IR_USD_10Y": false,
+            "CS_IG": false,
+            "CS_HY": false,
+            "CS_EM": false,
+            "FX_EUR": false,
+            "FX_JPY": false,
+            "CMD_OIL": false,
+            "CMD_GOLD": false,
+            "VOL_VIX": false
+          },
+          "pnl_musd": -581.3,
+          "pnl_error_musd": 664.1,
+          "cet1_after": 8.46,
+          "cet1_error_pp": 4.85,
+          "shocks": {
+            "EQ_US": -10.0,
+            "EQ_EU": -10.0,
+            "EQ_EM": -10.0,
+            "EQ_IN": -10.0,
+            "IR_USD_10Y": 200.0,
+            "CS_IG": null,
+            "CS_HY": null,
+            "CS_EM": null,
+            "FX_EUR": null,
+            "FX_JPY": null,
+            "CMD_OIL": null,
+            "CMD_GOLD": null,
+            "VOL_VIX": null
+          }
+        },
+        "template": {
+          "hits": 12,
+          "scored": 13,
+          "factor_hits": {
+            "EQ_US": true,
+            "EQ_EU": true,
+            "EQ_EM": true,
+            "EQ_IN": true,
+            "IR_USD_10Y": true,
+            "CS_IG": true,
+            "CS_HY": true,
+            "CS_EM": true,
+            "FX_EUR": false,
+            "FX_JPY": true,
+            "CMD_OIL": true,
+            "CMD_GOLD": true,
+            "VOL_VIX": true
+          },
+          "pnl_musd": -618.2,
+          "pnl_error_musd": 700.9,
+          "cet1_after": 7.43,
+          "cet1_error_pp": 5.88,
+          "shocks": {
+            "EQ_US": -15,
+            "EQ_EU": -18,
+            "EQ_EM": -18,
+            "EQ_IN": -12,
+            "IR_USD_10Y": -40,
+            "CS_IG": 120,
+            "CS_HY": 400,
+            "CS_EM": 300,
+            "FX_EUR": -5,
+            "FX_JPY": 5,
+            "CMD_OIL": -20,
+            "CMD_GOLD": 5,
+            "VOL_VIX": 25
+          }
+        },
+        "all_mean": {
+          "hits": 12,
+          "scored": 13,
+          "factor_hits": {
+            "EQ_US": true,
+            "EQ_EU": true,
+            "EQ_EM": true,
+            "EQ_IN": true,
+            "IR_USD_10Y": true,
+            "CS_IG": true,
+            "CS_HY": true,
+            "CS_EM": true,
+            "FX_EUR": false,
+            "FX_JPY": true,
+            "CMD_OIL": true,
+            "CMD_GOLD": true,
+            "VOL_VIX": true
+          },
+          "pnl_musd": -107.6,
+          "pnl_error_musd": 190.3,
+          "cet1_after": 11.69,
+          "cet1_error_pp": 1.62,
+          "shocks": {
+            "EQ_US": -7.56,
+            "EQ_EU": -9.33,
+            "EQ_EM": -8.56,
+            "EQ_IN": -5.06,
+            "IR_USD_10Y": -12.77,
+            "CS_IG": 24.5,
+            "CS_HY": 99.12,
+            "CS_EM": 51.38,
+            "FX_EUR": -0.21,
+            "FX_JPY": 1.71,
+            "CMD_OIL": -4.58,
+            "CMD_GOLD": 3.82,
+            "VOL_VIX": 10.76
+          }
+        },
+        "same_type_mean": {
+          "hits": 12,
+          "scored": 13,
+          "factor_hits": {
+            "EQ_US": true,
+            "EQ_EU": true,
+            "EQ_EM": true,
+            "EQ_IN": true,
+            "IR_USD_10Y": true,
+            "CS_IG": true,
+            "CS_HY": true,
+            "CS_EM": true,
+            "FX_EUR": false,
+            "FX_JPY": true,
+            "CMD_OIL": true,
+            "CMD_GOLD": true,
+            "VOL_VIX": true
+          },
+          "pnl_musd": -119.2,
+          "pnl_error_musd": 201.9,
+          "cet1_after": 11.14,
+          "cet1_error_pp": 2.17,
+          "shocks": {
+            "EQ_US": -10.75,
+            "EQ_EU": -16.02,
+            "EQ_EM": -12.98,
+            "EQ_IN": -7.4,
+            "IR_USD_10Y": -51.88,
+            "CS_IG": 43.96,
+            "CS_HY": 194.13,
+            "CS_EM": 86.05,
+            "FX_EUR": -0.53,
+            "FX_JPY": 3.6,
+            "CMD_OIL": -18.38,
+            "CMD_GOLD": 7.62,
+            "VOL_VIX": 15.45
+          }
+        },
+        "nearest": {
+          "hits": "12",
+          "scored": 13,
+          "factor_hits": {
+            "EQ_US": "True",
+            "EQ_EU": "True",
+            "EQ_EM": "True",
+            "EQ_IN": "True",
+            "IR_USD_10Y": "True",
+            "CS_IG": "True",
+            "CS_HY": "True",
+            "CS_EM": "True",
+            "FX_EUR": "False",
+            "FX_JPY": "True",
+            "CMD_OIL": "True",
+            "CMD_GOLD": "True",
+            "VOL_VIX": "True"
+          },
+          "pnl_musd": -227.5,
+          "pnl_error_musd": 310.2,
+          "cet1_after": 10.07,
+          "cet1_error_pp": 3.24,
+          "shocks": {
+            "EQ_US": -13.63,
+            "EQ_EU": -20.38,
+            "EQ_EM": -15.7,
+            "EQ_IN": -9.92,
+            "IR_USD_10Y": -69.09,
+            "CS_IG": 58.58,
+            "CS_HY": 257.42,
+            "CS_EM": 109.16,
+            "FX_EUR": -0.31,
+            "FX_JPY": 4.76,
+            "CMD_OIL": -24.35,
+            "CMD_GOLD": 10.9,
+            "VOL_VIX": 18.68
+          },
+          "analogs": [
+            {
+              "episode_id": "us_downgrade_2011",
+              "title": "US sovereign downgrade and euro crisis",
+              "weight": 0.358,
+              "similarity": 0.615
+            },
+            {
+              "episode_id": "energy_credit_2015",
+              "title": "Oil crash and high-yield energy defaults",
+              "weight": 0.332,
+              "similarity": 0.608
+            },
+            {
+              "episode_id": "euro_sovereign_2010",
+              "title": "Greek debt crisis and euro-area contagion",
+              "weight": 0.31,
+              "similarity": 0.603
+            }
+          ]
+        },
+        "tremor": {
+          "hits": "12",
+          "scored": 13,
+          "factor_hits": {
+            "EQ_US": "True",
+            "EQ_EU": "True",
+            "EQ_EM": "True",
+            "EQ_IN": "True",
+            "IR_USD_10Y": "True",
+            "CS_IG": "True",
+            "CS_HY": "True",
+            "CS_EM": "True",
+            "FX_EUR": "False",
+            "FX_JPY": "True",
+            "CMD_OIL": "True",
+            "CMD_GOLD": "True",
+            "VOL_VIX": "True"
+          },
+          "pnl_musd": -136.6,
+          "pnl_error_musd": 219.3,
+          "cet1_after": 11.07,
+          "cet1_error_pp": 2.24,
+          "shocks": {
+            "EQ_US": -10.59,
+            "EQ_EU": -14.85,
+            "EQ_EM": -12.13,
+            "EQ_IN": -7.49,
+            "IR_USD_10Y": -40.93,
+            "CS_IG": 41.54,
+            "CS_HY": 178.27,
+            "CS_EM": 80.27,
+            "FX_EUR": -0.26,
+            "FX_JPY": 3.24,
+            "CMD_OIL": -14.47,
+            "CMD_GOLD": 7.36,
+            "VOL_VIX": 14.72
+          },
+          "analogs": [
+            {
+              "episode_id": "us_downgrade_2011",
+              "title": "US sovereign downgrade and euro crisis",
+              "weight": 0.358,
+              "similarity": 0.615
+            },
+            {
+              "episode_id": "energy_credit_2015",
+              "title": "Oil crash and high-yield energy defaults",
+              "weight": 0.332,
+              "similarity": 0.608
+            },
+            {
+              "episode_id": "euro_sovereign_2010",
+              "title": "Greek debt crisis and euro-area contagion",
+              "weight": 0.31,
+              "similarity": 0.603
+            }
+          ]
+        }
+      }
+    },
+    {
+      "episode_id": "israel_gaza_2023",
+      "title": "Hamas attack on Israel and Gaza war",
+      "event_type": "GEOPOLITICAL",
+      "start": "2023-10-06",
+      "headline": "Hamas launches a surprise attack on Israel and Israel declares war",
+      "n_prior": 21,
+      "realised": {
+        "EQ_US": -4.44,
+        "EQ_EU": -3.14,
+        "EQ_EM": -3.44,
+        "EQ_IN": -3.08,
+        "IR_USD_10Y": 6.1,
+        "CS_IG": 4.48,
+        "CS_HY": 18.74,
+        "CS_EM": -4.44,
+        "FX_EUR": 0.17,
+        "FX_JPY": -1.27,
+        "CMD_OIL": 3.32,
+        "CMD_GOLD": 8.31,
+        "VOL_VIX": 3.82
+      },
+      "realised_pnl_musd": -52.2,
+      "realised_cet1_after": 12.58,
+      "methods": {
+        "naive": {
+          "hits": 5,
+          "scored": 10,
+          "factor_hits": {
+            "EQ_US": true,
+            "EQ_EU": true,
+            "EQ_EM": true,
+            "EQ_IN": true,
+            "IR_USD_10Y": true,
+            "CS_HY": false,
+            "FX_JPY": false,
+            "CMD_OIL": false,
+            "CMD_GOLD": false,
+            "VOL_VIX": false
+          },
+          "pnl_musd": -581.3,
+          "pnl_error_musd": 529.1,
+          "cet1_after": 8.46,
+          "cet1_error_pp": 4.12,
+          "shocks": {
+            "EQ_US": -10.0,
+            "EQ_EU": -10.0,
+            "EQ_EM": -10.0,
+            "EQ_IN": -10.0,
+            "IR_USD_10Y": 200.0,
+            "CS_IG": null,
+            "CS_HY": null,
+            "CS_EM": null,
+            "FX_EUR": null,
+            "FX_JPY": null,
+            "CMD_OIL": null,
+            "CMD_GOLD": null,
+            "VOL_VIX": null
+          }
+        },
+        "template": {
+          "hits": 8,
+          "scored": 10,
+          "factor_hits": {
+            "EQ_US": true,
+            "EQ_EU": true,
+            "EQ_EM": true,
+            "EQ_IN": true,
+            "IR_USD_10Y": false,
+            "CS_HY": true,
+            "FX_JPY": false,
+            "CMD_OIL": true,
+            "CMD_GOLD": true,
+            "VOL_VIX": true
+          },
+          "pnl_musd": -259.7,
+          "pnl_error_musd": 207.5,
+          "cet1_after": 10.59,
+          "cet1_error_pp": 1.99,
+          "shocks": {
+            "EQ_US": -8,
+            "EQ_EU": -12,
+            "EQ_EM": -12,
+            "EQ_IN": -8,
+            "IR_USD_10Y": -20,
+            "CS_IG": 40,
+            "CS_HY": 150,
+            "CS_EM": 120,
+            "FX_EUR": -4,
+            "FX_JPY": 3,
+            "CMD_OIL": 30,
+            "CMD_GOLD": 8,
+            "VOL_VIX": 12
+          }
+        },
+        "all_mean": {
+          "hits": 7,
+          "scored": 10,
+          "factor_hits": {
+            "EQ_US": true,
+            "EQ_EU": true,
+            "EQ_EM": true,
+            "EQ_IN": true,
+            "IR_USD_10Y": false,
+            "CS_HY": true,
+            "FX_JPY": false,
+            "CMD_OIL": false,
+            "CMD_GOLD": true,
+            "VOL_VIX": true
+          },
+          "pnl_musd": -98.0,
+          "pnl_error_musd": 45.8,
+          "cet1_after": 11.77,
+          "cet1_error_pp": 0.81,
+          "shocks": {
+            "EQ_US": -7.32,
+            "EQ_EU": -9.16,
+            "EQ_EM": -8.34,
+            "EQ_IN": -5.03,
+            "IR_USD_10Y": -14.47,
+            "CS_IG": 24.53,
+            "CS_HY": 99.69,
+            "CS_EM": 51.19,
+            "FX_EUR": -0.12,
+            "FX_JPY": 1.74,
+            "CMD_OIL": -4.93,
+            "CMD_GOLD": 3.93,
+            "VOL_VIX": 10.58
+          }
+        },
+        "same_type_mean": {
+          "hits": 7,
+          "scored": 10,
+          "factor_hits": {
+            "EQ_US": true,
+            "EQ_EU": true,
+            "EQ_EM": true,
+            "EQ_IN": true,
+            "IR_USD_10Y": false,
+            "CS_HY": true,
+            "FX_JPY": false,
+            "CMD_OIL": false,
+            "CMD_GOLD": true,
+            "VOL_VIX": true
+          },
+          "pnl_musd": -50.4,
+          "pnl_error_musd": 1.8,
+          "cet1_after": 12.34,
+          "cet1_error_pp": 0.24,
+          "shocks": {
+            "EQ_US": -5.89,
+            "EQ_EU": -6.45,
+            "EQ_EM": -5.24,
+            "EQ_IN": -1.63,
+            "IR_USD_10Y": -19.47,
+            "CS_IG": 18.24,
+            "CS_HY": 68.99,
+            "CS_EM": 42.1,
+            "FX_EUR": -0.78,
+            "FX_JPY": 1.56,
+            "CMD_OIL": -2.5,
+            "CMD_GOLD": 4.58,
+            "VOL_VIX": 7.68
+          }
+        },
+        "nearest": {
+          "hits": "8",
+          "scored": 10,
+          "factor_hits": {
+            "EQ_US": "True",
+            "EQ_EU": "True",
+            "EQ_EM": "True",
+            "EQ_IN": "True",
+            "IR_USD_10Y": "False",
+            "CS_HY": "True",
+            "FX_JPY": "False",
+            "CMD_OIL": "True",
+            "CMD_GOLD": "True",
+            "VOL_VIX": "True"
+          },
+          "pnl_musd": -7.6,
+          "pnl_error_musd": 44.6,
+          "cet1_after": 12.99,
+          "cet1_error_pp": 0.41,
+          "shocks": {
+            "EQ_US": -3.19,
+            "EQ_EU": -0.08,
+            "EQ_EM": -1.19,
+            "EQ_IN": -2.21,
+            "IR_USD_10Y": -7.51,
+            "CS_IG": 3.0,
+            "CS_HY": 3.67,
+            "CS_EM": 1.21,
+            "FX_EUR": -0.53,
+            "FX_JPY": 1.28,
+            "CMD_OIL": 0.41,
+            "CMD_GOLD": 3.14,
+            "VOL_VIX": 3.52
+          },
+          "analogs": [
+            {
+              "episode_id": "soleimani_2020",
+              "title": "US strike kills Iranian general",
+              "weight": 0.369,
+              "similarity": 0.66
+            },
+            {
+              "episode_id": "abqaiq_2019",
+              "title": "Attack on Saudi Aramco's Abqaiq facility",
+              "weight": 0.363,
+              "similarity": 0.659
+            },
+            {
+              "episode_id": "sep11_2001",
+              "title": "September 11 attacks",
+              "weight": 0.268,
+              "similarity": 0.633
+            }
+          ]
+        },
+        "tremor": {
+          "hits": "7",
+          "scored": 10,
+          "factor_hits": {
+            "EQ_US": "True",
+            "EQ_EU": "True",
+            "EQ_EM": "True",
+            "EQ_IN": "True",
+            "IR_USD_10Y": "False",
+            "CS_HY": "True",
+            "FX_JPY": "False",
+            "CMD_OIL": "False",
+            "CMD_GOLD": "True",
+            "VOL_VIX": "True"
+          },
+          "pnl_musd": -52.4,
+          "pnl_error_musd": 0.2,
+          "cet1_after": 12.38,
+          "cet1_error_pp": 0.2,
+          "shocks": {
+            "EQ_US": -5.25,
+            "EQ_EU": -4.62,
+            "EQ_EM": -4.77,
+            "EQ_IN": -3.62,
+            "IR_USD_10Y": -10.99,
+            "CS_IG": 13.76,
+            "CS_HY": 51.68,
+            "CS_EM": 26.2,
+            "FX_EUR": -0.32,
+            "FX_JPY": 1.51,
+            "CMD_OIL": -2.26,
+            "CMD_GOLD": 3.54,
+            "VOL_VIX": 7.05
+          },
+          "analogs": [
+            {
+              "episode_id": "soleimani_2020",
+              "title": "US strike kills Iranian general",
+              "weight": 0.369,
+              "similarity": 0.66
+            },
+            {
+              "episode_id": "abqaiq_2019",
+              "title": "Attack on Saudi Aramco's Abqaiq facility",
+              "weight": 0.363,
+              "similarity": 0.659
+            },
+            {
+              "episode_id": "sep11_2001",
+              "title": "September 11 attacks",
+              "weight": 0.268,
+              "similarity": 0.633
+            }
+          ]
+        }
+      }
+    },
+    {
+      "episode_id": "yen_carry_2024",
+      "title": "Yen carry-trade unwind",
+      "event_type": "MACROECONOMIC",
+      "start": "2024-07-31",
+      "headline": "Bank of Japan raises rates as weak US jobs data stoke recession fears",
+      "n_prior": 22,
+      "realised": {
+        "EQ_US": -6.08,
+        "EQ_EU": -6.18,
+        "EQ_EM": -5.89,
+        "EQ_IN": -3.59,
+        "IR_USD_10Y": -32.4,
+        "CS_IG": 12.14,
+        "CS_HY": 67.57,
+        "CS_EM": 35.67,
+        "FX_EUR": 0.88,
+        "FX_JPY": 4.87,
+        "CMD_OIL": -6.38,
+        "CMD_GOLD": 0.74,
+        "VOL_VIX": 22.21
+      },
+      "realised_pnl_musd": 21.2,
+      "realised_cet1_after": 12.75,
+      "methods": {
+        "naive": {
+          "hits": 4,
+          "scored": 11,
+          "factor_hits": {
+            "EQ_US": true,
+            "EQ_EU": true,
+            "EQ_EM": true,
+            "EQ_IN": true,
+            "IR_USD_10Y": false,
+            "CS_IG": false,
+            "CS_HY": false,
+            "CS_EM": false,
+            "FX_JPY": false,
+            "CMD_OIL": false,
+            "VOL_VIX": false
+          },
+          "pnl_musd": -581.3,
+          "pnl_error_musd": 602.6,
+          "cet1_after": 8.46,
+          "cet1_error_pp": 4.29,
+          "shocks": {
+            "EQ_US": -10.0,
+            "EQ_EU": -10.0,
+            "EQ_EM": -10.0,
+            "EQ_IN": -10.0,
+            "IR_USD_10Y": 200.0,
+            "CS_IG": null,
+            "CS_HY": null,
+            "CS_EM": null,
+            "FX_EUR": null,
+            "FX_JPY": null,
+            "CMD_OIL": null,
+            "CMD_GOLD": null,
+            "VOL_VIX": null
+          }
+        },
+        "template": {
+          "hits": 9,
+          "scored": 11,
+          "factor_hits": {
+            "EQ_US": true,
+            "EQ_EU": true,
+            "EQ_EM": true,
+            "EQ_IN": true,
+            "IR_USD_10Y": false,
+            "CS_IG": true,
+            "CS_HY": true,
+            "CS_EM": true,
+            "FX_JPY": false,
+            "CMD_OIL": true,
+            "VOL_VIX": true
+          },
+          "pnl_musd": -545.0,
+          "pnl_error_musd": 566.2,
+          "cet1_after": 8.57,
+          "cet1_error_pp": 4.18,
+          "shocks": {
+            "EQ_US": -10,
+            "EQ_EU": -10,
+            "EQ_EM": -12,
+            "EQ_IN": -8,
+            "IR_USD_10Y": 75,
+            "CS_IG": 50,
+            "CS_HY": 200,
+            "CS_EM": 150,
+            "FX_EUR": -3,
+            "FX_JPY": -5,
+            "CMD_OIL": -10,
+            "CMD_GOLD": -3,
+            "VOL_VIX": 10
+          }
+        },
+        "all_mean": {
+          "hits": 11,
+          "scored": 11,
+          "factor_hits": {
+            "EQ_US": true,
+            "EQ_EU": true,
+            "EQ_EM": true,
+            "EQ_IN": true,
+            "IR_USD_10Y": true,
+            "CS_IG": true,
+            "CS_HY": true,
+            "CS_EM": true,
+            "FX_JPY": true,
+            "CMD_OIL": true,
+            "VOL_VIX": true
+          },
+          "pnl_musd": -95.6,
+          "pnl_error_musd": 116.8,
+          "cet1_after": 11.81,
+          "cet1_error_pp": 0.94,
+          "shocks": {
+            "EQ_US": -7.19,
+            "EQ_EU": -8.87,
+            "EQ_EM": -8.11,
+            "EQ_IN": -4.94,
+            "IR_USD_10Y": -13.54,
+            "CS_IG": 23.57,
+            "CS_HY": 95.84,
+            "CS_EM": 48.54,
+            "FX_EUR": -0.1,
+            "FX_JPY": 1.6,
+            "CMD_OIL": -4.55,
+            "CMD_GOLD": 4.13,
+            "VOL_VIX": 10.28
+          }
+        },
+        "same_type_mean": {
+          "hits": 9,
+          "scored": 11,
+          "factor_hits": {
+            "EQ_US": true,
+            "EQ_EU": true,
+            "EQ_EM": true,
+            "EQ_IN": true,
+            "IR_USD_10Y": false,
+            "CS_IG": true,
+            "CS_HY": true,
+            "CS_EM": true,
+            "FX_JPY": true,
+            "CMD_OIL": false,
+            "VOL_VIX": true
+          },
+          "pnl_musd": -196.3,
+          "pnl_error_musd": 217.5,
+          "cet1_after": 11.07,
+          "cet1_error_pp": 1.68,
+          "shocks": {
+            "EQ_US": -7.88,
+            "EQ_EU": -8.8,
+            "EQ_EM": -9.83,
+            "EQ_IN": -7.64,
+            "IR_USD_10Y": 18.17,
+            "CS_IG": 20.53,
+            "CS_HY": 79.26,
+            "CS_EM": 42.17,
+            "FX_EUR": 0.62,
+            "FX_JPY": 0.83,
+            "CMD_OIL": 0.62,
+            "CMD_GOLD": 0.68,
+            "VOL_VIX": 12.03
+          }
+        },
+        "nearest": {
+          "hits": "9",
+          "scored": 11,
+          "factor_hits": {
+            "EQ_US": "True",
+            "EQ_EU": "True",
+            "EQ_EM": "True",
+            "EQ_IN": "True",
+            "IR_USD_10Y": "False",
+            "CS_IG": "True",
+            "CS_HY": "True",
+            "CS_EM": "True",
+            "FX_JPY": "False",
+            "CMD_OIL": "True",
+            "VOL_VIX": "True"
+          },
+          "pnl_musd": -147.2,
+          "pnl_error_musd": 168.5,
+          "cet1_after": 11.58,
+          "cet1_error_pp": 1.17,
+          "shocks": {
+            "EQ_US": -7.78,
+            "EQ_EU": -5.96,
+            "EQ_EM": -7.0,
+            "EQ_IN": -3.53,
+            "IR_USD_10Y": 19.33,
+            "CS_IG": 10.51,
+            "CS_HY": 51.89,
+            "CS_EM": 23.72,
+            "FX_EUR": -0.79,
+            "FX_JPY": -0.16,
+            "CMD_OIL": -1.94,
+            "CMD_GOLD": -0.77,
+            "VOL_VIX": 12.07
+          },
+          "analogs": [
+            {
+              "episode_id": "inflation_scare_2021",
+              "title": "US inflation scare",
+              "weight": 0.436,
+              "similarity": 0.72
+            },
+            {
+              "episode_id": "inflation_shock_2022",
+              "title": "Inflation surprise and 75bp Fed hike",
+              "weight": 0.396,
+              "similarity": 0.712
+            },
+            {
+              "episode_id": "volmageddon_2018",
+              "title": "Volatility spike (Volmageddon)",
+              "weight": 0.168,
+              "similarity": 0.64
+            }
+          ]
+        },
+        "tremor": {
+          "hits": "10",
+          "scored": 11,
+          "factor_hits": {
+            "EQ_US": "True",
+            "EQ_EU": "True",
+            "EQ_EM": "True",
+            "EQ_IN": "True",
+            "IR_USD_10Y": "False",
+            "CS_IG": "True",
+            "CS_HY": "True",
+            "CS_EM": "True",
+            "FX_JPY": "True",
+            "CMD_OIL": "True",
+            "VOL_VIX": "True"
+          },
+          "pnl_musd": -121.0,
+          "pnl_error_musd": 142.3,
+          "cet1_after": 11.7,
+          "cet1_error_pp": 1.05,
+          "shocks": {
+            "EQ_US": -7.48,
+            "EQ_EU": -7.41,
+            "EQ_EM": -7.56,
+            "EQ_IN": -4.23,
+            "IR_USD_10Y": 2.9,
+            "CS_IG": 17.04,
+            "CS_HY": 73.86,
+            "CS_EM": 36.13,
+            "FX_EUR": -0.45,
+            "FX_JPY": 0.72,
+            "CMD_OIL": -3.25,
+            "CMD_GOLD": 1.68,
+            "VOL_VIX": 11.17
+          },
+          "analogs": [
+            {
+              "episode_id": "inflation_scare_2021",
+              "title": "US inflation scare",
+              "weight": 0.436,
+              "similarity": 0.72
+            },
+            {
+              "episode_id": "inflation_shock_2022",
+              "title": "Inflation surprise and 75bp Fed hike",
+              "weight": 0.396,
+              "similarity": 0.712
+            },
+            {
+              "episode_id": "volmageddon_2018",
+              "title": "Volatility spike (Volmageddon)",
+              "weight": 0.168,
+              "similarity": 0.64
+            }
+          ]
+        }
+      }
+    },
+    {
+      "episode_id": "liberation_day_2025",
+      "title": "US reciprocal tariffs (Liberation Day)",
+      "event_type": "GEOPOLITICAL",
+      "start": "2025-04-02",
+      "headline": "Trump announces sweeping reciprocal tariffs on US trading partners",
+      "n_prior": 23,
+      "realised": {
+        "EQ_US": -12.14,
+        "EQ_EU": -10.0,
+        "EQ_EM": -12.26,
+        "EQ_IN": -3.41,
+        "IR_USD_10Y": 6.6,
+        "CS_IG": 34.2,
+        "CS_HY": 110.61,
+        "CS_EM": 55.91,
+        "FX_EUR": 1.11,
+        "FX_JPY": 1.35,
+        "CMD_OIL": -16.92,
+        "CMD_GOLD": -5.56,
+        "VOL_VIX": 30.82
+      },
+      "realised_pnl_musd": -217.6,
+      "realised_cet1_after": 10.56,
+      "methods": {
+        "naive": {
+          "hits": 5,
+          "scored": 13,
+          "factor_hits": {
+            "EQ_US": true,
+            "EQ_EU": true,
+            "EQ_EM": true,
+            "EQ_IN": true,
+            "IR_USD_10Y": true,
+            "CS_IG": false,
+            "CS_HY": false,
+            "CS_EM": false,
+            "FX_EUR": false,
+            "FX_JPY": false,
+            "CMD_OIL": false,
+            "CMD_GOLD": false,
+            "VOL_VIX": false
+          },
+          "pnl_musd": -581.3,
+          "pnl_error_musd": 363.7,
+          "cet1_after": 8.46,
+          "cet1_error_pp": 2.1,
+          "shocks": {
+            "EQ_US": -10.0,
+            "EQ_EU": -10.0,
+            "EQ_EM": -10.0,
+            "EQ_IN": -10.0,
+            "IR_USD_10Y": 200.0,
+            "CS_IG": null,
+            "CS_HY": null,
+            "CS_EM": null,
+            "FX_EUR": null,
+            "FX_JPY": null,
+            "CMD_OIL": null,
+            "CMD_GOLD": null,
+            "VOL_VIX": null
+          }
+        },
+        "template": {
+          "hits": 9,
+          "scored": 13,
+          "factor_hits": {
+            "EQ_US": true,
+            "EQ_EU": true,
+            "EQ_EM": true,
+            "EQ_IN": true,
+            "IR_USD_10Y": false,
+            "CS_IG": true,
+            "CS_HY": true,
+            "CS_EM": true,
+            "FX_EUR": false,
+            "FX_JPY": true,
+            "CMD_OIL": false,
+            "CMD_GOLD": false,
+            "VOL_VIX": true
+          },
+          "pnl_musd": -259.7,
+          "pnl_error_musd": 42.1,
+          "cet1_after": 10.59,
+          "cet1_error_pp": 0.03,
+          "shocks": {
+            "EQ_US": -8,
+            "EQ_EU": -12,
+            "EQ_EM": -12,
+            "EQ_IN": -8,
+            "IR_USD_10Y": -20,
+            "CS_IG": 40,
+            "CS_HY": 150,
+            "CS_EM": 120,
+            "FX_EUR": -4,
+            "FX_JPY": 3,
+            "CMD_OIL": 30,
+            "CMD_GOLD": 8,
+            "VOL_VIX": 12
+          }
+        },
+        "all_mean": {
+          "hits": 10,
+          "scored": 13,
+          "factor_hits": {
+            "EQ_US": true,
+            "EQ_EU": true,
+            "EQ_EM": true,
+            "EQ_IN": true,
+            "IR_USD_10Y": false,
+            "CS_IG": true,
+            "CS_HY": true,
+            "CS_EM": true,
+            "FX_EUR": false,
+            "FX_JPY": true,
+            "CMD_OIL": true,
+            "CMD_GOLD": false,
+            "VOL_VIX": true
+          },
+          "pnl_musd": -90.4,
+          "pnl_error_musd": 127.2,
+          "cet1_after": 11.85,
+          "cet1_error_pp": 1.29,
+          "shocks": {
+            "EQ_US": -7.14,
+            "EQ_EU": -8.75,
+            "EQ_EM": -8.01,
+            "EQ_IN": -4.88,
+            "IR_USD_10Y": -14.36,
+            "CS_IG": 23.05,
+            "CS_HY": 94.55,
+            "CS_EM": 47.95,
+            "FX_EUR": -0.06,
+            "FX_JPY": 1.74,
+            "CMD_OIL": -4.63,
+            "CMD_GOLD": 3.99,
+            "VOL_VIX": 10.79
+          }
+        },
+        "same_type_mean": {
+          "hits": 10,
+          "scored": 13,
+          "factor_hits": {
+            "EQ_US": true,
+            "EQ_EU": true,
+            "EQ_EM": true,
+            "EQ_IN": true,
+            "IR_USD_10Y": false,
+            "CS_IG": true,
+            "CS_HY": true,
+            "CS_EM": true,
+            "FX_EUR": false,
+            "FX_JPY": true,
+            "CMD_OIL": true,
+            "CMD_GOLD": false,
+            "VOL_VIX": true
+          },
+          "pnl_musd": -49.8,
+          "pnl_error_musd": 167.8,
+          "cet1_after": 12.37,
+          "cet1_error_pp": 1.81,
+          "shocks": {
+            "EQ_US": -5.75,
+            "EQ_EU": -6.08,
+            "EQ_EM": -5.04,
+            "EQ_IN": -1.79,
+            "IR_USD_10Y": -16.91,
+            "CS_IG": 16.71,
+            "CS_HY": 63.4,
+            "CS_EM": 36.93,
+            "FX_EUR": -0.68,
+            "FX_JPY": 1.28,
+            "CMD_OIL": -1.91,
+            "CMD_GOLD": 4.95,
+            "VOL_VIX": 7.3
+          }
+        },
+        "nearest": {
+          "hits": "9",
+          "scored": 13,
+          "factor_hits": {
+            "EQ_US": "True",
+            "EQ_EU": "True",
+            "EQ_EM": "True",
+            "EQ_IN": "False",
+            "IR_USD_10Y": "False",
+            "CS_IG": "True",
+            "CS_HY": "True",
+            "CS_EM": "True",
+            "FX_EUR": "False",
+            "FX_JPY": "True",
+            "CMD_OIL": "True",
+            "CMD_GOLD": "False",
+            "VOL_VIX": "True"
+          },
+          "pnl_musd": -91.5,
+          "pnl_error_musd": 126.1,
+          "cet1_after": 11.36,
+          "cet1_error_pp": 0.8,
+          "shocks": {
+            "EQ_US": -12.76,
+            "EQ_EU": -9.28,
+            "EQ_EM": -7.49,
+            "EQ_IN": 0.24,
+            "IR_USD_10Y": -41.31,
+            "CS_IG": 36.03,
+            "CS_HY": 165.07,
+            "CS_EM": 64.2,
+            "FX_EUR": -1.02,
+            "FX_JPY": 2.61,
+            "CMD_OIL": -27.74,
+            "CMD_GOLD": 4.69,
+            "VOL_VIX": 14.85
+          },
+          "analogs": [
+            {
+              "episode_id": "trade_war_2018",
+              "title": "US-China trade war escalation",
+              "weight": 0.476,
+              "similarity": 0.722
+            },
+            {
+              "episode_id": "tariff_hike_2019",
+              "title": "US raises tariffs on Chinese goods",
+              "weight": 0.414,
+              "similarity": 0.71
+            },
+            {
+              "episode_id": "brexit_2016",
+              "title": "Brexit referendum",
+              "weight": 0.11,
+              "similarity": 0.6
+            }
+          ]
+        },
+        "tremor": {
+          "hits": "10",
+          "scored": 13,
+          "factor_hits": {
+            "EQ_US": "True",
+            "EQ_EU": "True",
+            "EQ_EM": "True",
+            "EQ_IN": "True",
+            "IR_USD_10Y": "False",
+            "CS_IG": "True",
+            "CS_HY": "True",
+            "CS_EM": "True",
+            "FX_EUR": "False",
+            "FX_JPY": "True",
+            "CMD_OIL": "True",
+            "CMD_GOLD": "False",
+            "VOL_VIX": "True"
+          },
+          "pnl_musd": -70.8,
+          "pnl_error_musd": 146.9,
+          "cet1_after": 11.75,
+          "cet1_error_pp": 1.19,
+          "shocks": {
+            "EQ_US": -9.95,
+            "EQ_EU": -9.02,
+            "EQ_EM": -7.75,
+            "EQ_IN": -2.32,
+            "IR_USD_10Y": -27.83,
+            "CS_IG": 29.54,
+            "CS_HY": 129.81,
+            "CS_EM": 56.08,
+            "FX_EUR": -0.54,
+            "FX_JPY": 2.17,
+            "CMD_OIL": -16.19,
+            "CMD_GOLD": 4.34,
+            "VOL_VIX": 12.82
+          },
+          "analogs": [
+            {
+              "episode_id": "trade_war_2018",
+              "title": "US-China trade war escalation",
+              "weight": 0.476,
+              "similarity": 0.722
+            },
+            {
+              "episode_id": "tariff_hike_2019",
+              "title": "US raises tariffs on Chinese goods",
+              "weight": 0.414,
+              "similarity": 0.71
+            },
+            {
+              "episode_id": "brexit_2016",
+              "title": "Brexit referendum",
+              "weight": 0.11,
+              "similarity": 0.6
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "summary": {
+    "naive": {
+      "label": "Naive fixed shock (the brief's example)",
+      "direction_hit_rate": 0.352,
+      "pnl_error_mean_musd": 501.3,
+      "pnl_error_median_musd": 499.7,
+      "cet1_error_mean_pp": 3.54,
+      "closer_than_naive": 0,
+      "closer_than_average": 1,
+      "per_factor_hit_rate": {
+        "EQ_US": 1.0,
+        "EQ_EU": 1.0,
+        "EQ_EM": 1.0,
+        "EQ_IN": 0.89,
+        "IR_USD_10Y": 0.35,
+        "CS_IG": 0.0,
+        "CS_HY": 0.0,
+        "CS_EM": 0.0,
+        "FX_EUR": 0.0,
+        "FX_JPY": 0.0,
+        "CMD_OIL": 0.0,
+        "CMD_GOLD": 0.0,
+        "VOL_VIX": 0.0
+      }
+    },
+    "template": {
+      "label": "Expert template per event type",
+      "direction_hit_rate": 0.881,
+      "pnl_error_mean_musd": 366.3,
+      "pnl_error_median_musd": 296.1,
+      "cet1_error_mean_pp": 2.93,
+      "closer_than_naive": 16,
+      "closer_than_average": 4,
+      "per_factor_hit_rate": {
+        "EQ_US": 1.0,
+        "EQ_EU": 1.0,
+        "EQ_EM": 1.0,
+        "EQ_IN": 0.89,
+        "IR_USD_10Y": 0.71,
+        "CS_IG": 1.0,
+        "CS_HY": 1.0,
+        "CS_EM": 1.0,
+        "FX_EUR": 0.5,
+        "FX_JPY": 0.64,
+        "CMD_OIL": 0.65,
+        "CMD_GOLD": 0.81,
+        "VOL_VIX": 1.0
+      }
+    },
+    "all_mean": {
+      "label": "Average of all earlier crises",
+      "direction_hit_rate": 0.863,
+      "pnl_error_mean_musd": 183.5,
+      "pnl_error_median_musd": 116.8,
+      "cet1_error_mean_pp": 1.72,
+      "closer_than_naive": 20,
+      "closer_than_average": 0,
+      "per_factor_hit_rate": {
+        "EQ_US": 1.0,
+        "EQ_EU": 1.0,
+        "EQ_EM": 1.0,
+        "EQ_IN": 0.89,
+        "IR_USD_10Y": 0.65,
+        "CS_IG": 1.0,
+        "CS_HY": 1.0,
+        "CS_EM": 1.0,
+        "FX_EUR": 0.17,
+        "FX_JPY": 0.91,
+        "CMD_OIL": 0.65,
+        "CMD_GOLD": 0.69,
+        "VOL_VIX": 1.0
+      }
+    },
+    "same_type_mean": {
+      "label": "Average of earlier crises of the same type",
+      "direction_hit_rate": 0.85,
+      "pnl_error_mean_musd": 208.9,
+      "pnl_error_median_musd": 167.8,
+      "cet1_error_mean_pp": 1.95,
+      "closer_than_naive": 18,
+      "closer_than_average": 9,
+      "per_factor_hit_rate": {
+        "EQ_US": 1.0,
+        "EQ_EU": 1.0,
+        "EQ_EM": 1.0,
+        "EQ_IN": 0.89,
+        "IR_USD_10Y": 0.71,
+        "CS_IG": 1.0,
+        "CS_HY": 1.0,
+        "CS_EM": 1.0,
+        "FX_EUR": 0.33,
+        "FX_JPY": 0.82,
+        "CMD_OIL": 0.4,
+        "CMD_GOLD": 0.69,
+        "VOL_VIX": 1.0
+      }
+    },
+    "nearest": {
+      "label": "Closest analogs alone",
+      "direction_hit_rate": 0.855,
+      "pnl_error_mean_musd": 222.8,
+      "pnl_error_median_musd": 126.1,
+      "cet1_error_mean_pp": 1.94,
+      "closer_than_naive": 19,
+      "closer_than_average": 11,
+      "per_factor_hit_rate": {
+        "EQ_US": 1.0,
+        "EQ_EU": 1.0,
+        "EQ_EM": 1.0,
+        "EQ_IN": 0.74,
+        "IR_USD_10Y": 0.71,
+        "CS_IG": 1.0,
+        "CS_HY": 1.0,
+        "CS_EM": 1.0,
+        "FX_EUR": 0.25,
+        "FX_JPY": 0.82,
+        "CMD_OIL": 0.65,
+        "CMD_GOLD": 0.69,
+        "VOL_VIX": 1.0
+      }
+    },
+    "tremor": {
+      "label": "TREMOR (analogs, credibility-weighted)",
+      "direction_hit_rate": 0.881,
+      "pnl_error_mean_musd": 190.8,
+      "pnl_error_median_musd": 137.4,
+      "cet1_error_mean_pp": 1.74,
+      "closer_than_naive": 20,
+      "closer_than_average": 10,
+      "per_factor_hit_rate": {
+        "EQ_US": 1.0,
+        "EQ_EU": 1.0,
+        "EQ_EM": 1.0,
+        "EQ_IN": 0.89,
+        "IR_USD_10Y": 0.71,
+        "CS_IG": 1.0,
+        "CS_HY": 1.0,
+        "CS_EM": 1.0,
+        "FX_EUR": 0.25,
+        "FX_JPY": 0.91,
+        "CMD_OIL": 0.75,
+        "CMD_GOLD": 0.69,
+        "VOL_VIX": 1.0
+      }
+    },
+    "context": {
+      "episodes": 21,
+      "first": "2011-07-22",
+      "last": "2025-04-02",
+      "rates_fell": 11,
+      "rates_rose": 6,
+      "mean_abs_realised_pnl_musd": 215.3
+    }
+  }
+}

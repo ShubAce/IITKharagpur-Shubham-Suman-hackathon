@@ -119,6 +119,16 @@ def test_literal_war_stays_geopolitical(headline):
     assert engine().analyse_text(headline)["event_type"] == "GEOPOLITICAL"
 
 
+@pytest.mark.parametrize("headline, geopolitical", [
+    ("SVB's Balance-Sheet Time Bomb Was 'Sitting in Plain Sight' (SIVB)", False),  # the model alone says Geopolitical, 0.95
+    ("Why the commercial property time bomb could hit banks next", False),
+    ("Russia's seizure of Chernobyl is a ticking time bomb", True),  # a country is named: literal
+    ("Bomb attack kills dozens in Pakistan market", True),
+])
+def test_time_bomb_as_a_figure_of_speech_is_not_geopolitical(headline, geopolitical):
+    assert (engine().analyse_text(headline)["event_type"] == "GEOPOLITICAL") is geopolitical
+
+
 REPRODUCIBILITY_PROBE = """
 import json
 from tremor.config import load_settings, load_taxonomy, load_universe
@@ -148,3 +158,13 @@ def test_results_do_not_depend_on_python_hash_seed():
     outputs = [p.communicate(timeout=600)[0] for p in runs]
     assert [p.returncode for p in runs] == [0, 0]
     assert outputs[0] and outputs[0] == outputs[1]
+
+
+@pytest.mark.parametrize("headline, geopolitical", [
+    ("Warren, Porter Take First Step to Repeal Trump-Era Law Blamed for SVB Collapse", False),  # the model alone: Geopolitical
+    ("CEO of collapsed Silicon Valley Bank successfully lobbied Congress to loosen rules", False),
+    ("Congress weighs new sanctions on Russia", True),  # a foreign actor and a conflict cue
+    ("Lawmakers call for hearing on Taiwan security as China masses ships", True),
+])
+def test_domestic_politics_is_not_geopolitics(headline, geopolitical):
+    assert (engine().analyse_text(headline)["event_type"] == "GEOPOLITICAL") is geopolitical

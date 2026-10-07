@@ -38,7 +38,10 @@ entities:
   - {id: DIS, name: Walt Disney Co., type: company, sector: Communication Services, country: US,
      aliases: [Walt Disney, Disney, Bob Iger, Bob Chapek], exact: [ESPN], cashtags: [DIS]}
   - {id: INTC, name: Intel Corp., type: company, sector: Information Technology, country: US,
-     aliases: [Intel Corp, Pat Gelsinger], exact: [Intel], cashtags: [INTC]}
+     aliases: [Intel Corp, Pat Gelsinger], exact: [Intel], cashtags: [INTC],
+     # Title-case headlines capitalise "intel" (intelligence): "U.S. Intel Shows Russian Military Given Orders".
+     not_in: ['(?i)\b(?:u\.s\.|us|american|western|british|uk|ukrainian|russian|israeli|military|pentagon|nato|leaked)\s+intel\b',
+              '(?i)\bintel\s+(?:chiefs?|officials?|community|agenc(?:y|ies)|disclosures?|failures?|briefings?|assessments?|sources)\b']}
   - {id: AMD, name: Advanced Micro Devices, type: company, sector: Information Technology, country: US,
      aliases: [Advanced Micro Devices, Lisa Su, Ryzen], exact: [AMD, EPYC], cashtags: [AMD]}
   - {id: PG, name: Procter & Gamble Co., type: company, sector: Consumer Staples, country: US,
@@ -80,6 +83,22 @@ entities:
      exact: [HSBC], cashtags: [HSBC]}
   - {id: SIVB, name: SVB Financial Group, type: company, sector: Financials, country: US,
      aliases: [Silicon Valley Bank, SVB Financial], exact: [SVB], cashtags: [SIVB]}
+  # The banks of the March 2023 contagion (second replay pack): a run on one lender is a credit event
+  # for the names markets judge to look like it, so they are tracked as entities in their own right.
+  - {id: SBNY, name: Signature Bank, type: company, sector: Financials, country: US,
+     aliases: [Signature Bank], cashtags: [SBNY]}
+  - {id: FRC, name: First Republic Bank, type: company, sector: Financials, country: US,
+     aliases: [First Republic Bank], exact: [First Republic], cashtags: [FRC]}
+  - {id: SI, name: Silvergate Capital, type: company, sector: Financials, country: US,
+     aliases: [Silvergate], cashtags: [SI]}
+  - {id: PACW, name: PacWest Bancorp, type: company, sector: Financials, country: US,
+     aliases: [PacWest, Pacific Western Bank], cashtags: [PACW]}
+  - {id: WAL, name: Western Alliance Bancorp, type: company, sector: Financials, country: US,
+     aliases: [Western Alliance], cashtags: [WAL]}
+  - {id: SCHW, name: Charles Schwab Corp., type: company, sector: Financials, country: US,
+     aliases: [Charles Schwab], ambiguous: [Schwab], cashtags: [SCHW]}
+  - {id: UBS, name: UBS Group AG, type: company, sector: Financials, country: CH,
+     exact: [UBS], cashtags: [UBS]}
   - {id: CVX, name: Chevron Corp., type: company, sector: Energy, country: US,
      aliases: [Chevron], cashtags: [CVX]}
   - {id: SHEL, name: Shell plc, type: company, sector: Energy, country: GB,
@@ -142,6 +161,8 @@ entities:
      aliases: [Bank of Japan], exact: [BoJ, BOJ]}
   - {id: RBI, name: Reserve Bank of India, type: institution, country: IN,
      aliases: [Reserve Bank of India], exact: [RBI]}
+  - {id: FDIC, name: Federal Deposit Insurance Corp., type: institution, country: US,
+     aliases: [Federal Deposit Insurance Corp, Federal Deposit Insurance Corporation], exact: [FDIC]}
   - {id: OPEC, name: OPEC+, type: institution, country: XX,
      exact: [OPEC, OPEC+]}
   - {id: NATO, name: NATO, type: institution, country: XX,
@@ -180,11 +201,14 @@ entities:
      aliases: [North Korea, Pyongyang]}
 
   # ------------------------------------------------------------------ commodities & benchmarks
+  # A bare "Brent" is also a first name ("MAFS star Brent", singer Brent Smith): only its market forms are safe.
   - {id: OIL, name: Crude oil, type: commodity,
-     aliases: [crude oil, oil prices, oil price, Brent, crude futures, oil futures, oil market, oil supply, oil exports,
-               crude prices, per barrel, a barrel, oil surges, oil jumps, oil soars, oil spikes, oil rises, oil falls, oil tops,
-               oil hits, oil climbs, oil slides, oil breaches],
-     exact: [WTI, Oil]}
+     aliases: [crude oil, oil prices, oil price, Brent crude, Brent oil, Brent futures, Brent prices, Brent price, crude futures,
+               oil futures, oil market, oil supply, oil exports, crude prices, per barrel, a barrel, oil surges, oil jumps,
+               oil soars, oil spikes, oil rises, oil falls, oil tops, oil hits, oil climbs, oil slides, oil breaches,
+               Brent rises, Brent jumps, Brent surges, Brent soars, Brent tops, Brent hits, Brent climbs, Brent breaches,
+               Brent falls, Brent slips, Brent drops, Brent eases],
+     exact: [WTI, Oil], ambiguous: [Brent]}
   - {id: GAS, name: Natural gas, type: commodity,
      aliases: [natural gas, gas prices, Nord Stream], exact: [LNG]}
   - {id: GOLD, name: Gold, type: commodity,

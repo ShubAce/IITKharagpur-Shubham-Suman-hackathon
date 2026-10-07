@@ -2,13 +2,16 @@
 
 A replay pack lets the engine be demonstrated - and regression-tested - on a real market
 crisis, deterministically and offline. News comes from GDELT's raw 15-minute archive; social
-posts come from the timestamped stock-tweet archive (``scripts/fetch_data.py --only stock_tweets``).
+posts come from the timestamped stock-tweet archive (``scripts/fetch_data.py --only stock_tweets``),
+which covers Sep 2021 - Sep 2022; later packs take their social leg from ``scripts/collect_hn.py``.
 
-    python scripts/build_replay.py --name ukraine_2022 \
-        --start 2022-02-23T18:00 --end 2022-02-25T00:00 \
-        --title "Russia invades Ukraine (24 Feb 2022)"
+    python scripts/build_replay.py --name ukraine_2022 --start 2022-02-21T06:00 --end 2022-02-25T00:00 \
+        --title "Russia invades Ukraine (21-24 Feb 2022)"
+    python scripts/build_replay.py --name svb_2023 --start 2023-03-08T18:00 --end 2023-03-16T00:00 \
+        --title "Silicon Valley Bank collapse and banking contagion (8-15 Mar 2023)"
+    python scripts/collect_hn.py --name svb_2023 --start 2023-03-08T18:00 --end 2023-03-16T00:00
 
-Output: ``data/replay/<name>/{news.jsonl, social.jsonl, manifest.json}``
+Output: ``data/replay/<name>/{news.jsonl, social.jsonl, manifest.json}`` (gzip them before committing)
 """
 
 from __future__ import annotations
@@ -92,7 +95,7 @@ def main() -> int:
     parser.add_argument("--start", required=True, type=parse_time, help="UTC, e.g. 2022-02-23T18:00")
     parser.add_argument("--end", required=True, type=parse_time)
     parser.add_argument("--title", default="")
-    parser.add_argument("--max-copies", type=int, default=4, help="syndicated copies kept per distinct headline")
+    parser.add_argument("--max-copies", type=int, default=2, help="syndicated copies kept per distinct headline")
     parser.add_argument("--skip-news", action="store_true")
     args = parser.parse_args()
 
@@ -107,6 +110,7 @@ def main() -> int:
     if not args.skip_news:
         print("news  <- GDELT")
         manifest["news"] = build_news(args.start, args.end, gate, out_dir / "news.jsonl", args.max_copies)
+        manifest["news"]["max_copies_per_headline"] = args.max_copies
     print("social <- tweet archive")
     manifest["social"] = build_social(args.start, args.end, out_dir / "social.jsonl")
     (out_dir / "manifest.json").write_text(json.dumps(manifest, indent=2), encoding="utf-8")

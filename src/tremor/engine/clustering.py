@@ -55,6 +55,7 @@ class Cluster:
     evidence: list[Evidence] = field(default_factory=list)
     children: set[str] = field(default_factory=set)  # an event's stories
     entity_sent: dict = field(default_factory=dict)  # entity -> [weighted sentiment sum, weight]
+    price_moves: dict = field(default_factory=dict)  # price entity -> [reports saying up, reports saying down]
     story_times: deque = field(default_factory=deque)  # first-seen time of each story, trailing hour
     impact: float = 1.0
     peak_impact: float = 1.0
@@ -135,6 +136,11 @@ class Cluster:
     def entity_sentiment(self, entity_id: str) -> float:
         acc = self.entity_sent.get(entity_id)
         return acc[0] / acc[1] if acc and acc[1] > 0 else 0.0
+
+    def add_price_moves(self, moves: dict[str, int]) -> None:
+        """Count which way the reports say each price they name is moving (+1 up, -1 down)."""
+        for entity_id, direction in moves.items():
+            self.price_moves.setdefault(entity_id, [0, 0])[0 if direction > 0 else 1] += 1
 
     def add_story(self, story_id: str, at: datetime) -> None:
         """Register a new independent story under this event (velocity counts these, not copies)."""

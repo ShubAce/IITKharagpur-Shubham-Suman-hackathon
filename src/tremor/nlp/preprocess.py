@@ -17,6 +17,12 @@ _PUBLISHER_SUFFIX = re.compile(r"\s+[-|–—]\s+[A-Z][\w&.' ]{1,30}$")
 _DANGLING = frozenset(
     "a an the of to amid with by from into for and or but as at its their his her than".split()
 )
+# Some pages report a file name as their title ("Charles Schwab.pdf"): a document, not a headline.
+_FILE_NAME = re.compile(r"^[\w\s().,&'-]{1,80}\.(pdf|docx?|xlsx?|pptx?|csv|txt)$", re.IGNORECASE)
+
+
+def is_file_name(text: str) -> bool:
+    return bool(_FILE_NAME.match(text.strip()))
 
 
 def clean_text(text: str, strip_publisher_suffix: bool = False) -> str:

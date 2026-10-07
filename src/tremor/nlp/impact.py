@@ -87,7 +87,8 @@ def score_impact(x: ImpactInputs, taxonomy: Taxonomy, cfg: ScorecardSettings) ->
     market_share = x.market_docs / n
     if market_share >= cfg.market_linked_share or x.market_docs >= cfg.market_linked_docs:
         factors.append(ImpactFactor(name="Market linkage", points=cfg.market_linked,
-                                    detail=f"{x.market_docs} report{'s' if x.market_docs != 1 else ''} ({market_share:.0%}) discuss markets, prices or listed companies"))
+                                    detail=f"{x.market_docs} {'reports' if x.market_docs != 1 else 'report'} ({market_share:.0%}) "
+                                           f"{'discuss' if x.market_docs != 1 else 'discusses'} markets, prices or listed companies"))
     elif market_share < cfg.market_unlinked_share and x.market_docs < 5:
         factors.append(ImpactFactor(name="Market linkage", points=cfg.market_unlinked,
                                     detail=f"only {x.market_docs} of {n} reports mention markets or listed companies"))

@@ -1,0 +1,103 @@
+{
+  "description": "Company headlines that report a move in the company's own share price, from the Module A backtest corpus; extracted direction vs the stock's close-to-close return over the two sessions around the headline (D-1 to D+1).",
+  "headlines": 175,
+  "up": 60,
+  "down": 115,
+  "agreement": 0.811,
+  "agreement_by_session": {
+    "previous": 0.549,
+    "headline_day": 0.754,
+    "next": 0.571
+  },
+  "moves_over_3pct": {
+    "headlines": 121,
+    "agreement": 0.86
+  },
+  "majority_class_baseline": 0.594,
+  "examples": [
+    {
+      "day": "2022-07-31",
+      "ticker": "AMZN",
+      "title": "Amazon Shares Rises As Company Reports Better Than Expected Earnings",
+      "direction": 1,
+      "ret_around": 0.1072
+    },
+    {
+      "day": "2022-04-21",
+      "ticker": "NFLX",
+      "title": "Bill Ackman loses $400 million after Netflix shares tank",
+      "direction": -1,
+      "ret_around": -0.0472
+    },
+    {
+      "day": "2022-04-28",
+      "ticker": "AMZN",
+      "title": "Amazon stock plunges after company issues disappointing revenue forecast",
+      "direction": -1,
+      "ret_around": -0.1005
+    },
+    {
+      "day": "2022-03-21",
+      "ticker": "BA",
+      "title": "Boeing shares tank after China Eastern Airlines plane crash",
+      "direction": -1,
+      "ret_around": -0.0093
+    },
+    {
+      "day": "2021-11-08",
+      "ticker": "AMD",
+      "title": "AMD Stock Jumps 10% on Monday, Propelled by Meta (Facebook) Deal",
+      "direction": 1,
+      "ret_around": 0.0923
+    },
+    {
+      "day": "2022-02-02",
+      "ticker": "META",
+      "title": "Shares of Facebook parent Meta plunge 22% on lower profits",
+      "direction": -1,
+      "ret_around": -0.2547
+    },
+    {
+      "day": "2022-08-24",
+      "ticker": "TSLA",
+      "title": "Why Tesla Shares Rose Today Ahead of Its Stock Split",
+      "direction": 1,
+      "ret_around": -0.0013
+    },
+    {
+      "day": "2022-04-27",
+      "ticker": "TSLA",
+      "title": "Tesla shares slide could put Musk's Twitter takeover at risk",
+      "direction": -1,
+      "ret_around": 0.0012
+    },
+    {
+      "day": "2022-04-29",
+      "ticker": "AMZN",
+      "title": "Amazon Stock Falls as Loss Rattles Investors",
+      "direction": -1,
+      "ret_around": -0.139
+    },
+    {
+      "day": "2021-10-30",
+      "ticker": "META",
+      "title": "Meta shares jump on name-change news \u2014 but it's a Canadian materials company, not Facebook",
+      "direction": 1,
+      "ret_around": 0.0412
+    },
+    {
+      "day": "2022-02-01",
+      "ticker": "TSLA",
+      "title": "Elon Musk's net worth soars by $21 billion as Tesla stock jumps 11% in the tech rebound",
+      "direction": 1,
+      "ret_around": -0.0332
+    },
+    {
+      "day": "2021-12-24",
+      "ticker": "TSLA",
+      "title": "World's richest billionaire, Elon Musk, now worth $274 billion as Tesla stock breaks above $1,000",
+      "direction": 1,
+      "ret_around": 0.0843
+    }
+  ]
+}

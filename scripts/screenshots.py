@@ -14,7 +14,7 @@ import time
 from pathlib import Path
 
 OUT = Path(__file__).resolve().parents[1] / "docs" / "screenshots"
-TABS = ["radar", "index", "stress", "analyze", "results"]
+TABS = ["radar", "index", "stress", "watch", "analyze", "results"]
 
 
 def main() -> int:
@@ -44,6 +44,20 @@ def main() -> int:
             path = OUT / f"{tab}_{args.theme}.png"
             page.screenshot(path=str(path), full_page=True)
             print("saved", path.relative_to(OUT.parents[1]))
+        if args.theme == "light":  # the risk memo is a print page with one (light) theme
+            runs = page.evaluate("fetch('/api/stress/runs').then(r => r.json())")
+            if runs:
+                worst = max(runs, key=lambda r: r["trigger"]["impact_score"] if r.get("trigger") else 0)
+                page.goto(f"{args.url}/api/stress/runs/{worst['run_id']}/memo", wait_until="networkidle")
+                # With a local language model running, the first request queues the summary draft (~30 s).
+                deadline = time.time() + 180
+                while "drafting one" in page.content() and time.time() < deadline:
+                    time.sleep(5)
+                    page.reload(wait_until="networkidle")
+                print("memo summary:", "language model" if "<h2>Executive summary</h2>" in page.content() else "template")
+                path = OUT / "memo.png"
+                page.screenshot(path=str(path), full_page=True)
+                print("saved", path.relative_to(OUT.parents[1]))
         browser.close()
     for err in errors:
         print(err, file=sys.stderr)

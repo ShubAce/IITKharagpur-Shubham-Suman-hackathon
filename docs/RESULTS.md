@@ -68,49 +68,245 @@ Daily open-to-open rebalancing on the engine's filtered sentiment, 5 bp per unit
 
 | Strategy | Annual return | Volatility | Max drawdown | Excess vs EW | Info. ratio | Avg daily turnover | Mean daily IC |
 |---|---:|---:|---:|---:|---:|---:|---:|
-| TREMOR-20 (fine-tuned engine) | -19.60% | 25.6% | -30.3% | +0.32% | +0.33 | 4.44% | +0.0055 (t = +0.30) |
-| Naive keyword sentiment | -20.13% | 24.9% | -29.5% | -0.22% | -0.30 | 2.23% | +0.0084 (t = +0.54) |
+| TREMOR-20 (fine-tuned engine) | -19.59% | 25.6% | -30.3% | +0.32% | +0.33 | 4.43% | +0.0048 (t = +0.26) |
+| Naive keyword sentiment | -20.17% | 24.9% | -29.6% | -0.26% | -0.37 | 2.23% | +0.0084 (t = +0.54) |
 | Equal-weight benchmark | -19.91% | 24.8% | -29.3% | +0.00% | +0.00 | 0.28% | - |
 
-## 6. Crisis replay - Russia invades Ukraine (21-24 Feb 2022)
+## 6. Module B - are the stress scenarios any good? A point-in-time backtest on real crises
 
-39,242 documents processed in 191.4 s; 6,692 syndicated copies folded into corroboration; 7,834 judged noise.
+Each of 21 crises (2011-2025) is treated as breaking news: its scenario is rebuilt from the crisis's day-one headline (the trigger, with no market outcome in it: `headline` in `configs/scenarios.yaml`) using only the episodes that had ended before it began, then compared with what markets did over the episode. Scenarios are compared unscaled (impact 8.5) and without epicentre notching. *Directions right* = share of the materially moving headline factors (EQ_US, EQ_EU, EQ_EM, EQ_IN, IR_USD_10Y, CS_IG, CS_HY, CS_EM, FX_EUR, FX_JPY, CMD_OIL, CMD_GOLD, VOL_VIX) whose sign the scenario got right (a factor left at zero is a miss); *P&L error* = |P&L of the book under the scenario - P&L under the realised moves|. `python main.py validate` reproduces it.
+
+The brief's example shock (equities -10%, rates +200 bp) assumes rates rise in a crisis: the 10-year US yield fell in 11 of the 21 crises and rose in 6.
+
+| Method | Directions right | Rates right | Oil right | P&L error, mean $m | median $m | CET1 error pp | Closer than naive | Closer than the average crisis |
+|---|---:|---:|---:|---:|---:|---:|---|---|
+| Naive fixed shock (the brief's example) | 35.2% | 35% | 0% | 501 | 500 | 3.54 | 0/21 | 1/21 |
+| Expert template per event type | 88.1% | 71% | 65% | 366 | 296 | 2.93 | 16/21 | 4/21 |
+| Average of all earlier crises | 86.3% | 65% | 65% | 184 | 117 | 1.72 | 20/21 | 0/21 |
+| Average of earlier crises of the same type | 85.0% | 71% | 40% | 209 | 168 | 1.95 | 18/21 | 9/21 |
+| Closest analogs alone | 85.5% | 71% | 65% | 223 | 126 | 1.94 | 19/21 | 11/21 |
+| TREMOR (analogs, credibility-weighted) | 88.1% | 71% | 75% | 191 | 137 | 1.74 | 20/21 | 10/21 |
+
+### Crisis by crisis
+
+| Crisis | Start | Book P&L, realised $m | TREMOR $m | Naive $m | TREMOR directions | Naive directions | Closest analogs (TREMOR) |
+|---|---:|---:|---:|---:|---|---|---|
+| US sovereign downgrade and euro crisis | 2011-07-22 | -240 | -203 | -581 | 12/12 | 4/12 | Greek debt crisis and euro-area contagion 97%, Oil price spike to $147 3% |
+| Taper tantrum | 2013-05-21 | -366 | -229 | -581 | 10/13 | 5/13 | US sovereign downgrade and euro crisis 37%, Greek debt crisis and euro-area contagion 36% |
+| Russia annexes Crimea | 2014-02-28 | -14 | -112 | -581 | 8/10 | 2/10 | Libyan civil war and Arab Spring oil shock 61%, September 11 attacks 28% |
+| Yuan devaluation and China slowdown | 2015-08-10 | -100 | -259 | -581 | 11/13 | 4/13 | Taper tantrum 56%, Oil price spike to $147 28% |
+| Oil crash and high-yield energy defaults | 2015-11-30 | -213 | -190 | -581 | 12/13 | 4/13 | Greek debt crisis and euro-area contagion 41%, US sovereign downgrade and euro crisis 36% |
+| Brexit referendum | 2016-06-23 | -82 | -68 | -581 | 12/13 | 4/13 | Russia annexes Crimea 47%, Libyan civil war and Arab Spring oil shock 31% |
+| Volatility spike (Volmageddon) | 2018-01-26 | -160 | -295 | -581 | 9/12 | 5/12 | Oil price spike to $147 53%, Taper tantrum 32% |
+| US-China trade war escalation | 2018-10-03 | -282 | -68 | -581 | 12/13 | 4/13 | Libyan civil war and Arab Spring oil shock 57%, September 11 attacks 31% |
+| US raises tariffs on Chinese goods | 2019-05-03 | 25 | -154 | -581 | 11/12 | 3/12 | US-China trade war escalation 75%, Libyan civil war and Arab Spring oil shock 16% |
+| Attack on Saudi Aramco's Abqaiq facility | 2019-09-13 | 9 | -55 | -581 | 3/3 | 1/3 | Libyan civil war and Arab Spring oil shock 78%, September 11 attacks 13% |
+| US strike kills Iranian general | 2020-01-02 | -29 | -47 | -581 | 6/6 | 2/6 | Attack on Saudi Aramco's Abqaiq facility 48%, September 11 attacks 30% |
+| COVID-19 market crash | 2020-02-19 | -1,864 | -115 | -581 | 10/11 | 4/11 | Yuan devaluation and China slowdown 40%, Volatility spike 30% |
+| US inflation scare | 2021-05-07 | -63 | -241 | -581 | 9/9 | 4/9 | Oil price spike to $147 51%, Volatility spike 29% |
+| Evergrande debt crisis | 2021-09-13 | -39 | -134 | -581 | 6/7 | 3/7 | Greek debt crisis and euro-area contagion 39%, Oil crash and high-yield energy defaults 33% |
+| Russia invades Ukraine | 2022-02-16 | -302 | -49 | -581 | 10/12 | 4/12 | Russia annexes Crimea 83%, Libyan civil war and Arab Spring oil shock 9% |
+| Inflation surprise and 75bp Fed hike | 2022-06-08 | -249 | -112 | -581 | 10/11 | 5/11 | US inflation scare 67%, Volatility spike 18% |
+| UK mini-budget and gilt crisis | 2022-09-22 | -111 | -118 | -581 | 10/10 | 4/10 | Inflation surprise and 75bp Fed hike 37%, US inflation scare 36% |
+| Silicon Valley Bank collapse | 2023-03-08 | 83 | -137 | -581 | 12/13 | 4/13 | US sovereign downgrade and euro crisis 36%, Oil crash and high-yield energy defaults 33% |
+| Hamas attack on Israel and Gaza war | 2023-10-06 | -52 | -52 | -581 | 7/10 | 5/10 | US strike kills Iranian general 37%, Attack on Saudi Aramco's Abqaiq facility 36% |
+| Yen carry-trade unwind | 2024-07-31 | 21 | -121 | -581 | 10/11 | 4/11 | US inflation scare 44%, Inflation surprise and 75bp Fed hike 40% |
+| US reciprocal tariffs (Liberation Day) | 2025-04-02 | -218 | -71 | -581 | 10/13 | 5/13 | US-China trade war escalation 48%, US raises tariffs on Chinese goods 41% |
+
+## 7. Price direction is not sentiment: the direction extractor, checked against prices
+
+"Oil soars on war fears" is negative in tone but says oil is going up, so the stress scenario reads the direction of the prices a report names from verbs of movement (`src/tremor/nlp/price_moves.py`), not from sentiment. The rules are checked where the truth is known: 175 company headlines from the Module A corpus that report a move in the company's own share price (60 up, 115 down), against the stock's actual close-to-close move.
+
+| Reference move | Agreement |
+|---|---:|
+| Two sessions around the headline (D-1 to D+1) | 81.1% |
+| ... moves above 3% only (n = 121) | 86.0% |
+| Headline day only | 75.4% |
+| Always guessing the more common direction (baseline) | 59.4% |
+
+## 7b. Does the impact score measure market impact? An event study on single stocks
+
+The engine replayed over the Module A corpus (2021-10-01 to 2022-09-30): every company-session gets the highest impact of an event *about* that company (its epicentre); the market's answer is the company's abnormal move over the sessions before and after the news (return minus the S&P 500's). 4,867 company-sessions with news, of 5,040. `python main.py impact` reproduces it from `data/backtest/impact_daily.csv`.
+
+| Measure | Spearman with abnormal move | p-value | Mean move, top decile |
+|---|---:|---|---:|
+| TREMOR impact score | +0.079 | 3e-08 | 2.42% |
+| Impact score from the keyword engine | +0.056 | 0.0001 | 2.75% |
+| Headline volume (documents about the company) | +0.057 | 6e-05 | 3.28% |
+| Tone intensity (mean absolute sentiment) | +0.130 | 1e-19 | 2.95% |
+
+| TREMOR impact | Company-sessions | Mean abnormal move | Median |
+|---|---:|---:|---:|
+| no event | 934 | 1.91% | 1.45% |
+| below 4 | 1,552 | 1.69% | 1.25% |
+| 4 to 5 | 417 | 1.92% | 1.22% |
+| 5 to 6 | 883 | 1.88% | 1.32% |
+| 6 to 7 | 1,018 | 2.54% | 1.73% |
+| 7 and above | 236 | 2.14% | 1.45% |
+
+Regression of the abnormal move (percent) on the standardised measures, robust t-statistics: impact -0.04 (t = -1.0), log_volume +0.33 (t = +5.5), tone +0.29 (t = +9.6).
+
+Reading: the impact score ranks market-moving company news (sessions scored 6 or more move more than lower-scored news), but on single stocks it adds nothing beyond attention (headline volume) and tone. The scorecard was built to triage systemic events for stress tests; its event-type priors (earnings, product launches) carry no single-stock information, and archive headlines carry dates, not times. Calibrating the scorecard's weights on market reactions is the next step; Module A, the single-stock application, runs on sentiment, which carries the stronger signal here.
+
+## 7c. A language model for the memo's summary - measured, and switched off
+
+A local llama3.1 can draft the risk memo's opening paragraph: it writes placeholders and the engine inserts every figure; checks reject a draft with a number of its own, a wrong capital statement, a flipped CET1 direction or a claim put in the reports' mouth, and a rejected draft goes back with the reasons at most twice before the memo falls back to its template. Asked for all 33 stress tests of the two replays (`python scripts/check_llm_summaries.py`):
+
+| Outcome | Stress tests |
+|---|---:|
+| Accepted at attempt 1 | 7 |
+| Accepted at attempt 2 | 11 |
+| Accepted at attempt 3 | 4 |
+| Template (last reason: it says what the reports claim, but the facts only count the reports) | 9 |
+| Template (last reason: it left out CET1_AFTER) | 2 |
+
+Median time per summary: 17 s on a laptop GPU. Read by hand (every summary and rejected draft is in `docs/results/llm_summaries.json`): no accepted summary carries a wrong figure or capital statement, but about half tie the largest loss channel to the hardest-hit borrowers more tightly than the numbers do, and earlier prompts invented facts outright ("the bank harbors dirty money" - the story was about another bank). Small prompt changes moved acceptance between 0 and 31 of 33. A risk memo cannot carry prose that needs a second read, so the memo's summary is deterministic and the model is off by default (`llm.enabled` in `configs/settings.yaml`).
+
+## 8. Crisis replay - Russia invades Ukraine (21-24 Feb 2022)
+
+39,242 documents (38,366 news headlines from GDELT, 876 social posts) processed in 92.6 s; 6,692 syndicated copies folded into corroboration; 7,834 judged noise. The same code and thresholds as every other replay and the live mode.
 
 ### Stress tests triggered (Module B)
 
-| Detected (UTC) | Type | Impact | Epicentre | Why it ran | Event headline | P&L $m | CET1 % |
+| Detected (UTC) | Type | Impact | Situation | Why it ran | Event headline | P&L $m | CET1 % |
 |---|---|---:|---|---|---|---:|---:|
-| 2022-02-21 07:00 | Geopolitical | 7.7 | RU UA | new situation | Pakistan Prime Minister Imran Khan to Visit Russia on Feb 23-24: Repor | -46 | 13.5 -> 12.69 |
-| 2022-02-21 08:45 | Geopolitical | 7.2 | CN | new situation | 50 years after Nixon visit, US-China ties as fraught as ever | -33 | 13.5 -> 12.16 |
-| 2022-02-21 11:45 | Geopolitical | 8.8 | RU UA | escalation: impact 7.7 -> 8.8 | russia-ukraine tension: US plans to cut ties with targeted Russian ban | -150 | 13.5 -> 11.57 |
-| 2022-02-21 14:15 | Geopolitical | 7.1 | IL IR | new situation | Iran sees progress in nuclear talks | -7 | 13.5 -> 13.36 |
-| 2022-02-21 14:30 | Geopolitical | 7.9 | CN | escalation: impact 7.2 -> 7.9 | Beijing places sanctions on U.S. arms companies Lockheed and Raytheon | -17 | 13.5 -> 12.34 |
-| 2022-02-21 15:45 | Macroeconomic | 8.2 | GLOBAL | new situation | Oil, gold cede gains on prospects for Biden-Putin Ukraine summit | -300 | 13.5 -> 10.11 |
-| 2022-02-21 15:45 | Credit Event | 7.0 | CS | new situation | "Suisse Secrets": Massive Leak Of Credit Suisse Bank Records Exposes $ | -77 | 13.5 -> 12.08 |
-| 2022-02-21 16:45 | Geopolitical | 8.8 | RU UA | escalation: coverage 44 -> 81 reports/hour | European stocks at risk if Russia invades Ukraine | -159 | 13.5 -> 11.65 |
-| 2022-02-22 01:00 | Geopolitical | 9.2 | RU UA | escalation: coverage 81 -> 151 reports/hour | Putin considers recognising independence of separatist areas in Ukrain | -160 | 13.5 -> 11.77 |
-| 2022-02-22 12:15 | Credit Event | 7.3 | HSBC | new situation | HSBC takes $500m hit from Chinese property crisis | -52 | 13.5 -> 12.31 |
-| 2022-02-24 05:45 | Geopolitical | 9.4 | RU UA | escalation: coverage 151 -> 282 reports/hour | Putin Announces Military Assault Against Ukraine in Surprise Speech | -154 | 13.5 -> 11.88 |
-| 2022-02-24 08:30 | Credit Event | 7.6 | EVERG | new situation | Shares drop after Zhenro's default warning: Evergrande update | -32 | 13.5 -> 12.4 |
-| 2022-02-24 17:45 | Geopolitical | 8.2 | IL IR | escalation: impact 7.1 -> 8.2 | Iran says decisions needed from West to seal nuclear deal | 2 | 13.5 -> 12.82 |
-| 2022-02-24 19:45 | Geopolitical | 9.9 | RU UA | escalation: coverage 282 -> 539 reports/hour | Russian troops try to seize Chernobyl nuclear plant amid… | -160 | 13.5 -> 11.82 |
+| 2022-02-21 07:00 | Geopolitical | 7.7 | RU UA | new situation | Pakistan Prime Minister Imran Khan to Visit Russia on Feb 23-24: Repor | -80 | 13.5 -> 12.2 |
+| 2022-02-21 08:45 | Geopolitical | 7.2 | CN | new situation | 50 years after Nixon visit, US-China ties as fraught as ever | -41 | 13.5 -> 12.3 |
+| 2022-02-21 11:45 | Geopolitical | 8.8 | RU UA | escalation: impact 7.7 -> 8.8 | russia-ukraine tension: US plans to cut ties with targeted Russian ban | -195 | 13.5 -> 11.08 |
+| 2022-02-21 14:15 | Geopolitical | 7.1 | IL IR | new situation | Iran sees progress in nuclear talks | -34 | 13.5 -> 12.83 |
+| 2022-02-21 14:30 | Geopolitical | 7.9 | CN | escalation: impact 7.2 -> 7.9 | Beijing places sanctions on U.S. arms companies Lockheed and Raytheon | -45 | 13.5 -> 12.22 |
+| 2022-02-21 15:45 | Macroeconomic | 8.2 | GLOBAL | new situation | Oil, gold cede gains on prospects for Biden-Putin Ukraine summit | -176 | 13.5 -> 11.1 |
+| 2022-02-21 15:45 | Credit Event | 7.0 | CS | new situation | "Suisse Secrets": Massive Leak Of Credit Suisse Bank Records Exposes $ | -79 | 13.5 -> 12.12 |
+| 2022-02-21 16:45 | Geopolitical | 8.8 | RU UA | escalation: coverage 44 -> 81 reports/hour | European stocks at risk if Russia invades Ukraine | -200 | 13.5 -> 11.11 |
+| 2022-02-22 01:00 | Geopolitical | 9.2 | RU UA | escalation: coverage 81 -> 151 reports/hour | Putin considers recognising independence of separatist areas in Ukrain | -203 | 13.5 -> 11.18 |
+| 2022-02-22 12:15 | Credit Event | 7.3 | HSBC | new situation | HSBC takes $500m hit from Chinese property crisis | -60 | 13.5 -> 12.25 |
+| 2022-02-24 05:45 | Geopolitical | 9.4 | RU UA | escalation: coverage 151 -> 282 reports/hour | Putin Announces Military Assault Against Ukraine in Surprise Speech | -310 | 13.5 -> 10.24 |
+| 2022-02-24 08:30 | Credit Event | 7.6 | EVERG | new situation | Shares drop after Zhenro's default warning: Evergrande update | -46 | 13.5 -> 12.34 |
+| 2022-02-24 17:45 | Geopolitical | 8.2 | IL IR | escalation: impact 7.1 -> 8.2 | Iran says decisions needed from West to seal nuclear deal | -56 | 13.5 -> 12.24 |
+| 2022-02-24 19:45 | Geopolitical | 9.9 | RU UA | escalation: coverage 282 -> 539 reports/hour | Russian troops try to seize Chernobyl nuclear plant amid… | -374 | 13.5 -> 9.68 |
 
 ### Module A on the replay
 
-68 rebalances, one-way turnover 63.3%, index 989.2 vs equal-weight 988.9 (base 1,000, daily prices).
+68 rebalances, one-way turnover 64.0%, index 989.7 vs equal-weight 988.9 (base 1,000, daily prices).
 
 ### Scenario realism check
 
-The last Russia-Ukraine stress scenario (built point-in-time from analogs that ended before the invasion) against what markets actually did between 16 Feb and 8 Mar 2022. Same sign = the scenario got the direction right.
+The last stress scenario of the replay's most severe situation (RU UA, impact 9.9, 2022-02-24 19:45 UTC), built point-in-time from analogs that ended before the crisis, against what markets did over the episode (2022-02-16 to 2022-03-08). Same sign = direction right: **8 of 9**. The scenario is scaled x1.31 for its impact; the realised moves are not.
 
 | Factor | Scenario | Realised | Same direction |
 |---|---:|---:|---|
-| EQ_US | -4.5 | -6.8 | yes |
-| EQ_EU | -6.8 | -15.3 | yes |
-| IR_USD_10Y | -9.7 | -17.5 | yes |
-| CS_IG | +17.3 | +32.9 | yes |
-| CS_HY | +58.7 | +54.9 | yes |
-| FX_EUR | +0.8 | -4.3 | no |
-| CMD_OIL | -4.6 | +32.1 | no |
+| EQ_US | -10.5 | -6.8 | yes |
+| EQ_EU | -11.1 | -15.3 | yes |
+| IR_USD_10Y | -16.3 | -17.5 | yes |
+| CS_IG | +38.1 | +32.9 | yes |
+| CS_HY | +142.2 | +54.9 | yes |
+| FX_EUR | +0.3 | -4.3 | no |
+| CMD_OIL | +39.3 | +32.1 | yes |
 | CMD_GOLD | +5.5 | +9.2 | yes |
-| VOL_VIX | +8.2 | +10.8 | yes |
+| VOL_VIX | +13.9 | +10.8 | yes |
+
+### Credit early warning
+
+When each company was first flagged, and first put on Watch Negative (the scorecard is in `src/tremor/modules/watchlist.py`):
+
+| Company | First flagged, Monitor or higher (UTC) | First Watch Negative (UTC) |
+|---|---|---|
+| China Evergrande Group | 02-21 09:15 | 02-23 14:00 |
+| Gazprom PJSC | 02-21 09:15 | 02-22 01:15 |
+| Boeing Co. | 02-21 10:45 |  |
+| Sberbank of Russia | 02-21 12:15 | 02-22 01:15 |
+| Credit Suisse Group | 02-21 16:00 | 02-21 16:00 |
+| Alibaba Group | 02-21 17:00 | 02-22 07:15 |
+| RTX Corp. (Raytheon) | 02-21 17:00 |  |
+| HSBC Holdings | 02-22 13:00 | 02-22 13:00 |
+| Johnson & Johnson | 02-22 22:14 |  |
+| Goldman Sachs Group | 02-24 17:00 |  |
+| Alphabet Inc. | 02-24 20:45 |  |
+
+Against the public rating actions of the same weeks (`data/reference/rating_actions.csv`, each with its source). Ratings are through-the-cycle and decided by committee by design; early warning tells surveillance teams which names to review first:
+
+| Rating action | Agency | Name | Action | TREMOR first flag (UTC) | TREMOR Watch Negative (UTC) | Lead of first flag |
+|---|---|---|---|---|---|---|
+| 2022-02-25 | S&P Global Ratings | Russia (sovereign) | Foreign-currency rating cut to BB+ from BBB- (below investment grade) | GAZP 02-21 09:15 | 02-22 01:15 | 4 days before |
+| 2022-02-25 | Moody's | Russia (sovereign) | Baa3 placed on review for downgrade | GAZP 02-21 09:15 | 02-22 01:15 | 4 days before |
+| 2022-03-03 | S&P Global Ratings | Russia (sovereign) | Cut to CCC- and kept on CreditWatch negative on increasing risk of default | GAZP 02-21 09:15 | 02-22 01:15 | 10 days before |
+
+## 9. Crisis replay - Silicon Valley Bank and the banking contagion (8-15 Mar 2023)
+
+43,728 documents (39,240 news headlines from GDELT, 4,489 social posts; 1 with no readable text, such as a file name, skipped) processed in 116.9 s; 6,390 syndicated copies folded into corroboration; 10,192 judged noise. The same code and thresholds as every other replay and the live mode.
+
+### Stress tests triggered (Module B)
+
+| Detected (UTC) | Type | Impact | Situation | Why it ran | Event headline | P&L $m | CET1 % |
+|---|---|---:|---|---|---|---:|---:|
+| 2023-03-08 19:00 | Geopolitical | 8.4 | RU UA | new situation | Pro-Ukraine saboteur group may be behind bombing of Nord Stream | -252 | 13.5 -> 10.8 |
+| 2023-03-08 23:09 | Credit Event | 7.0 | SI | new situation | After-hours movers: Silvergate plunges on liquidation, Asana jumps on  | -59 | 13.5 -> 12.24 |
+| 2023-03-09 10:00 | Geopolitical | 7.2 | CN IN | new situation | Press Trust of India: US intel community fears increased India-Pak, In | -109 | 13.5 -> 11.86 |
+| 2023-03-09 18:45 | Geopolitical | 8.2 | CN IN | escalation: impact 7.2 -> 8.2 | Russia wants military aid from China – here's why this deal could help | -288 | 13.5 -> 10.08 |
+| 2023-03-09 18:30 | Geopolitical | 7.3 | IL IR | new situation | Iran enriching uranium to near weapons-grade levels, nuclear watchdog  | -47 | 13.5 -> 12.52 |
+| 2023-03-09 18:32 | Credit Event | 7.1 | SIVB | new situation | Banks tumble as SVB ignites broader fears about the sector | -66 | 13.5 -> 12.14 |
+| 2023-03-09 18:46 | Credit Event | 7.8 | SI | escalation: impact 7.0 -> 7.8 | Silvergate Short Bets Amass $780 Million Payday as Crypto Bank Sinks | -75 | 13.5 -> 11.99 |
+| 2023-03-09 20:15 | Macroeconomic | 8.2 | GLOBAL | new situation | Treasury Yields Mixed as Investors Consider Potential Fed Rate Policy  | -184 | 13.5 -> 11.26 |
+| 2023-03-10 01:45 | Credit Event | 7.8 | SIVB | escalation: impact 7.1 -> 7.8 | SVB Financial falls more than 50% as tech bank looks to raise more cas | -91 | 13.5 -> 11.81 |
+| 2023-03-10 04:15 | Geopolitical | 7.0 | JP KP | new situation | North Korea's Kim Jong-un orders military to get ready for 'real war'  | -43 | 13.5 -> 12.6 |
+| 2023-03-10 14:15 | Credit Event | 8.8 | SIVB | escalation: impact 7.8 -> 8.8 | Silicon Valley Bank News | -111 | 13.5 -> 11.48 |
+| 2023-03-10 13:45 | Credit Event | 8.8 | SI | escalation: impact 7.8 -> 8.8 | Silvergate, Silicon Valley Bank Fallout Spark Wall Street Fears of Cri | -124 | 13.5 -> 11.37 |
+| 2023-03-10 21:05 | Credit Event | 9.7 | SIVB | escalation: impact 8.8 -> 9.7 | Silicon Valley Bank seized as depositors pull cash | -525 | 13.5 -> 8.02 |
+| 2023-03-11 10:00 | Geopolitical | 9.2 | RU UA | escalation: impact 8.4 -> 9.2 | Ukraine seeks to end conflict with Russia this year: defense minister' | -274 | 13.5 -> 10.68 |
+| 2023-03-12 18:42 | Geopolitical | 8.2 | IL IR | escalation: impact 7.3 -> 8.2 | U.K. Prime Minister Rishi Sunak recognises 'anxiety' over Silicon Vall | -157 | 13.5 -> 10.96 |
+| 2023-03-13 01:45 | Credit Event | 9.7 | SIVB | escalation: coverage 22 -> 61 reports/hour | Signature Bank Closed by New York State Regulators | -530 | 13.5 -> 7.87 |
+| 2023-03-15 11:00 | Credit Event | 7.3 | DB | new situation | Credit Suisse Default Swaps Are 18 Times UBS, 9 Times Deutsche Bank | -94 | 13.5 -> 11.83 |
+| 2023-03-15 16:30 | Credit Event | 7.6 | MS | new situation | Morgan Stanley, BlackRock funds among those exposed to regional bank f | -69 | 13.5 -> 11.97 |
+| 2023-03-15 17:45 | Credit Event | 8.0 | CS | new situation | US Treasury Says It's Monitoring Credit Suisse Situation | -110 | 13.5 -> 11.61 |
+
+### Module A on the replay
+
+105 rebalances, one-way turnover 70.9%, index 1006.2 vs equal-weight 1004.8 (base 1,000, daily prices).
+
+### Scenario realism check
+
+The last stress scenario of the replay's most severe situation (SIVB, impact 9.7, 2023-03-13 01:45 UTC), built point-in-time from analogs that ended before the crisis, against what markets did over the episode (2023-03-08 to 2023-03-15). Same sign = direction right: **8 of 9**. The scenario is scaled x1.26 for its impact; the realised moves are not.
+
+| Factor | Scenario | Realised | Same direction |
+|---|---:|---:|---|
+| EQ_US | -18.3 | -2.5 | yes |
+| EQ_EU | -20.6 | -5.9 | yes |
+| IR_USD_10Y | -35.3 | -48.4 | yes |
+| CS_IG | +91.9 | +25.1 | yes |
+| CS_HY | +359.5 | +110.7 | yes |
+| FX_EUR | -3.2 | +1.7 | no |
+| CMD_OIL | -17.4 | -11.8 | yes |
+| CMD_GOLD | +8.4 | +6.2 | yes |
+| VOL_VIX | +27.8 | +7.0 | yes |
+
+### Credit early warning
+
+When each company was first flagged, and first put on Watch Negative (the scorecard is in `src/tremor/modules/watchlist.py`):
+
+| Company | First flagged, Monitor or higher (UTC) | First Watch Negative (UTC) |
+|---|---|---|
+| Gazprom PJSC | 03-08 19:00 | 03-11 11:00 |
+| Sberbank of Russia | 03-08 19:00 | 03-09 08:45 |
+| Silvergate Capital | 03-08 22:00 | 03-09 00:15 |
+| Johnson & Johnson | 03-09 00:15 |  |
+| JPMorgan Chase & Co. | 03-09 02:15 |  |
+| Credit Suisse Group | 03-09 10:45 | 03-15 13:45 |
+| China Evergrande Group | 03-09 10:45 | 03-09 19:00 |
+| Signature Bank | 03-09 13:45 | 03-13 03:30 |
+| SVB Financial Group | 03-09 15:15 | 03-09 19:00 |
+| Adani Group | 03-09 19:00 | 03-14 07:15 |
+| Alibaba Group | 03-09 19:00 |  |
+| HDFC Bank | 03-09 19:00 |  |
+
+Against the public rating actions of the same weeks (`data/reference/rating_actions.csv`, each with its source). Ratings are through-the-cycle and decided by committee by design; early warning tells surveillance teams which names to review first:
+
+| Rating action | Agency | Name | Action | TREMOR first flag (UTC) | TREMOR Watch Negative (UTC) | Lead of first flag |
+|---|---|---|---|---|---|---|
+| 2023-03-08 | Moody's | SVB Financial Group | Cut one notch to Baa1 from A3 (still investment grade) | SIVB 03-09 15:15 | 03-09 19:00 | 1 day after |
+| 2023-03-09 | S&P Global Ratings | SVB Financial Group | Cut one notch to BBB- from BBB (still investment grade) | SIVB 03-09 15:15 | 03-09 19:00 | same day |
+| 2023-03-10 | S&P Global Ratings | SVB Financial Group | Silicon Valley Bank cut to D and SVB Financial to CC after the bank was closed | SIVB 03-09 15:15 | 03-09 19:00 | 1 day before |
+| 2023-03-13 | Moody's | Signature Bank | Cut deep into junk after the bank was closed | SBNY 03-09 13:45 | 03-13 03:30 | 4 days before |
+| 2023-03-13 | Moody's | First Republic Bank | Placed on review for downgrade (with Western Alliance and four other US banks) | FRC 03-11 18:30 | 03-15 15:45 | 2 days before |
+| 2023-03-13 | Moody's | Western Alliance Bancorp | Placed on review for downgrade (with First Republic and four other US banks) | WAL 03-13 14:30 | - | same day |
+| 2023-03-15 | S&P Global Ratings | First Republic Bank | Cut to BB+ from A- (below investment grade) | FRC 03-11 18:30 | 03-15 15:45 | 4 days before |
+| 2023-03-15 | Fitch Ratings | First Republic Bank | Cut to BB from A- (below investment grade) | FRC 03-11 18:30 | 03-15 15:45 | 4 days before |

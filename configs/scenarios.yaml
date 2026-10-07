@@ -58,84 +58,113 @@ sector_factor:
 # Historical episodes. Dates bracket the main market reaction (last close before -> end of the move).
 # extreme: true marks once-in-a-generation crises; they are only used as analogs for events whose
 # impact is at least 9.5, so an ordinary shock is never stressed as if it were 2008 or March 2020.
+# description: what happened, written with hindsight - it is what new events are matched against.
+# headline:    the trigger as a day-one news headline, with no market outcome in it. Used only by the
+#              point-in-time scenario backtest (python main.py validate), as the "news" of a past crisis.
 episodes:
   - {id: sep11_2001, event_type: GEOPOLITICAL, start: 2001-09-10, end: 2001-09-21,
      title: "September 11 attacks",
+     headline: "Hijacked airliners destroy the World Trade Center and hit the Pentagon in terrorist attacks on the United States",
      description: "Terrorist attacks on the United States; markets closed for four days; flight to safety, airline and insurance losses, Fed emergency rate cut."}
   - {id: oil_spike_2008, event_type: MACROECONOMIC, start: 2008-05-01, end: 2008-07-11,
      title: "Oil price spike to $147",
+     headline: "Crude oil hits a record above $120 a barrel as supply fears mount",
      description: "Oil prices surge to a record 147 dollars a barrel on supply fears; energy and food inflation; consumer, airline and bank stocks fall; central banks weigh rate hikes."}
   - {id: lehman_2008, event_type: CREDIT_EVENT, start: 2008-09-12, end: 2008-10-10, extreme: true,
      title: "Lehman Brothers bankruptcy",
+     headline: "Lehman Brothers files for bankruptcy after talks to rescue the investment bank collapse",
      description: "Investment bank Lehman Brothers files for Chapter 11 bankruptcy; AIG bailout; money-market fund breaks the buck; global banking and credit crisis, interbank funding freezes."}
   - {id: euro_sovereign_2010, event_type: CREDIT_EVENT, start: 2010-04-23, end: 2010-05-25,
      title: "Greek debt crisis and euro-area contagion",
+     headline: "Greece requests an international bailout as its debt crisis deepens",
      description: "Greece requests a bailout, its sovereign rating is cut to junk; contagion fears for Portugal, Spain and European banks; euro falls, sovereign spreads surge."}
   - {id: us_downgrade_2011, event_type: CREDIT_EVENT, start: 2011-07-22, end: 2011-08-10,
      title: "US sovereign downgrade and euro crisis",
+     headline: "Debt-ceiling talks collapse in Washington, raising the risk of a US default and downgrade",
      description: "S&P downgrades the United States credit rating from AAA amid debt-ceiling standoff; euro-area sovereign debt crisis spreads to Italy and Spain; bank stocks plunge."}
   - {id: libya_2011, event_type: GEOPOLITICAL, start: 2011-02-15, end: 2011-02-24,
      title: "Libyan civil war and Arab Spring oil shock",
+     headline: "Unrest spreads to OPEC member Libya as Gaddafi's forces fire on protesters",
      description: "Civil war in Libya halts oil exports amid Arab Spring uprisings across the Middle East; Brent crude jumps above 110 dollars; supply disruption fears."}
   - {id: taper_tantrum_2013, event_type: MACROECONOMIC, start: 2013-05-21, end: 2013-06-24,
      title: "Taper tantrum",
+     headline: "Bernanke says the Fed could scale back its bond purchases in the next few meetings",
      description: "Federal Reserve signals it will taper bond purchases; Treasury yields jump, emerging-market currencies and bonds sell off."}
   - {id: crimea_2014, event_type: GEOPOLITICAL, start: 2014-02-28, end: 2014-03-14,
      title: "Russia annexes Crimea",
+     headline: "Russian forces seize Crimea as Moscow moves to annex the Ukrainian peninsula",
      description: "Russian troops seize Crimea from Ukraine and Russia annexes the peninsula; Western sanctions on Russia; rouble and Russian assets fall; energy supply fears in Europe."}
   - {id: china_deval_2015, event_type: MACROECONOMIC, start: 2015-08-10, end: 2015-08-25,
      title: "Yuan devaluation and China slowdown",
+     headline: "China devalues the yuan by the most in two decades",
      description: "China devalues the yuan; fears of a Chinese economic slowdown trigger a global equity selloff and commodity rout."}
   - {id: energy_credit_2015, event_type: CREDIT_EVENT, start: 2015-11-30, end: 2016-02-11,
      title: "Oil crash and high-yield energy defaults",
+     headline: "Junk-bond fund halts redemptions as defaults spread among oil and gas producers",
      description: "Oil price collapse drives defaults among high-yield energy issuers; junk bond funds freeze redemptions; credit spreads widen sharply."}
   - {id: brexit_2016, event_type: GEOPOLITICAL, start: 2016-06-23, end: 2016-06-27,
      title: "Brexit referendum",
+     headline: "Britain votes to leave the European Union",
      description: "United Kingdom votes to leave the European Union; sterling collapses, UK and European bank shares plunge, flight to safety into gold and government bonds."}
   - {id: volmageddon_2018, event_type: MACROECONOMIC, start: 2018-01-26, end: 2018-02-08,
      title: "Volatility spike (Volmageddon)",
+     headline: "US wage growth jumps the most since 2009, stoking fears of faster rate hikes",
      description: "Rising wage inflation and bond yields trigger a sudden volatility spike; short-volatility products collapse; equities correct ten percent."}
   - {id: trade_war_2018, event_type: GEOPOLITICAL, start: 2018-10-03, end: 2018-12-24,
      title: "US-China trade war escalation",
+     headline: "US-China trade war escalates as Washington threatens tariffs on all Chinese imports",
      description: "United States and China escalate tariffs in a trade war; technology export restrictions; global growth fears and a fourth-quarter equity bear market."}
   - {id: tariff_hike_2019, event_type: GEOPOLITICAL, start: 2019-05-03, end: 2019-06-03,
      title: "US raises tariffs on Chinese goods",
+     headline: "Trump raises tariffs on $200 billion of Chinese goods and blacklists Huawei",
      description: "United States raises tariffs on Chinese imports and blacklists Huawei; China retaliates; semiconductor and industrial stocks fall."}
   - {id: abqaiq_2019, event_type: GEOPOLITICAL, start: 2019-09-13, end: 2019-09-17,
      title: "Attack on Saudi Aramco's Abqaiq facility",
+     headline: "Drone attack on Saudi Aramco's Abqaiq plant knocks out half of the kingdom's oil output",
      description: "Drone and missile attack on Saudi Arabia's Abqaiq oil processing plant knocks out five percent of global oil supply; oil prices spike on Middle East conflict and supply fears."}
   - {id: soleimani_2020, event_type: GEOPOLITICAL, start: 2020-01-02, end: 2020-01-08,
      title: "US strike kills Iranian general",
+     headline: "US strike kills top Iranian general Qassem Soleimani in Baghdad",
      description: "US drone strike kills Iranian commander Qassem Soleimani; Iran fires missiles at US bases in Iraq; oil and gold jump on Middle East war fears."}
   - {id: covid_2020, event_type: MACROECONOMIC, start: 2020-02-19, end: 2020-03-23, extreme: true,
      title: "COVID-19 market crash",
+     headline: "Coronavirus spreads beyond China as Italy locks down towns and global cases surge",
      description: "Coronavirus pandemic: lockdowns shut down the global economy, a dash for cash and frozen credit markets until central banks intervene."}
   - {id: inflation_scare_2021, event_type: MACROECONOMIC, start: 2021-05-07, end: 2021-05-12,
      title: "US inflation scare",
+     headline: "US consumer prices rise the most since 2008",
      description: "US consumer prices jump the most since 2008 on supply-chain shortages and energy prices; inflation fears push bond yields up and hit technology stocks."}
   - {id: evergrande_2021, event_type: CREDIT_EVENT, start: 2021-09-13, end: 2021-09-20,
      title: "Evergrande debt crisis",
+     headline: "China Evergrande warns of default as it misses payments to banks and investors",
      description: "Chinese property developer Evergrande misses bond payments and edges toward default; contagion fears in China's property and credit markets."}
   - {id: ukraine_2022, event_type: GEOPOLITICAL, start: 2022-02-16, end: 2022-03-08,
      title: "Russia invades Ukraine",
+     headline: "Russia launches a full-scale invasion of Ukraine",
      description: "Russia launches a full-scale invasion of Ukraine; sweeping sanctions on Russian banks and the central bank; oil and gas prices surge; European equities fall."}
   - {id: inflation_shock_2022, event_type: MACROECONOMIC, start: 2022-06-08, end: 2022-06-16,
      title: "Inflation surprise and 75bp Fed hike",
+     headline: "US inflation hits a 40-year high, fuelling bets on a 75 basis-point Fed hike",
      description: "US consumer price inflation hits a 40-year high; the Federal Reserve raises rates by 75 basis points; bond yields surge and equities enter a bear market."}
   - {id: uk_gilt_2022, event_type: MACROECONOMIC, start: 2022-09-22, end: 2022-09-28,
      title: "UK mini-budget and gilt crisis",
+     headline: "UK unveils the biggest tax cuts in fifty years, funded by borrowing",
      description: "Unfunded UK tax cuts crash sterling and gilts; pension funds face margin calls on liability-driven investments; Bank of England intervenes."}
   - {id: svb_2023, event_type: CREDIT_EVENT, start: 2023-03-08, end: 2023-03-15,
      title: "Silicon Valley Bank collapse",
+     headline: "Silicon Valley Bank collapses after a run on deposits and is seized by regulators",
      description: "Silicon Valley Bank fails after a bank run on uninsured deposits; Signature Bank closes; regional bank stocks plunge; Credit Suisse is rescued by UBS."}
   - {id: israel_gaza_2023, event_type: GEOPOLITICAL, start: 2023-10-06, end: 2023-10-27,
      title: "Hamas attack on Israel and Gaza war",
+     headline: "Hamas launches a surprise attack on Israel and Israel declares war",
      description: "Hamas attacks Israel and war breaks out in Gaza; fears of a wider Middle East conflict involving Iran; oil and gold rise."}
   - {id: yen_carry_2024, event_type: MACROECONOMIC, start: 2024-07-31, end: 2024-08-05,
      title: "Yen carry-trade unwind",
+     headline: "Bank of Japan raises rates as weak US jobs data stoke recession fears",
      description: "Bank of Japan hikes rates and weak US jobs data trigger a rapid unwind of yen carry trades; Japanese stocks crash, volatility spikes."}
   - {id: liberation_day_2025, event_type: GEOPOLITICAL, start: 2025-04-02, end: 2025-04-08,
      title: "US reciprocal tariffs (Liberation Day)",
+     headline: "Trump announces sweeping reciprocal tariffs on US trading partners",
      description: "United States announces sweeping reciprocal tariffs on trading partners; China retaliates; global equities crash and recession fears rise."}
 
 # Event types that are related enough to borrow each other's analogs (at a discount).

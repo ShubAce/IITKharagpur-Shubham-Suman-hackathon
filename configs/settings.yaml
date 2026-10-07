@@ -35,3 +35,14 @@ engine:
 api:
   host: 127.0.0.1
   port: 8000
+
+llm:
+  # Optional, off by default: a local language model (Ollama) drafts the risk memo's executive summary.
+  # It writes placeholders and the engine inserts every figure; drafts that make up a number or misstate
+  # the capital position are rejected for a template summary. Measured on the 33 replayed stress tests
+  # (scripts/check_llm_summaries.py), drafts that pass the checks can still contain invented statements,
+  # so a human must read them - set to true only to try it. Nothing else depends on it.
+  enabled: false
+  url: http://127.0.0.1:11434
+  model: llama3.1
+  timeout_seconds: 120

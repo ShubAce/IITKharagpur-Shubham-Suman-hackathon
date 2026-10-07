@@ -25,7 +25,8 @@ from tremor.nlp.cues import CueHits, CueMatcher
 from tremor.nlp.entities import EntityLinker, has_finance_cue
 from tremor.nlp.impact import ImpactInputs, score_impact
 from tremor.nlp.models import TextModel
-from tremor.nlp.preprocess import clean_text, fingerprint, tidy_headline
+from tremor.nlp.preprocess import clean_text, fingerprint, is_file_name, tidy_headline
+from tremor.nlp.price_moves import price_directions
 from tremor.schemas import DocSignal, EntitySignal, EventSignal, RawDocument, SourceKind, StoryBrief
 
 CUE_PRIOR_BOOST = 0.5  # each rule cue multiplies the model's probability for that type by (1 + boost)
@@ -54,6 +55,8 @@ class RiskEngine:
         self._geo, self._commentary = self._type_ids.index("GEOPOLITICAL"), self._type_ids.index("MARKET_COMMENTARY")
         # Naming a country or the military alliance keeps "war" literal ("a silent war" between retailers is not).
         self._geo_anchors = frozenset(e.id for e in universe.entities if e.type == "country") | {"NATO"}
+        self._foreign_anchors = self._geo_anchors - {"US"}  # an international dimension, for the bank in the US
+        self._regulatory = self._type_ids.index("REGULATORY_LEGAL")
         self._linker = EntityLinker(universe)
         self._cues = CueMatcher(taxonomy)
         self._company_ids = frozenset(e.id for e in universe.entities if e.type == "company")
@@ -78,7 +81,7 @@ class RiskEngine:
             self.stats["documents"] += 1
             self.now = doc.published_at if self.now is None else max(self.now, doc.published_at)
             text = clean_text(doc.text)
-            if len(text) < 8:
+            if len(text) < 8 or is_file_name(text):
                 continue
             fp = fingerprint(text)
             if fp in self._seen:  # exact copy of something already analysed: corroboration, not news
@@ -168,6 +171,7 @@ class RiskEngine:
         probs = self._fuse_cues(out.event[0], hits)
         top = int(probs.argmax())
         entity_scores = self._target_scores([text], [(entity_ids, surfaces)]).get(0, {})
+        moves = price_directions(text, self._price_ids.intersection(entity_ids))
         sectors = {self._entities[e].sector for e in entity_ids if self._entities[e].sector}
         regions = {e for e in entity_ids if self._entities[e].type == "country"}
         impact, factors = score_impact(
@@ -191,6 +195,7 @@ class RiskEngine:
             "entities": [{"id": e, "name": self._entities[e].name, "type": self._entities[e].type,
                           "sentiment": round(entity_scores.get(e, float(out.sentiment_score[0])), 4)} for e in entity_ids],
             "entity_level_sentiment": bool(entity_scores),
+            "price_moves": {e: "up" if d > 0 else "down" for e, d in moves.items()},
             "rule_cues": hits.by_type,
             "note": "Scored as a single uncorroborated report: impact rises as independent sources report the same event.",
         }
@@ -208,19 +213,29 @@ class RiskEngine:
         The encoder learned "war" as a strong geopolitical word, so it also reads "a price war" or "God of
         War" that way. When "war" appears only as an idiom and nothing else in the text is geopolitical,
         the probability it gave to Geopolitical moves to Market commentary (competition, not conflict).
+        "A balance-sheet time bomb" is the same mistake with another word; there Geopolitical is simply
+        ruled out and the model's other beliefs decide (usually Credit event). Geopolitics is international:
+        the domestic political process (Congress, lobbying, regulators) with no foreign actor named and no
+        conflict cue is regulatory / political news, so its Geopolitical probability moves to Regulatory.
         """
-        if not hits.by_type and not hits.figurative_war:
+        if not hits.by_type and not (hits.figurative_war or hits.figurative_bomb or hits.domestic_policy):
             return probs
         fused = probs.astype(np.float64).copy()
         if hits.figurative_war:
             fused[self._commentary] += fused[self._geo]
+            fused[self._geo] = 0.0
+        elif hits.figurative_bomb:
+            fused[self._geo] = 0.0
+        if hits.domestic_policy:
+            fused[self._regulatory] += fused[self._geo]
             fused[self._geo] = 0.0
         for type_id, n in hits.by_type.items():
             fused[self._type_ids.index(type_id)] *= 1.0 + CUE_PRIOR_BOOST * n
         return fused / fused.sum()
 
     def _match_cues(self, text: str, entity_ids: list[str]) -> CueHits:
-        return self._cues.match(text, geo_anchor=not self._geo_anchors.isdisjoint(entity_ids))
+        return self._cues.match(text, geo_anchor=not self._geo_anchors.isdisjoint(entity_ids),
+                                foreign_anchor=not self._foreign_anchors.isdisjoint(entity_ids))
 
     def _link(self, doc: RawDocument, text: str) -> tuple[list[str], dict[str, str]]:
         """Entity ids in order of appearance, and the surface form each was first mentioned by."""
@@ -301,6 +316,10 @@ class RiskEngine:
                   market_linked)
         for entity_id in entity_ids:
             event.add_entity_sentiment(entity_id, targeted.get(entity_id, sentiment), weight)
+        priced = self._price_ids.intersection(entity_ids)
+        if priced:
+            signal.price_moves = price_directions(text, priced)
+            event.add_price_moves(signal.price_moves)
         self._stories.refresh(story)
         self._events.refresh(event)
 
@@ -355,6 +374,7 @@ class RiskEngine:
             sectors=sectors, regions=regions, n_docs=event.n_docs, n_stories=len(event.children),
             entity_sentiment={e: round(event.entity_sentiment(e), 3) for e in entity_ids + priced},
             entity_mentions={e: int(event.entity_counts[e]) for e in entity_ids + priced},
+            price_moves={e: {"up": up, "down": down} for e, (up, down) in sorted(event.price_moves.items())},
             n_publishers=len(event.publishers), n_news=event.n_news, n_social=event.n_social,
             reports_last_hour=event.reports_last_hour,
             stories=[StoryBrief(story_id=s.cluster_id, headline=tidy_headline(s.headline), first_seen=s.first_seen, n_docs=s.n_docs,

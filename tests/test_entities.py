@@ -36,6 +36,25 @@ def test_macro_actors_are_linked():
     assert ids == ["RU", "UA", "OIL", "FED"]
 
 
+def test_brent_is_crude_only_in_a_market_context():
+    assert linker.entity_ids("Married At First Sight Australia's Brent brands new wife a psychopath") == []
+    assert linker.entity_ids("Brent crude jumps above $105") == ["OIL"]
+    assert linker.entity_ids("Brent tops $100 for the first time since 2014") == ["OIL"]
+
+
+def test_context_exclusions_catch_a_name_used_as_a_word():
+    # Title-case headlines capitalise "intel" (intelligence); the company itself still links.
+    assert "INTC" not in linker.entity_ids("U.S. Intel Shows Russian Military Given Orders To Invade Ukraine")
+    assert "INTC" not in linker.entity_ids("Russian Intel Chief Claims Capture Of Ukrainian POW")
+    assert linker.entity_ids("Intel says it will cut 10% of jobs") == ["INTC"]
+
+
+def test_banks_of_the_2023_contagion_are_tracked():
+    assert linker.entity_ids("First Republic shares plunge as Signature Bank is closed; FDIC steps in") == ["FRC", "SBNY", "FDIC"]
+    assert linker.entity_ids("UBS agrees to buy Credit Suisse in emergency deal") == ["UBS", "CS"]
+    assert linker.entity_ids("Schwab said the meeting went well") == []  # a surname, not the broker
+
+
 def test_word_boundaries():
     assert linker.entity_ids("The metadata was stored in a costly intelligent system") == []
 

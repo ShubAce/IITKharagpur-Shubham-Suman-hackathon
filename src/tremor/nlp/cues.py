@@ -34,6 +34,13 @@ _WAR_FIGURE = re.compile(
     re.IGNORECASE,
 )
 _WAR_WORD = re.compile(r"\bwars?\b", re.IGNORECASE)
+# "SVB's balance-sheet time bomb" is risk building up, not an attack - figurative unless a country is named.
+_BOMB_FIGURE = re.compile(r"\b(?:ticking\s+)?time[- ]?bombs?\b", re.IGNORECASE)
+# The domestic political process. Geopolitics is international, so with no foreign actor named and no
+# conflict cue, "CEO of collapsed bank lobbied Congress" is regulatory / political news, not geopolitics.
+_DOMESTIC_POLICY = re.compile(
+    r"\b(congress\w*|senat(?:e|ors?)|lawmakers?|legislat\w+|lobb(?:y|ied|ying|yists?)|repeal\w*|deregulat\w+|"
+    r"dodd-frank|white house|governor|hearings?|testif\w+|regulators?)\b", re.IGNORECASE)
 
 
 def _drop_war(match: re.Match) -> str:
@@ -46,6 +53,8 @@ class CueHits:
     by_type: dict[str, int]  # event type -> number of distinct cue patterns that fired
     severity: dict[str, int]  # "extreme" | "high" | "scale" -> hit count
     figurative_war: bool = False  # "war" only as an idiom, with nothing else geopolitical in the text
+    figurative_bomb: bool = False  # "time bomb" as a figure of speech, with nothing else geopolitical in the text
+    domestic_policy: bool = False  # domestic political process, no foreign actor and no conflict cue
 
     @property
     def best_type(self) -> str | None:
@@ -61,13 +70,17 @@ class CueMatcher:
         }
         self._severity_patterns = {name: re.compile(p, re.IGNORECASE) for name, p in taxonomy.severity_cues.items()}
 
-    def match(self, text: str, geo_anchor: bool = True) -> CueHits:
-        """``geo_anchor``: the text names a country or an alliance, which keeps "a silent war" literal."""
-        literal = text
-        if "war" in text.lower():  # cheap pre-check: every idiom contains it
+    def match(self, text: str, geo_anchor: bool = True, foreign_anchor: bool = True) -> CueHits:
+        """``geo_anchor``: the text names a country or an alliance, which keeps "a silent war" literal.
+        ``foreign_anchor``: it names a country other than the US, or an alliance - an international dimension."""
+        literal, lower = text, text.lower()
+        if "war" in lower:  # cheap pre-check: every idiom contains it
             literal = _WAR_IDIOM.sub(_drop_war, text)
             if not geo_anchor:
                 literal = _WAR_FIGURE.sub(_drop_war, literal)
+        war_idiom = literal != text
+        if "bomb" in lower and not geo_anchor:
+            literal = _BOMB_FIGURE.sub(" ", literal)
         by_type = {}
         for type_id, patterns in self._type_patterns.items():
             hits = sum(1 for p in patterns if p.search(literal))
@@ -80,5 +93,8 @@ class CueMatcher:
                 del by_type["CREDIT_EVENT"]
             by_type["MARKET_COMMENTARY"] = by_type.get("MARKET_COMMENTARY", 0) + 1
         severity = {name: len(p.findall(literal)) for name, p in self._severity_patterns.items()}
+        figurative = literal != text and "GEOPOLITICAL" not in by_type
+        domestic = not foreign_anchor and "GEOPOLITICAL" not in by_type and bool(_DOMESTIC_POLICY.search(text))
         return CueHits(by_type=by_type, severity={k: v for k, v in severity.items() if v},
-                       figurative_war=literal != text and "GEOPOLITICAL" not in by_type)
+                       figurative_war=figurative and war_idiom, figurative_bomb=figurative and not war_idiom,
+                       domestic_policy=domestic)

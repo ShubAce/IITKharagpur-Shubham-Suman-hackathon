@@ -58,6 +58,7 @@ function renderHeader() {
     $("btn-play").textContent = replay.paused ? "Resume" : replay.finished ? "Finished" : "Pause";
     const sel = $("speed");
     if (document.activeElement !== sel && [...sel.options].some((o) => +o.value === replay.speed)) sel.value = String(replay.speed);
+    if (document.activeElement !== $("pack")) $("pack").value = replay.pack;
   }
   const c = st.counters || {};
   $("counters").replaceChildren(
@@ -76,7 +77,8 @@ function showTab(name) {
   try { history.replaceState(null, "", `#${name}`); } catch { /* sandboxed */ }
   state.dirty.add(name);
   if (name === "results") loadResults();
-  if (name === "stress") loadPortfolio();
+  if (name === "stress") { loadPortfolio(); loadValidation(); }
+  if (name === "watch") loadWatch();
   renderDirty();
 }
 
@@ -142,6 +144,17 @@ async function selectEvent(id) {
   state.dirty.add("radar");
 }
 
+const PRICE_LABELS = { OIL: "Oil", GAS: "Gas", GOLD: "Gold", SPX: "Stock market" };
+
+// Direction, not tone: how many reports say each named price is rising or falling (feeds the stress scenario).
+function priceMoves(moves) {
+  const items = Object.entries(moves || {}).filter(([, m]) => m.up + m.down > 0);
+  if (!items.length) return null;
+  return h("div", {}, h("h4", {}, "Prices the reports say are moving"),
+    h("div", { class: "moves" }, ...items.map(([id, m]) => h("span", { class: "chip", title: "reports that state a direction for this price" },
+      `${PRICE_LABELS[id] || id} `, h("span", { class: "move-up" }, `▲ ${m.up}`), " ", h("span", { class: "move-down" }, `▼ ${m.down}`)))));
+}
+
 function renderEventDetail() {
   const d = state.eventDetail;
   if (!d) return;
@@ -162,6 +175,7 @@ function renderEventDetail() {
         h("tr", { class: "total" }, h("td", {}, "Impact score"), h("td", { class: "muted" }, "clipped to 1-10"),
           h("td", { class: "num" }, `${e.impact_score.toFixed(2)}${Math.abs(total - e.impact_score) > 0.01 ? ` (raw ${total.toFixed(2)})` : ""}`)))),
     h("div", { id: "impact-history", class: "chart" }),
+    priceMoves(e.price_moves),
     h("h4", {}, "Most widely reported stories"),
     h("ul", { class: "evidence" }, ...e.stories.map((s) => h("li", {}, s.headline,
       h("div", { class: "src" }, `${s.n_docs} reports · ${s.n_publishers} publishers · sentiment ${fmtSigned(s.sentiment_score)} · ${fmtTime(s.first_seen)}`)))),
@@ -277,6 +291,9 @@ function renderRunDetail() {
   const r = state.runDetail;
   if (!r) return;
   $("run-detail").hidden = false;
+  const stored = state.knownRuns.has(r.run_id);  // what-if re-runs are not stored, so they have no memo
+  $("memo-link").hidden = !stored;
+  if (stored) $("memo-link").href = `/api/stress/runs/${encodeURIComponent(r.run_id)}/memo`;
   const cap = r.capital, tot = r.totals, cr = r.credit;
   $("run-tiles").replaceChildren(
     tile("Portfolio value before", fmtUsd(tot.value_before), `${tot.positions} positions`, "hero"),
@@ -293,9 +310,14 @@ function renderRunDetail() {
   });
   const sc = r.scenario;
   $("scenario-hint").textContent = sc.narrative;
-  $("scenario-analogs").replaceChildren(...(sc.analogs || []).map((a) => h("div", { class: "analogs" }, h("div", { class: "analog" },
-    h("span", {}, `${a.title} `, h("span", { class: "muted" }, `(${a.start} → ${a.end})`)),
-    h("div", { class: "track" }, h("div", { class: "fill", style: `width:${a.weight * 100}%` })), h("span", {}, `${Math.round(a.weight * 100)}%`)))),
+  // Composition of the historical blend: the closest analogs (credibility-weighted) and the average earlier crisis.
+  const cred = sc.credibility ?? 1;
+  const part = (label, period, share, cls = "analog") => h("div", { class: "analogs" }, h("div", { class: cls },
+    h("span", {}, `${label} `, period ? h("span", { class: "muted" }, period) : null),
+    h("div", { class: "track" }, h("div", { class: "fill", style: `width:${share * 100}%` })), h("span", {}, `${Math.round(share * 100)}%`)));
+  $("scenario-analogs").replaceChildren(
+    ...(sc.analogs || []).map((a) => part(a.title, `(${a.start} → ${a.end})`, a.weight * cred)),
+    sc.analogs?.length && cred < 1 ? part(`Average of ${sc.prior_episodes} earlier crises`, "(credibility weighting)", 1 - cred, "analog prior") : "",
     Object.keys(sc.epicentre || {}).length ? h("div", { class: "analogs muted" }, `Epicentre (notched down): ${Object.entries(sc.epicentre).map(([k, v]) => `${k} −${v}`).join(", ")}`) : "");
   const factors = state.config?.risk_factors || {};
   const shockRows = KEY_FACTORS.filter((f) => sc.shocks[f] !== undefined).map((f) => ({
@@ -329,6 +351,34 @@ async function rerun() {
   }
 }
 
+// Point-in-time backtest of the scenario generator (docs/results/scenario_backtest.json).
+async function loadValidation() {
+  if (!state.evaluation) {
+    try { state.evaluation = await api("/api/evaluation"); } catch { return; }
+  }
+  const v = state.evaluation?.scenario_backtest;
+  $("validation-card").hidden = !v;
+  if (!v) return;
+  const s = v.summary, ctx = s.context;
+  const order = ["naive", "template", "all_mean", "same_type_mean", "nearest", "tremor"].filter((k) => s[k]);
+  const color = (k) => (k === "tremor" ? "var(--series-1)" : k === "naive" ? "var(--div-neg)" : "var(--text-muted)");
+  $("validation-hint").textContent = `${ctx.episodes} crises, ${ctx.first.slice(0, 4)}-${ctx.last.slice(0, 4)}: each scenario was rebuilt from the crisis's ` +
+    `day-one headline using only episodes that had ended before it began, then compared with what markets actually did. ` +
+    `The brief's example shock assumes rates rise, but the 10-year Treasury yield fell in ${ctx.rates_fell} of the ${ctx.episodes} crises (rose in ${ctx.rates_rose}).`;
+  hBars($("validation-direction"), { rows: order.map((k) => ({ label: s[k].label, value: s[k].direction_hit_rate, color: color(k),
+    sub: `rates ${((s[k].per_factor_hit_rate?.IR_USD_10Y ?? 0) * 100).toFixed(0)}% · oil ${((s[k].per_factor_hit_rate?.CMD_OIL ?? 0) * 100).toFixed(0)}% right` })),
+    format: (x) => `${(x * 100).toFixed(0)}%`, maxAbs: 1, labelWidth: 260, rowHeight: 22 });
+  hBars($("validation-error"), { rows: order.map((k) => ({ label: s[k].label, value: s[k].pnl_error_mean_musd, color: color(k),
+    sub: `median ${s[k].pnl_error_median_musd}m · CET1 off by ${s[k].cet1_error_mean_pp} pp` })), format: (x) => `${fmtInt(x)}m`, labelWidth: 260, rowHeight: 22 });
+  $("validation-table").replaceChildren(h("div", { class: "weights-wrap" }, h("table", { class: "data" },
+    h("thead", {}, h("tr", {}, h("th", {}, "Method"), h("th", { class: "num" }, "Directions right"), h("th", { class: "num" }, "P&L error (mean)"),
+      h("th", { class: "num" }, "median"), h("th", { class: "num" }, "CET1 error"), h("th", { class: "num" }, "Closer than naive"))),
+    h("tbody", {}, ...order.map((k) => h("tr", { class: k === "tremor" ? "ours" : "" }, h("td", {}, s[k].label),
+      h("td", { class: "num" }, `${(s[k].direction_hit_rate * 100).toFixed(1)}%`), h("td", { class: "num" }, `$${fmtInt(s[k].pnl_error_mean_musd)}m`),
+      h("td", { class: "num" }, `$${fmtInt(s[k].pnl_error_median_musd)}m`), h("td", { class: "num" }, `${s[k].cet1_error_mean_pp} pp`),
+      h("td", { class: "num" }, `${s[k].closer_than_naive}/${ctx.episodes}`)))))));
+}
+
 async function loadPortfolio() {
   if (state.portfolio) return;
   try { state.portfolio = await api("/api/portfolio"); } catch { return; }
@@ -336,6 +386,59 @@ async function loadPortfolio() {
   $("book-hint").textContent = `${p.positions} positions, ${fmtUsd(p.notional)} notional. Mid-market loans are derived from the Kaggle Financial Transactions dataset (merchant cash-flow profiles).`;
   hBars($("book-chart"), { rows: p.by_asset_class.map((a) => ({ label: `${a.name} (${a.positions})`, value: a.notional / 1e9 })),
     format: (v) => `$${v.toFixed(2)}bn`, labelWidth: 150 });
+}
+
+// ------------------------------------------------------------------ credit watch (early warning)
+async function loadWatch() {
+  try { state.watch = await api("/api/watchlist"); } catch { return; }
+  state.dirty.add("watch");
+}
+
+const statusChip = (status) => h("span", { class: `chip ${status === "Watch Negative" ? "watch-neg" : "watch-mon"}` }, status);
+
+function renderWatch() {
+  const w = state.watch;
+  if (!w) return;
+  const entries = w.entries || [];
+  const neg = entries.filter((e) => e.status === "Watch Negative"), mon = entries.filter((e) => e.status === "Monitor");
+  const names = (list) => (list.length ? list.slice(0, 3).map((e) => shortName(e.name)).join(", ") + (list.length > 3 ? "…" : "") : "none");
+  $("watch-tiles").replaceChildren(
+    tile("Watch Negative", String(neg.length), names(neg), "hero"),
+    tile("Monitor", String(mon.length), names(mon)),
+    tile("Book exposure under review", fmtUsd(w.exposure_flagged_musd * 1e6), `${entries.filter((e) => e.exposure_musd > 0).length} flagged names are obligors in the book`),
+    tile("Names flagged so far", String(Object.keys(w.first_flagged || {}).length), w.as_of ? `as of ${fmtTime(w.as_of)}` : ""),
+  );
+  if (!entries.length) {
+    $("watch-list").replaceChildren(h("div", { class: "muted pad" }, "No name is flagged right now."));
+  } else {
+    $("watch-list").replaceChildren(h("div", { class: "weights-wrap" }, h("table", { class: "data" },
+      h("thead", {}, h("tr", {}, h("th", {}, "Status"), h("th", {}, "Name"), h("th", {}, "Rating"), h("th", { class: "num" }, "Exposure"),
+        h("th", { class: "num" }, "Score"), h("th", {}, "Main reason"))),
+      h("tbody", {}, ...entries.map((e) => h("tr", { class: `clickable ${state.selectedWatch === e.entity_id ? "selected" : ""}`,
+        onclick: () => { state.selectedWatch = e.entity_id; renderWatch(); } },
+        h("td", {}, statusChip(e.status)), h("td", {}, h("b", {}, shortName(e.name)), h("div", { class: "muted" }, [e.sector, e.country].filter(Boolean).join(" · "))),
+        h("td", {}, e.rating || h("span", { class: "muted" }, "not held")),
+        h("td", { class: "num" }, e.exposure_musd ? fmtUsd(e.exposure_musd * 1e6) : "-"), h("td", { class: "num" }, e.score.toFixed(1)),
+        h("td", { class: "muted" }, (e.factors.slice().sort((a, b) => b.points - a.points)[0]?.detail || "").slice(0, 90))))))));
+  }
+  const sel = entries.find((e) => e.entity_id === state.selectedWatch) || entries[0];
+  if (sel) {
+    state.selectedWatch = sel.entity_id;
+    $("watch-detail-hint").textContent = `${sel.name} · ${sel.status} · ${sel.rating ? `rated ${sel.rating} in the book, exposure ${fmtUsd(sel.exposure_musd * 1e6)}` +
+      (sel.protection_musd ? `, CDS protection bought ${fmtUsd(sel.protection_musd * 1e6)}` : "") : "no exposure in the book"}`;
+    const total = sel.factors.reduce((s, f) => s + f.points, 0);
+    $("watch-detail").classList.remove("muted");
+    $("watch-detail").replaceChildren(h("table", { class: "data" },
+      h("thead", {}, h("tr", {}, h("th", {}, "Signal"), h("th", {}, "Evidence"), h("th", { class: "num" }, "Points"))),
+      h("tbody", {}, ...sel.factors.map((f) => h("tr", {}, h("td", {}, f.name), h("td", {}, f.detail), h("td", { class: "num points-pos" }, fmtSigned(f.points)))),
+        h("tr", { class: "total" }, h("td", {}, "Score"), h("td", { class: "muted" }, "≥ 3 Watch Negative · ≥ 1.5 Monitor"), h("td", { class: "num" }, total.toFixed(2))))),
+      h("div", { class: "muted", style: "margin-top:10px" }, Object.entries(sel.first_flagged || {}).map(([s, t]) => `${s} since ${fmtTime(t)}`).join(" · ")));
+  }
+  $("watch-timeline").replaceChildren(...(w.timeline || []).slice().reverse().slice(0, 60).map((c) => h("div", { class: "log-item" },
+    h("div", { class: "when" }, fmtTime(c.at)),
+    h("div", {}, h("b", {}, shortName(c.name)), ` ${c.from || "not listed"} → `, c.to ? statusChip(c.to) : "no longer listed", ` (score ${c.score.toFixed(1)})`),
+    h("div", { class: "change" }, c.reason.slice(0, 140)))));
+  if (!(w.timeline || []).length) $("watch-timeline").replaceChildren(h("div", { class: "muted pad" }, "No flags yet."));
 }
 
 // ------------------------------------------------------------------ analyze
@@ -359,7 +462,10 @@ async function analyze() {
   const sentBox = h("div", { class: "result-box" }, h("h4", {}, "Sentiment"), h("div", { class: "big" }, fmtSigned(r.sentiment_score)),
     h("div", { class: "muted" }, `negative ${(r.sentiment_probs.negative * 100).toFixed(0)}% · neutral ${(r.sentiment_probs.neutral * 100).toFixed(0)}% · positive ${(r.sentiment_probs.positive * 100).toFixed(0)}%`),
     r.entities.length ? h("h4", { style: "margin-top:12px" }, r.entity_level_sentiment ? "Sentiment per entity (entity-conditioned model)" : "Entities") : null,
-    ...r.entities.map((e) => h("div", { class: "entity-row" }, h("span", { class: "chip" }, e.id), h("span", {}, e.name), sentimentChip(e.sentiment))));
+    ...r.entities.map((e) => h("div", { class: "entity-row" }, h("span", { class: "chip" }, e.id), h("span", {}, e.name), sentimentChip(e.sentiment))),
+    Object.keys(r.price_moves || {}).length ? h("h4", { style: "margin-top:12px" }, "Price direction (not tone)") : null,
+    ...Object.entries(r.price_moves || {}).map(([id, dir]) => h("div", { class: "entity-row" }, h("span", { class: "chip" }, id),
+      h("span", { class: dir === "up" ? "move-up" : "move-down" }, dir === "up" ? "▲ rising" : "▼ falling"))));
   const typeBox = h("div", { class: "result-box" }, h("h4", {}, "Event classification"), h("div", { class: "big" }, r.event_type_label), h("div", { id: "probs-chart" }));
   const impactBox = h("div", { class: "result-box" }, h("h4", {}, "Impact (single report)"), h("div", { class: "big" }, r.impact_score.toFixed(1)),
     h("table", { class: "data" }, h("tbody", {}, ...r.impact_factors.map((f) => h("tr", {}, h("td", {}, f.name), h("td", { class: "muted" }, f.detail),
@@ -431,6 +537,8 @@ function handle(topic, data) {
   } else if (topic === "index") {
     state.rebalances.unshift(data);
     state.dirty.add("index");
+  } else if (topic === "watch") {
+    state.dirty.add("watch");
   } else if (topic === "stress") {
     if (!state.knownRuns.has(data.run_id)) {
       state.knownRuns.add(data.run_id);
@@ -459,6 +567,7 @@ function renderDirty() {
   if (state.dirty.has("index") && state.tab === "index") { renderIndex(); state.dirty.delete("index"); }
   if (state.dirty.has("stress") && state.tab === "stress") { renderRuns(); state.dirty.delete("stress"); }
   if (state.dirty.has("results") && state.tab === "results") { renderResults(); state.dirty.delete("results"); }
+  if (state.dirty.has("watch") && state.tab === "watch") { renderWatch(); state.dirty.delete("watch"); }
 }
 
 async function poll() {
@@ -476,8 +585,15 @@ async function poll() {
       state.dirty.add("index");
     }
     if (state.refreshDetail && state.selectedEvent) { state.refreshDetail = false; selectEvent(state.selectedEvent); }
+    if (state.tab === "watch") await loadWatch();
     state.dirty.add("radar");
   } catch { /* server restarting: keep the last frame */ }
+}
+
+function connectStream() {
+  state.stream?.close();
+  state.stream = new EventSource("/api/stream");
+  state.stream.onmessage = (m) => { try { const msg = JSON.parse(m.data); handle(msg.topic, msg.data); } catch { /* ignore malformed */ } };
 }
 
 async function init() {
@@ -489,7 +605,7 @@ async function init() {
     const dark = cur ? cur === "dark" : matchMedia("(prefers-color-scheme: dark)").matches;
     document.documentElement.dataset.theme = dark ? "light" : "dark";
     try { localStorage.setItem("tremor-theme", document.documentElement.dataset.theme); } catch { /* ignore */ }
-    for (const v of ["radar", "index", "stress", "results"]) state.dirty.add(v);
+    for (const v of ["radar", "index", "stress", "results", "watch"]) state.dirty.add(v);
     renderDirty();
   };
   document.querySelectorAll(".tab").forEach((b) => (b.onclick = () => showTab(b.dataset.tab)));
@@ -499,19 +615,26 @@ async function init() {
     renderHeader();
   };
   $("speed").onchange = async (e) => { state.status.replay = await post("/api/replay/control", { action: "speed", speed: +e.target.value }); };
-  $("btn-restart").onclick = async () => {
-    await post("/api/replay/control", { action: "restart", speed: +$("speed").value });
+  const restart = async (pack) => {
+    await post("/api/replay/control", { action: "restart", speed: +$("speed").value, ...(pack ? { pack } : {}) });
+    connectStream();  // a restart builds a new runtime with its own signal bus: re-attach the live stream
     Object.assign(state, { events: new Map(), docs: [], entities: new Map(), runs: [], rebalances: [], selectedEvent: null, eventDetail: null,
-      selectedRun: null, runDetail: null, index: null, indexHistory: [], knownRuns: new Set() });
+      selectedRun: null, runDetail: null, index: null, indexHistory: [], knownRuns: new Set(), watch: null, selectedWatch: null });
     $("event-detail").replaceChildren(h("div", { class: "muted pad" }, "No event selected yet."));
     $("run-detail").hidden = true;
     $("run-list").replaceChildren(h("div", { class: "muted pad" }, "No stress test yet: waiting for an event to cross the threshold."));
   };
+  $("btn-restart").onclick = () => restart();
+  $("pack").onchange = (e) => restart(e.target.value);
   $("btn-rerun").onclick = rerun;
   $("btn-analyze").onclick = analyze;
   $("examples").replaceChildren(...EXAMPLES.map((x) => h("button", { onclick: () => { $("analyze-text").value = x; analyze(); } }, x.length > 60 ? `${x.slice(0, 58)}...` : x)));
 
   [state.status, state.config] = await Promise.all([api("/api/status"), api("/api/config")]);
+  if (state.status.replay) {
+    const packs = await api("/api/replay/packs");
+    $("pack").replaceChildren(...packs.map((p) => h("option", { value: p.name }, p.title)));
+  }
   state.runs = await api("/api/stress/runs");
   state.runs.forEach((r) => state.knownRuns.add(r.run_id));
   const backtest = await api("/api/backtest");
@@ -519,8 +642,7 @@ async function init() {
   state.docs = (await api("/api/documents?limit=80")).reverse();
   for (const e of await api("/api/entities?entity_type=index")) state.entities.set(e.entity_id, e);
   await poll();
-  const es = new EventSource("/api/stream");
-  es.onmessage = (m) => { try { const msg = JSON.parse(m.data); handle(msg.topic, msg.data); } catch { /* ignore malformed */ } };
+  connectStream();
   showTab(location.hash.replace("#", "") || "radar");
   setInterval(renderDirty, 1000);
   setInterval(poll, 3000);

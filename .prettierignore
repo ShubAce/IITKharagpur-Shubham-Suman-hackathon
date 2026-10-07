@@ -1,0 +1,3 @@
+# Prettier's markdown table formatter strips the space before inline code and emphasis inside table cells
+# ("Hugging Face`tokenizers`"), which breaks how the README renders on GitHub. The docs are formatted by hand.
+*.md

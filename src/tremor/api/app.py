@@ -12,7 +12,7 @@ from contextlib import asynccontextmanager
 from typing import Literal
 
 from fastapi import FastAPI, HTTPException, Query, Request
-from fastapi.responses import FileResponse, StreamingResponse
+from fastapi.responses import FileResponse, HTMLResponse, StreamingResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 
@@ -20,6 +20,7 @@ from tremor import __version__
 from tremor.config import load_settings, load_taxonomy, load_universe
 from tremor.engine.runtime import Runtime, event_summary, load_replay_prices, make_gate, stress_summary
 from tremor.ingestion.replay import ReplaySource, list_packs
+from tremor.modules.stress.narrative import SummaryDrafts
 from tremor.nlp.models import load_text_model
 from tremor.paths import DOCS_DIR, STATIC_DIR
 from tremor.schemas import SourceKind
@@ -71,6 +72,7 @@ def create_app(mode: str = "replay", pack: str | None = None, speed: float = 900
     settings, universe, taxonomy = load_settings(), load_universe(), load_taxonomy()
     model = load_text_model(settings, taxonomy)
     state: dict = {}
+    summaries = SummaryDrafts(settings.llm)  # optional executive summaries for the risk memo (local model, background)
 
     def make_runtime(pack_name: str | None, replay_speed: float) -> Runtime:
         sources, prices = build_sources(mode, pack_name, replay_speed)
@@ -214,6 +216,24 @@ def create_app(mode: str = "replay", pack: str | None = None, speed: float = 900
             raise HTTPException(404, "unknown run")
         return run.to_dict(include_positions=positions)
 
+    @app.get("/api/stress/runs/{run_id}/memo", tags=["module B - stress"], response_class=HTMLResponse)
+    def stress_memo(run_id: str, summary: Literal["auto", "template"] = "auto"):
+        """One-page risk memo for a stress test (printable HTML): what happened, the scenario, the impact on the
+        book and capital, the names to review, suggested actions - all from the signals. With ``summary=auto`` a
+        local language model (if one is running) drafts an executive summary in the background; every number and
+        the capital claim in it are checked against the run before it is shown."""
+        from tremor.modules.stress.memo import render_memo
+        from tremor.modules.stress.narrative import executive_summary
+
+        r = rt()
+        run = next((x for x in r.store.stress_runs if x.run_id == run_id), None)
+        if run is None:
+            raise HTTPException(404, "unknown run")
+        event = r.store.events.get((run.trigger or {}).get("event_id", ""))
+        watch = r.watch.snapshot()["entries"]
+        text = summaries.get(run, watch) if summary == "auto" else executive_summary(run, watch)
+        return HTMLResponse(render_memo(run, event, watch, r.library.factors, summary=text))
+
     @app.post("/api/stress/run", tags=["module B - stress"])
     def stress_run_now(req: StressRequest):
         """Run a stress test on demand: for an event, for a template, or with analyst-edited shocks."""
@@ -241,11 +261,19 @@ def create_app(mode: str = "replay", pack: str | None = None, speed: float = 900
         result = run_stress(r.stress.book, scenario, r.library, trigger)
         return result.to_dict()
 
+    # ------------------------------------------------------------------ credit early warning
+    @app.get("/api/watchlist", tags=["credit watch"])
+    def watchlist():
+        """Companies flagged for credit review now (Watch Negative / Monitor), the book's exposure to each,
+        the scorecard behind each flag, and the timeline of flags."""
+        return rt().watch.snapshot()
+
     # ------------------------------------------------------------------ evaluation and replay
     @app.get("/api/evaluation", tags=["evaluation"])
     def evaluation():
         out = {}
-        for name in ("evaluation", "finbert_reference", "encoder_selection", "finetune", "backtest_summary"):
+        for name in ("evaluation", "finbert_reference", "encoder_selection", "finetune", "backtest_summary", "scenario_backtest",
+                     "price_moves_validation"):
             path = DOCS_DIR / "results" / f"{name}.json"
             if path.exists():
                 out[name] = json.loads(path.read_text(encoding="utf-8"))

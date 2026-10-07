@@ -1,0 +1,104 @@
+{
+  "description": "Does the impact score measure market impact? An event study on a year of company news.",
+  "window": [
+    "2021-10-01",
+    "2022-09-30"
+  ],
+  "company_sessions": 5040,
+  "with_news": 4867,
+  "with_firm_event": 4106,
+  "spearman": {
+    "impact": {
+      "label": "TREMOR impact score",
+      "rho": 0.079,
+      "p_value": 3.1e-08,
+      "n": 4867,
+      "top_decile_abs_car_pct": 2.42,
+      "top_decile_lift": 1.23
+    },
+    "impact_rules": {
+      "label": "Impact score from the keyword engine",
+      "rho": 0.056,
+      "p_value": 9.6e-05,
+      "n": 4867,
+      "top_decile_abs_car_pct": 2.75,
+      "top_decile_lift": 1.4
+    },
+    "volume": {
+      "label": "Headline volume (documents about the company)",
+      "rho": 0.057,
+      "p_value": 6.3e-05,
+      "n": 4867,
+      "top_decile_abs_car_pct": 3.28,
+      "top_decile_lift": 1.66
+    },
+    "tone": {
+      "label": "Tone intensity (mean absolute sentiment)",
+      "rho": 0.13,
+      "p_value": 1e-19,
+      "n": 4867,
+      "top_decile_abs_car_pct": 2.95,
+      "top_decile_lift": 1.49
+    }
+  },
+  "buckets": [
+    {
+      "bucket": "no event",
+      "n": 934,
+      "mean_abs_car_pct": 1.91,
+      "median_abs_car_pct": 1.45
+    },
+    {
+      "bucket": "below 4",
+      "n": 1552,
+      "mean_abs_car_pct": 1.69,
+      "median_abs_car_pct": 1.25
+    },
+    {
+      "bucket": "4 to 5",
+      "n": 417,
+      "mean_abs_car_pct": 1.92,
+      "median_abs_car_pct": 1.22
+    },
+    {
+      "bucket": "5 to 6",
+      "n": 883,
+      "mean_abs_car_pct": 1.88,
+      "median_abs_car_pct": 1.32
+    },
+    {
+      "bucket": "6 to 7",
+      "n": 1018,
+      "mean_abs_car_pct": 2.54,
+      "median_abs_car_pct": 1.73
+    },
+    {
+      "bucket": "7 and above",
+      "n": 236,
+      "mean_abs_car_pct": 2.14,
+      "median_abs_car_pct": 1.45
+    }
+  ],
+  "regression": {
+    "dependent": "|abnormal return| over sessions -1..+1, percent",
+    "n": 4867,
+    "coefficients": {
+      "intercept": {
+        "per_sd": 1.974,
+        "t_robust": 66.44
+      },
+      "impact": {
+        "per_sd": -0.041,
+        "t_robust": -1.02
+      },
+      "log_volume": {
+        "per_sd": 0.33,
+        "t_robust": 5.51
+      },
+      "tone": {
+        "per_sd": 0.289,
+        "t_robust": 9.64
+      }
+    }
+  }
+}

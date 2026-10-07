@@ -22,6 +22,9 @@
       <div class="progress" id="progress-wrap" hidden><div class="progress-bar" id="progress-bar"></div></div>
     </div>
     <div class="replay-controls" id="replay-controls" hidden>
+      <label class="speed">Crisis
+        <select id="pack" title="Which recorded crisis to replay"></select>
+      </label>
       <button class="btn" id="btn-play" title="Pause / resume the replay">Pause</button>
       <label class="speed">Speed
         <select id="speed">
@@ -42,6 +45,7 @@
     <button role="tab" data-tab="radar" class="tab active">Risk radar</button>
     <button role="tab" data-tab="index" class="tab">Index rebalancer <span class="tag">Module A</span></button>
     <button role="tab" data-tab="stress" class="tab">Stress lab <span class="tag">Module B</span></button>
+    <button role="tab" data-tab="watch" class="tab">Credit watch <span class="tag">early warning</span></button>
     <button role="tab" data-tab="analyze" class="tab">Analyze text</button>
     <button role="tab" data-tab="results" class="tab">Model &amp; results</button>
   </nav>
@@ -125,6 +129,8 @@
         <div id="run-list" class="run-list"><div class="muted pad">No stress test yet: waiting for an event to cross the threshold.</div></div>
       </div>
       <div id="run-detail" hidden>
+        <div class="row-actions memo-row"><a class="btn primary" id="memo-link" target="_blank" rel="noopener">Risk memo for this stress test (print / PDF)</a>
+          <span class="muted">One page for the CRO: what happened, the scenario, capital, names to review, actions.</span></div>
         <div class="tiles" id="run-tiles"></div>
         <div class="grid-2">
           <div class="card">
@@ -159,6 +165,43 @@
       <div class="card">
         <div class="card-head"><h2>The book</h2><p class="hint" id="book-hint"></p></div>
         <div id="book-chart" class="chart"></div>
+      </div>
+      <div class="card" id="validation-card" hidden>
+        <div class="card-head">
+          <h2>How good are these scenarios? Backtest on real crises</h2>
+          <p class="hint" id="validation-hint"></p>
+        </div>
+        <div class="grid-2 flush">
+          <div><h4>Factor directions right</h4><div id="validation-direction" class="chart"></div></div>
+          <div><h4>Error in the book's P&amp;L (mean, USD m)</h4><div id="validation-error" class="chart"></div></div>
+        </div>
+        <div id="validation-table"></div>
+      </div>
+    </section>
+
+    <!-- ======================================================= CREDIT WATCH -->
+    <section class="view" id="view-watch" hidden>
+      <div class="tiles" id="watch-tiles"></div>
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-head">
+            <h2>Names to review now</h2>
+            <p class="hint">Ratings are deliberately stable, so credit surveillance needs a fast signal saying which names to look at first.
+              Every flag is a points scorecard: ≥ 3 Watch Negative, ≥ 1.5 Monitor. Select a name for its scorecard.</p>
+          </div>
+          <div id="watch-list"></div>
+        </div>
+        <div class="card">
+          <div class="card-head"><h2>Why it is flagged</h2><p class="hint" id="watch-detail-hint">Select a name.</p></div>
+          <div id="watch-detail" class="pad muted">No name selected yet.</div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-head">
+          <h2>Flag timeline</h2>
+          <p class="hint">When each name was first flagged: an early-warning system is judged by its lead time over formal rating actions.</p>
+        </div>
+        <div id="watch-timeline" class="log"></div>
       </div>
     </section>
 

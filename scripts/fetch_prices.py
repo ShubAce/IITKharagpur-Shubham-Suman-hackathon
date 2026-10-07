@@ -1,6 +1,6 @@
 """Daily prices for the index constituents (adjusted open and close) -> data/prices/constituents_daily.csv
 
-Covers the backtest year (Oct 2021 - Sep 2022, with a lead-in) and the Ukraine replay window.
+Covers the backtest year (Oct 2021 - Sep 2022, with a lead-in) and both replay windows (Feb 2022, Mar 2023).
 
     python scripts/fetch_prices.py
 """
@@ -24,7 +24,7 @@ def main() -> int:
     import yfinance as yf
 
     tickers = list(load_universe().index.constituents) + ["^GSPC"]
-    raw = yf.download(tickers, start="2021-08-01", end="2022-11-01", auto_adjust=True, progress=False)
+    raw = yf.download(tickers, start="2021-08-01", end="2023-04-01", auto_adjust=True, progress=False)
     frames = []
     for field in ("Open", "Close"):
         part = raw[field].stack().rename(field.lower())

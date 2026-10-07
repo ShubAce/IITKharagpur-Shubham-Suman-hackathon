@@ -65,6 +65,8 @@ class EntityLinker:
         self._alias_re = _compile(self._alias, re.IGNORECASE)
         self._exact_re = _compile(self._exact)
         self._ambiguous_re = _compile(self._ambiguous)
+        # Contexts in which a name means something else ("U.S. Intel shows ..." is intelligence, not Intel Corp).
+        self._not_in = {ent.id: [re.compile(p) for p in ent.not_in] for ent in universe.entities if ent.not_in}
 
     def link(self, text: str, finance_context: bool = False) -> list[Mention]:
         """All non-overlapping mentions, left to right.
@@ -86,6 +88,8 @@ class EntityLinker:
         if self._ambiguous_re and (finance_context or _FINANCE_CUE.search(text)):
             for match in self._ambiguous_re.finditer(text):
                 found.append(Mention(self._ambiguous[match.group(1)], match.group(1), match.start(1), match.end(1), "ambiguous"))
+        if self._not_in:
+            found = [m for m in found if not self._excluded(text, m)]
 
         # Resolve overlaps: earliest start first, longest span wins.
         found.sort(key=lambda m: (m.start, -(m.end - m.start)))
@@ -96,6 +100,10 @@ class EntityLinker:
                 kept.append(mention)
                 last_end = mention.end
         return kept
+
+    def _excluded(self, text: str, mention: Mention) -> bool:
+        return any(m.start() <= mention.start and mention.end <= m.end()
+                   for p in self._not_in.get(mention.entity_id, ()) for m in p.finditer(text))
 
     def entity_ids(self, text: str, finance_context: bool = False) -> list[str]:
         """Distinct entity ids in order of first appearance."""

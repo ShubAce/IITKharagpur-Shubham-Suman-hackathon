@@ -4,8 +4,10 @@
 
 > **In one breath.** TREMOR reads financial news and social media as they arrive and works out three
 > things: what is happening, who it affects, and how serious it is. It then acts on that. It re-weights a
-> 20-stock index (Module A), and when something big happens it stress-tests a bank's loan book
-> (Module B). Everything runs on an ordinary laptop, with no GPU and no paid API keys.
+> 20-stock index (Module A), when something big happens it stress-tests a bank's loan book (Module B),
+> and it keeps a credit watchlist of the borrowers an analyst should look at first. Every part is
+> tested against a simple baseline on history it never saw. Everything runs on an ordinary laptop,
+> with no GPU and no paid API keys.
 
 **Contents**
 
@@ -18,7 +20,7 @@
 7. [Module B - the stress test that fires on big events](#7-module-b---the-stress-test-that-fires-on-big-events)
 8. [The dashboard](#8-the-dashboard)
 9. [Results in plain numbers](#9-results-in-plain-numbers)
-10. [Replay or live - why the demo shows February 2022](#10-replay-or-live---why-the-demo-shows-february-2022)
+10. [Replay or live - why the demo shows past crises](#10-replay-or-live---why-the-demo-shows-past-crises)
 11. [How to run it](#11-how-to-run-it)
 12. [Where everything lives](#12-where-everything-lives)
 13. [Limitations and next steps](#13-limitations-and-next-steps)
@@ -104,7 +106,7 @@ The full technical architecture diagram (also in the README):
 
 ![Architecture](architecture.png)
 
-Three ideas make TREMOR different from "run a sentiment model on every headline":
+Four ideas make TREMOR different from "run a sentiment model on every headline":
 
 1. **Events, not articles.** The same news is reprinted by hundreds of websites. We group copies into
    *stories* and stories into *events*. Fifty sites repeating one headline become one event with fifty
@@ -114,7 +116,12 @@ Three ideas make TREMOR different from "run a sentiment model on every headline"
    confirmed, so one alarming tweet cannot trigger a stress test.
 3. **Applications that behave like the real thing.** Module A follows the rules a real index provider
    uses (weight caps, turnover limits, trading costs). Module B uses the maths banks actually use
-   (default probabilities, expected credit loss, capital ratios).
+   (default probabilities, expected credit loss, capital ratios) and writes a one-page memo for the
+   chief risk officer. A credit watchlist tells analysts which borrowers to review first, and why.
+4. **Measured, not just built.** Every part is compared with a simple baseline on history it never saw:
+   the model on held-out test sets, the stress scenarios on 21 past crises against the brief's own
+   example shock, the whole system on two different crises replayed through unchanged code (a war and
+   a bank run), and the watchlist against the real rating agencies' announcements.
 
 ---
 
@@ -135,8 +142,9 @@ Three ideas make TREMOR different from "run a sentiment model on every headline"
 5. **Build Module A**, written as an index methodology, with a one-year backtest.
 6. **Build Module B**: a synthetic bank book, a library of 26 real past crises, and the credit maths.
 7. **Add an API and a dashboard** that update live in the browser.
-8. **Prove it**: replay a real crisis (the Russian invasion of Ukraine) through the exact live code,
-   check the results against what markets really did, and run 84 automated tests.
+8. **Prove it**: replay two real crises (the Russian invasion of Ukraine, and the Silicon Valley Bank
+   run) through the exact live code; check the scenarios against what markets really did, in those two
+   crises and in 21 earlier ones; time the watchlist against the rating agencies; run the automated tests.
 
 The project was built with AI assistance (Claude), which the guidelines allow. Every number in this
 guide comes from scripts in the repository and can be reproduced.
@@ -154,9 +162,11 @@ guide comes from scripts in the repository and can be reproduced.
 | **StockTwits**      | posts by traders about each stock                                 | every few minutes        | no          |
 | **Bluesky**         | public posts that mention our companies                           | every few minutes        | no          |
 | **Yahoo Finance**   | stock prices for the index                                        | live                     | no          |
-| **Replay pack**     | 38,366 real headlines + 876 tweets from 21-24 Feb 2022            | played back at any speed | no          |
+| **Replay packs**    | two real crises: 38,366 headlines + 876 tweets from 21-24 Feb 2022 (Russia invades Ukraine); 39,240 headlines + 4,489 Hacker News posts from 8-15 Mar 2023 (Silicon Valley Bank and the banking contagion) | played back at any speed | no          |
 
-*X (Twitter) is not used live because its API is paid; StockTwits and Bluesky are free.*
+*X (Twitter) is not used live because its API is paid; StockTwits and Bluesky are free. For the 2023
+replay, Hacker News stands in for social media: the tweet archive ends in 2022, and StockTwits removed
+the stream of the failed bank's ticker.*
 
 ### 5.2 The journey of one headline
 
@@ -233,6 +243,10 @@ This is what Module A reads.
 | "Ford" could be the carmaker or a person (Christine Blasey Ford) | ambiguous names only count with a finance clue nearby ("Ford shares", "Ford Motor")                                         |
 | "Analyst downgrades Apple to Sell" is not a credit event         | broker rating changes are treated as market commentary, not credit risk                                                     |
 | "A price war", "God of War", "a silent war" between shops        | "war" used as a figure of speech is not treated as geopolitical, unless the text has real conflict words or names a country |
+| "SVB's balance-sheet time bomb"                                  | "time bomb" as a figure of speech is not geopolitical either (the model alone said Geopolitical, 95% sure)                  |
+| "U.S. Intel shows Russian troops given orders"                   | context exclusions: in some phrases a company's name means something else ("intel" = intelligence)                        |
+| "Brent" the reality-TV star, Brent Smith the singer             | a bare "Brent" only counts as crude oil in a market context ("Brent crude", "Brent tops $100")                              |
+| "Oil soars on war fears" read as bad news, so "oil down"         | price direction is read from verbs of movement (soars, slips, tops), never from tone (section 7.3)                         |
 | One viral post                                                   | social-only and single-source events lose points (section 5.5)                                                              |
 | Reprints counted many times                                      | copies are folded into one story (section 5.4)                                                                              |
 | Results changing between runs                                    | ties are broken the same way every time; a test checks this                                                                 |
@@ -264,10 +278,10 @@ lowers it, within safety limits that real index providers use.
 - **Why limits:** without them one lucky headline could put half the index into one stock. The limits
   keep it diversified and cheap to run, so it could actually be offered as an index.
 - **Traceable:** every trade in the log shows the headline that caused it.
-- **On the Ukraine replay:** 68 rebalances; JPMorgan was cut from 5% to 3.4% on sanctions news, and AMD
+- **On the Ukraine replay:** 68 rebalances; JPMorgan was cut from 5% to 3.3% on sanctions news, and AMD
   rose to 7.1%.
 - **One-year backtest** (Oct 2021 - Sep 2022, a falling market, 5 bp costs): TREMOR-20 returned -19.6%
-  against -19.9% for equal weights (+0.32% a year). The naive keyword version lost 0.22% a year. One
+  against -19.9% for equal weights (+0.32% a year). The naive keyword version lost 0.26% a year. One
   year of 20 stocks is too short to prove either signal works, and we say so openly.
 
 ---
@@ -276,6 +290,8 @@ lowers it, within safety limits that real index providers use.
 
 **In short:** when a confirmed event's impact goes above 7, TREMOR finds similar crises from history,
 builds a scenario from what markets did then, and shows what it would do to the bank's book and capital.
+We tested this scenario builder on 21 past crises, and replayed a second, very different crisis (a bank
+run) through it.
 
 ### 7.1 The bank's book, built from the brief's transaction data
 
@@ -308,31 +324,104 @@ The stress test re-runs only when the situation clearly gets worse, so the bank 
 ![Escalation ladder](diagrams/11_ukraine_timeline.png)
 
 - At impact 9 and above, Sberbank and Gazprom are downgraded to default. The bank's own credit
-  protection (CDS) on Gazprom pays out and softens the loss.
+  protection (CDS) on Gazprom pays out and softens the loss. CET1 falls from 13.5% to 10.2% on the
+  invasion and to 9.7% at the peak, just above the 9.5% minimum.
+- **How the scenario is built.** The closest past crises (Crimea 2014 for Ukraine) are blended 50/50 with
+  the average of *all* earlier crises. A few look-alike crises are a small sample; the average keeps one
+  look-alike from deciding everything. Insurers call this *credibility weighting*.
+- **Direction, not tone.** When enough reports say which way a price is moving ("oil surges", "gold
+  slips"), that direction replaces history's for that price. The first version read the *tone* of the
+  reports instead, and "oil soars on war fears" sounds negative, so it predicted oil would fall. Reading
+  verbs of movement fixed it: in the invasion event 23 reports said oil was rising and none said falling.
+  We checked these rules on 175 headlines about share prices: they matched the real move 81% of the time
+  (always guessing the more common direction: 59%).
 - **Was the scenario right?** We built it only from crises that ended *before* the invasion, then compared
-  it with what markets actually did from 16 Feb to 8 Mar 2022. It got the **direction of 7 of 9 risk
-  factors right** (junk-bond spreads: +59 bp predicted, +55 bp real). It missed oil and the euro, because
-  no earlier crisis was a war-driven oil shock from a major exporter. We report that miss openly.
-- **What-if:** an analyst can change any shock on the dashboard and re-run; the whole book revalues in
-  milliseconds.
+  it with what markets actually did from 16 Feb to 8 Mar 2022. It got the **direction of 8 of 9 risk
+  factors right**, including oil (+39% predicted, +32% real). It missed the euro. We report that openly.
+- **What-if and memo:** an analyst can change any shock on the dashboard and re-run (the whole book
+  revalues in milliseconds), and each stress test has a one-page **risk memo** for the chief risk officer:
+  what happened, the scenario, the effect on capital, the borrowers to review, suggested actions. We also
+  tried letting a local AI model (llama3.1) write the memo's opening paragraph. It turned a $264m loss into
+  "$267 million" and called a capital ratio of 10.66% "below" the 9.5% minimum, so it was only allowed to
+  write placeholders such as [LOSS], with TREMOR filling in the exact figures and checking every draft.
+  Tested on all 33 stress tests of the two crises, no wrong number got through - but the wording still
+  needed a person to check it, so the feature is switched off and TREMOR writes the summary itself.
+
+### 7.4 Are the scenarios any good? A test on 21 past crises
+
+For each crisis from 2011 to 2025, we pretended it was breaking news: the scenario builder got only the
+crisis's first-day headline (what happened, never how markets reacted) and only crises that had already
+ended, and we compared its scenario with what markets then did.
+
+| Way of choosing the shocks | Directions right | Error in the bank's profit or loss |
+| --- | ---: | ---: |
+| The brief's example: shares -10%, interest rates +2% | 35% | $501m |
+| Expert template for the event type | 88% | $366m |
+| Average of all earlier crises | 86% | $184m |
+| Closest look-alike crises only | 86% | $223m |
+| **TREMOR: look-alikes blended with the average** | **88%** | **$191m** |
+
+- The brief's example assumes interest rates rise in a crisis. In 11 of the 21 crises they *fell*,
+  because investors run to safe government bonds, so that example gets most directions wrong.
+- The test changed our design: using only the closest look-alikes was not better than simply averaging
+  all earlier crises, so we now blend the two. The blend gets the most directions right (tied with the
+  templates) and 14% less error than look-alikes alone. The plain average is still very slightly lower on
+  profit-or-loss error, within noise; we say so.
+
+### 7.5 A second, different crisis: the Silicon Valley Bank run (March 2023)
+
+The same code and the same thresholds, on 43,728 headlines and Hacker News posts from 8-15 March 2023:
+
+- Silvergate's wind-down became a credit event on the evening of 8 March; SVB's run became one at 18:32
+  UTC on 9 March, and the stress test re-ran as the bank was seized (impact 9.7) and when Signature Bank
+  was closed. Credit Suisse became its own situation on 15 March.
+- The scenario again got **8 of 9 directions** right, but at impact 9.7 it used Lehman Brothers as a
+  look-alike and overstated how far markets would fall. A severe scenario was reasonable that night; the
+  US authorities' guarantee for all depositors on 12 March stopped the panic.
+
+### 7.6 The credit watchlist: which borrowers to look at first
+
+Ratings change slowly on purpose, so banks and rating agencies also watch faster signals to decide which
+borrowers to review first. TREMOR's watchlist gives every tracked company points (for a credit event about
+it, bad news, being at the centre of a stress-tested situation, falling sentiment, a downgrade in the
+stress test) and flags it **Monitor** (1.5 points or more) or **Watch Negative** (3 or more), with the
+bank's exposure. Compared with the real rating agencies' announcements:
+
+| Company | Flagged by TREMOR | Rating agencies acted |
+| --- | --- | --- |
+| Gazprom, Sberbank | 21 Feb 2022 | 25 Feb: S&P cuts Russia to junk |
+| SVB | 9 Mar 2023 (Watch Negative 19:00 UTC) | 9 Mar: one notch, still investment grade; 10 Mar: bank closed, cut to default |
+| Signature Bank | 9 Mar | 13 Mar: Moody's cuts it to junk |
+| First Republic | 11 Mar | 13 Mar: Moody's review; 15 Mar: S&P and Fitch cut it to junk |
+
+Big banks only mentioned in the SVB news (JPMorgan, Bank of America, Wells Fargo) stayed at Monitor: the
+watchlist tells the subject of a credit event from the names it mentions in passing.
 
 ---
 
 ## 8. The dashboard
 
-A browser app with five tabs. It works offline: no build step and no internet needed for the replay.
+A browser app with six tabs. It works offline: no build step and no internet needed for the replays.
+The header has a **Crisis** selector (Ukraine 2022 or SVB 2023), the replay speed, pause and restart.
 
 | Tab                                   | What you see                                                                                                                                                   |
 | ------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **Risk radar**                  | events ranked by impact, each with its scorecard, impact history, stories and evidence; sentiment per company; the live document feed                          |
 | **Index rebalancer** (Module A) | index vs benchmark, a heatmap of weights over time, the rebalance log with the headline behind each trade                                                      |
-| **Stress lab** (Module B)       | the stress tests run so far; value before and after; losses by channel and sector; the scenario and its historical analogs; biggest losses; the what-if editor |
+| **Stress lab** (Module B)       | the stress tests run so far; value before and after; losses by channel and sector; the scenario, its historical analogs and the average-crisis share; biggest losses; the what-if editor; the risk memo; the 21-crisis backtest |
+| **Credit watch**                | the borrowers to review now (Watch Negative / Monitor), the book's exposure to each, the scorecard behind each flag, and when each name was first flagged |
 | **Analyze text**                | paste any headline and see its sentiment, event type, impact and per-company tone                                                                              |
 | **Model & results**             | accuracy against the baselines and FinBERT, speed, how the model was built                                                                                     |
 
 ![Risk radar](screenshots/radar_light.png)
 
 ![Stress lab](screenshots/stress_light.png)
+
+![Credit watch](screenshots/watch_light.png)
+
+The one-page risk memo of a stress test (Stress lab, "Risk memo" button; print it or save it as PDF):
+
+![Risk memo](screenshots/memo.png)
 
 More screenshots of every tab, in light and dark themes, are in [`screenshots/`](screenshots/).
 
@@ -341,6 +430,8 @@ More screenshots of every tab, in light and dark themes, are in [`screenshots/`]
 ## 9. Results in plain numbers
 
 Full tables: [`RESULTS.md`](RESULTS.md).
+
+![TREMOR against the naive approach](results_at_a_glance.png)
 
 **Accuracy on held-out data** (data the model never saw; "0.830" means 83 out of 100 right):
 
@@ -365,17 +456,30 @@ Full tables: [`RESULTS.md`](RESULTS.md).
 - **Less noise:** of 39,242 replayed documents, 6,692 were copies and 7,834 were noise. Instead of
   reacting to every headline, the bank saw **14 stress tests**, each tied to a real development.
 - **Throughput:** four days of world news processed in 1.5-3 minutes on a laptop.
+- **Better stress scenarios:** on 21 past crises, 88% of directions right against 35% for the brief's
+  example shock, and 62% less error in the bank's profit or loss (section 7.4).
+- **Earlier warnings:** the watchlist flagged the borrowers of both replayed crises days before the rating
+  agencies acted (section 7.6).
+
+**Does the impact score really measure market impact?** We checked it against what share prices did over a
+year of company news (4,867 company-days with news). Days TREMOR scored 6 or more saw moves 38% larger than
+lower-scored news days (2.46% against 1.79%), so the score does pick out market-moving news. But for single
+companies it tells you nothing that simply counting the headlines and measuring their tone does not, and
+tone alone is the better guide. That fits the design: the impact score is built to decide when a *big,
+systemic* event deserves a stress test, while the single-stock module (Module A) uses sentiment. Tuning the
+scorecard's points on real market reactions is the next step.
 
 ---
 
-## 10. Replay or live - why the demo shows February 2022
+## 10. Replay or live - why the demo shows past crises
 
 ![Replay vs live](diagrams/12_replay_vs_live.png)
 
 TREMOR works on today's news too: `python main.py serve --mode live` reads today's feeds. On
 3 Oct 2026 it was tracking about 50 live events. The highest impact was 6.3, so no stress test fired,
-which is correct for a quiet day. The demo uses the replay because a real crisis is guaranteed, the
-outcome is known, and the result is the same every time. You can run both side by side (section 11).
+which is correct for a quiet day. The demo uses replays because a real crisis is guaranteed, the
+outcome is known, and the result is the same every time. There are two: a war (February 2022) and a bank
+run (March 2023), switchable in the dashboard header. You can run live and replay side by side (section 11).
 
 ---
 
@@ -388,8 +492,11 @@ pip install -r requirements.txt
 python main.py                                  # replay demo  -> http://127.0.0.1:8000
 python main.py serve --mode live --port 8001    # today's news -> http://127.0.0.1:8001
 python main.py replay                           # whole replay without the browser, prints the results
+python main.py replay --pack svb_2023           # the 2023 bank run (or switch "Crisis" in the dashboard header)
+python main.py validate                         # the 21-crisis backtest of the stress scenarios
+python main.py impact                           # does the impact score match what share prices did?
 python main.py analyze "Moody's cuts Boeing to junk"
-pytest                                          # 84 automated tests
+pytest                                          # the automated tests
 ```
 
 ---
@@ -397,14 +504,15 @@ pytest                                          # 84 automated tests
 ## 12. Where everything lives
 
 ```
-main.py                    the one entry point (serve | replay | analyze | evaluate | backtest | train | finetune)
+main.py                    the one entry point (serve | replay | analyze | evaluate | validate | impact | backtest | train | finetune)
 configs/                   the companies and countries we track, event types and keyword cues, past crises, settings
 src/tremor/
   ingestion/               GDELT, RSS, StockTwits, Bluesky, replay, prices
-  nlp/                     entity linking, keyword cues, the model, the impact scorecard
+  nlp/                     entity linking, keyword cues, the model, price direction, the impact scorecard
   engine/                  grouping into stories and events, sentiment memory, the pipeline, the live runtime
   modules/rebalancer/      Module A: methodology, live index, backtest
-  modules/stress/          Module B: portfolio, credit maths, scenarios, stress engine
+  modules/stress/          Module B: portfolio, credit maths, scenarios, stress engine, backtest, risk memo (+ AI summary)
+  modules/watchlist.py     the credit early-warning watchlist
   training/                datasets, fine-tuning, evaluation
   api/                     the REST API and the dashboard
 models/tremor-encoder/     the fine-tuned model (34 MB)
@@ -422,12 +530,22 @@ Mermaid). Re-draw them with `python scripts/render_diagrams.py`, which needs Pla
 ## 13. Limitations and next steps
 
 - **Illustrative numbers:** the bank's book is synthetic, and ratings and exposure sizes are illustrative.
-- **History has gaps:** a scenario built from past crises cannot foresee a new kind of shock (the oil
-  miss). *Next:* search history using the commodities an event names, and add an LLM "scenario
-  reviewer" for the rare high-impact events.
+- **History has gaps:** a scenario built from past crises still got the euro wrong in both replays, and in
+  the bank run it leaned on Lehman Brothers and overstated the fall. *Next:* use Lehman-style crises only
+  when there is evidence of contagion, and add an LLM "scenario reviewer" for the rare high-impact events.
+- **Impact on single stocks:** the impact score ranks market-moving news, but on single companies it adds
+  nothing beyond headline counts and tone (section 9). *Next:* tune its points on market reactions.
+- **The AI-written summary is off:** after the checks, the local AI model never got a figure wrong in the
+  memo's summary, but its wording still needed a person to read it (RESULTS section 7c). *Next:* try
+  stronger models with the same test.
+- **Small samples:** 21 past crises and 2 replays are enough to show large gaps (against the brief's
+  example) but not small ones; the 50/50 blend is a sensible choice, not a fitted one. Some watchlist
+  thresholds were refined while looking at the two replayed crises, so its lead times are examples of how
+  it behaves, not proof; the next step is to run it unchanged on further crises.
 - **The backtest is short:** one year is not enough to prove the index beats its benchmark.
-- **Figures of speech:** the model learned "war" as a strongly geopolitical word; a rule now catches common
-  idioms. *Next:* retrain with idiom examples.
+- **Figures of speech and politics:** the model learned "war" and "bomb" as strongly geopolitical words and
+  reads domestic politics as geopolitics; rules now catch common idioms and politics with no foreign
+  country. *Next:* retrain with such examples.
 - **English only for now**, although GDELT covers 100+ languages. *Next:* a multilingual model.
 - **Built for a demo, not a bank:** in production the in-process message bus would become Kafka or Redis
   Streams.
@@ -441,7 +559,7 @@ Mermaid). Re-draw them with `python scripts/render_diagrams.py`, which needs Pla
 | **Sentiment**                  | how positive or negative a text is about something, from -1 to +1                                                                                                                 |
 | **Event type**                 | the kind of news: Geopolitical, Macroeconomic, Credit event, Merger/Acquisition, Product launch, Earnings, Regulatory, Management, Operational incident, Market commentary, Other |
 | **Impact score**               | 1-10, how much the event could move markets (section 5.5)                                                                                                                         |
-| **Entity**                     | a company, country, central bank or commodity we track (80 in total)                                                                                                              |
+| **Entity**                     | a company, country, central bank or commodity we track (88 in total)                                                                                                              |
 | **GDELT**                      | a free global news database that publishes new headlines every 15 minutes                                                                                                         |
 | **RSS**                        | a simple feed format that news sites use to publish their latest headlines                                                                                                        |
 | **API**                        | a way for programs to ask TREMOR for its signals                                                                                                                                  |
@@ -456,6 +574,10 @@ Mermaid). Re-draw them with `python scripts/render_diagrams.py`, which needs Pla
 | **Information ratio**          | extra return over the benchmark per unit of extra risk                                                                                                                            |
 | **Stress test**                | "what would this crisis do to our portfolio?"                                                                                                                                     |
 | **Historical analog**          | a past crisis that resembles today's event                                                                                                                                        |
+| **Point-in-time**              | using only what was known at the time: a scenario for 2022 may only learn from crises that had ended before 2022                                                                  |
+| **Credibility weighting**      | blending a small, specific sample (the closest crises) with a large, general one (all crises), as insurers do when their own experience is thin                                  |
+| **Watchlist / early warning**  | the list of borrowers to review first; ratings change slowly by design, so banks and agencies watch faster signals                                                                |
+| **Rating action**              | a published change by a rating agency: a downgrade, or a "review for downgrade" (CreditWatch)                                                                                     |
 | **CDS**                        | insurance against a borrower defaulting                                                                                                                                           |
 | **Swap / FX forward / TRS**    | derivatives: contracts whose value moves with interest rates, currencies or share prices                                                                                          |
 | **PD, LGD, ECL, RWA, CET1**    | see the table in section 7.2                                                                                                                                                      |

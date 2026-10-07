@@ -26,6 +26,7 @@ class EntityDef(BaseModel):
     exact: list[str] = Field(default_factory=list)
     ambiguous: list[str] = Field(default_factory=list)
     cashtags: list[str] = Field(default_factory=list)
+    not_in: list[str] = Field(default_factory=list)  # regexes of contexts where the name means something else
 
 
 class IndexDef(BaseModel):
@@ -148,6 +149,17 @@ class ApiSettings(BaseModel):
     port: int = 8000
 
 
+class LlmSettings(BaseModel):
+    """Optional local language model that drafts the risk memo's executive summary. Off by default: drafts that
+    pass the checks can still contain invented statements (see modules/stress/narrative.py); without a server,
+    or when every draft fails the checks, the memo uses the template summary."""
+
+    enabled: bool = False
+    url: str = "http://127.0.0.1:11434"  # a local Ollama server
+    model: str = "llama3.1"
+    timeout_seconds: float = 120.0
+
+
 class Settings(BaseModel):
     encoder: EncoderSettings = Field(default_factory=EncoderSettings)
     clustering: ClusteringSettings = Field(default_factory=ClusteringSettings)
@@ -155,6 +167,7 @@ class Settings(BaseModel):
     impact: ImpactSettings = Field(default_factory=ImpactSettings)
     engine: EngineSettings = Field(default_factory=EngineSettings)
     api: ApiSettings = Field(default_factory=ApiSettings)
+    llm: LlmSettings = Field(default_factory=LlmSettings)
 
 
 def _read_yaml(path: Path) -> dict:

@@ -224,6 +224,16 @@ def run_stress(book: pd.DataFrame, scenario: Scenario, library: ScenarioLibrary,
 
 
 # --------------------------------------------------------------------------- trigger logic
+def event_snapshot(event: EventSignal) -> dict:
+    """The evidence behind a stress test as it stood when the test ran (the event keeps evolving afterwards):
+    what the risk memo reports, so the memo is an audit record of the decision, not of today's view."""
+    return {"first_seen": event.first_seen.isoformat(), "n_docs": event.n_docs, "n_stories": event.n_stories,
+            "n_publishers": event.n_publishers, "n_news": event.n_news, "n_social": event.n_social,
+            "reports_last_hour": event.reports_last_hour, "impact_factors": [f.model_dump() for f in event.impact_factors],
+            "stories": [{"headline": s.headline, "n_publishers": s.n_publishers} for s in event.stories[:4]],
+            "price_moves": event.price_moves}
+
+
 class StressMonitor:
     """Subscribes to event signals and runs a stress test when one crosses the threshold.
 
@@ -260,6 +270,8 @@ class StressMonitor:
             return None
         keys, now = self._keys(event), event.last_updated
         sit = self._event_situation.get(event.event_id)
+        if sit is not None and keys and sit["keys"] and not keys & sit["keys"]:
+            sit = None  # the event's epicentre has moved away from its situation: match it again
         if sit is None:
             live = [s for s in self._situations if s["type"] == event.event_type and now - s["seen"] <= self.window]
             overlapping = [s for s in live if keys & s["keys"]]
@@ -274,6 +286,10 @@ class StressMonitor:
             self._bind(event, sit)
             return self._run(event, sit, "new situation")
         self._bind(event, sit)
+        if not keys:
+            # Commentary that names no epicentre ("White House says it is monitoring the situation") extends the
+            # situation it joined, but never re-runs a stress test by itself: it may not be about that situation.
+            return None
         # Re-run only on material escalation: impact up by retrigger_delta, or - because the 1-10
         # scale saturates for the biggest stories - coverage velocity nearly doubling.
         if event.impact_score >= sit["impact"] + self.retrigger_delta:
@@ -284,6 +300,12 @@ class StressMonitor:
             return None  # this situation was already stressed at a similar severity
         sit.update(impact=max(sit["impact"], event.impact_score), at=now, velocity=event.reports_last_hour)
         return self._run(event, sit, reason)
+
+    def live_situations(self, now: datetime) -> list[tuple[set[str], StressResult]]:
+        """Situations still in the news (an event bound to them updated inside the window), with their latest run."""
+        runs = {r.run_id: r for r in self.runs}
+        return [(set(s["keys"]), runs[s["run_id"]]) for s in self._situations
+                if s.get("run_id") in runs and now - s["seen"] <= self.window]
 
     def _bind(self, event: EventSignal, sit: dict) -> None:
         sit["events"].add(event.event_id)
@@ -296,7 +318,8 @@ class StressMonitor:
                    "event_type_label": event.event_type_label, "impact_score": event.impact_score,
                    "detected_at": event.last_updated.isoformat(), "situation": sorted(situation["keys"]), "reason": reason,
                    "rule": f"{event.event_type_label} event with impact {event.impact_score:.1f} > "
-                           f"{self.threshold_for(event.event_type):.1f} ({reason})"}
+                           f"{self.threshold_for(event.event_type):.1f} ({reason})",
+                   "snapshot": event_snapshot(event)}
         result = run_stress(self.book, scenario, self.library, trigger)
         situation["run_id"] = result.run_id
         self.runs.append(result)
