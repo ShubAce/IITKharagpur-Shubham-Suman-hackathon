@@ -3,7 +3,7 @@
 **Candidate Name:** Shubham Suman
 **College Email ID:** shubhamsuman@kgpian.iitkgp.ac.in
 **College / Campus:** IIT Kharagpur
-**Demo Video Link:** [youtu.be/BpfxJjvyO7o](https://youtu.be/BpfxJjvyO7o)
+**Demo Video Link:** [youtu.be/EfdOvo68XOk](https://youtu.be/EfdOvo68XOk)
 **Slide Deck Link:** [`docs/presentation.pdf`](docs/presentation.pdf) (in this repository)
 
 ---
